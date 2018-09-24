@@ -15,6 +15,10 @@ def render_module(schema, version):
     description = ""
     path = schema['path']
     name = schema['name']
+
+    path_ = path.replace('-', '_')
+    name_ = name.replace('-', '_')
+
     module_name = "fortios_" + path + "_" + name
 
     template = env.get_template('doc.jinja')
@@ -61,6 +65,7 @@ def jinjaExecutor():
     for i, pn in enumerate(fgt_sch_results):
         if 'diagnose' not in pn['path'] and 'execute' not in pn['path']:
             print '\n\033[0mParsing schema:'
+            print '\033[0mPath: \033[92m' + pn['path']+' \033[0mName: \033[92m'+pn['name']
             print '\033[0mModule name: \033[92m' + pn['path']+'_'+pn['name']
             print '\033[0mIteration:\033[93m' + str(real_counter) + "\033[0m, Schema position: \033[93m" + str(i)
             render_module(fgt_sch_results[i], fgt_schema['version'])

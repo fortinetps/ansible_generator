@@ -16,7 +16,7 @@ def login(data):
     fos.login(host, username, password)
 
 
-def filter_{{path}}_{{name}}_data(json):
+def filter_{{path_}}_{{name_}}_data(json):
     option_list = [ {%- for key, value in schema['schema']['children']|dictsort -%}
                     '{{key}}'{%- if not loop.last%},{%endif -%}
                     {% if loop.index % 3 == 0 and not loop.last %}
@@ -31,25 +31,25 @@ def filter_{{path}}_{{name}}_data(json):
     return dictionary
 
 
-def {{path}}_{{name}}(data, fos):
+def {{path_}}_{{name_}}(data, fos):
     vdom = data['vdom']
-    {{path}}_{{name}}_data = data['{{path}}_{{name}}']
-    filtered_data = filter_{{path}}_{{name}}_data({{path}}_{{name}}_data)
+    {{path_}}_{{name_}}_data = data['{{path}}_{{name}}']
+    filtered_data = filter_{{path_}}_{{name_}}_data({{path_}}_{{name_}}_data)
 
-    if {{path}}_{{name}}_data['state'] == "present":
+    if {{path_}}_{{name_}}_data['state'] == "present":
         return fos.set('{{path}}',
                        '{{name}}',
                        data=filtered_data,
                        vdom=vdom)
 
-    elif {{path}}_{{name}}_data['state'] == "absent":
+    elif {{path_}}_{{name_}}_data['state'] == "absent":
         return fos.delete('{{path}}',
                           '{{name}}',
                           mkey=filtered_data['id'],
                           vdom=vdom)
 
 
-def fortios_{{path}}(data, fos):
+def fortios_{{path_}}(data, fos):
     host = data['host']
     username = data['username']
     password = data['password']
@@ -59,7 +59,7 @@ def fortios_{{path}}(data, fos):
     methodlist = ['{{path}}_{{name}}']
     for method in methodlist:
         if data[method]:
-            resp = eval(method)(data, fos)
+            resp = eval(method.replace('-', '_'))(data, fos)
             break
 
     fos.logout()
@@ -126,7 +126,7 @@ def main():
 
     fos = FortiOSAPI()
 
-    is_error, has_changed, result = fortios_{{path}}(module.params, fos)
+    is_error, has_changed, result = fortios_{{path_}}(module.params, fos)
 
     if not is_error:
         module.exit_json(changed=has_changed, meta=result)
