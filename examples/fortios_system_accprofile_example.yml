@@ -15,43 +15,43 @@
       system_accprofile:
         state: "present"
         admintimeout: "3"
-        admintimeout-override: "enable"
+        admintimeout_override: "enable"
         authgrp: "none"
         comments: "<your_own_value>"
         ftviewgrp: "none"
         fwgrp: "none"
-        fwgrp-permission:
+        fwgrp_permission:
             address: "none"
             policy: "none"
             schedule: "none"
             service: "none"
         loggrp: "none"
-        loggrp-permission:
+        loggrp_permission:
             config: "none"
-            data-access: "none"
-            report-access: "none"
-            threat-weight: "none"
+            data_access: "none"
+            report_access: "none"
+            threat_weight: "none"
         name: "default_name_20"
         netgrp: "none"
-        netgrp-permission:
+        netgrp_permission:
             cfg: "none"
-            packet-capture: "none"
-            route-cfg: "none"
+            packet_capture: "none"
+            route_cfg: "none"
         scope: "vdom"
         secfabgrp: "none"
         sysgrp: "none"
-        sysgrp-permission:
+        sysgrp_permission:
             admin: "none"
             cfg: "none"
             mnt: "none"
             upd: "none"
         utmgrp: "none"
-        utmgrp-permission:
+        utmgrp_permission:
             antivirus: "none"
-            application-control: "none"
-            data-loss-prevention: "none"
+            application_control: "none"
+            data_loss_prevention: "none"
             dnsfilter: "none"
-            endpoint-control: "none"
+            endpoint_control: "none"
             icap: "none"
             ips: "none"
             spamfilter: "none"

@@ -1,12 +1,12 @@
 {
     "spamfilter_profile": [ ["options"],
-                            ["imap", "tag-type"],
-                            ["pop3", "tag-type"],
-                            ["smtp", "tag-type"] ],
+                            ["imap", "tag_type"],
+                            ["pop3", "tag_type"],
+                            ["smtp", "tag_type"] ],
     "system_interface":  [ ["allowaccess"],
-                           ["ipv6", "ip6-allowaccess"] ],
-    "system_global": [ ["admin-https-ssl-versions"] ],
+                           ["ipv6", "ip6_allowaccess"] ],
+    "system_global": [ ["admin_https_ssl_versions"] ],
     "system_snmp_user": [ ["events"],
-                          ["notify-hosts"],
-                          ["notify-hosts6"] ]                         
+                          ["notify_hosts"],
+                          ["notify_hosts6"] ]                         
 }

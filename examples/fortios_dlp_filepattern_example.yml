@@ -17,8 +17,8 @@
         comment: "Optional comments."
         entries:
          -
-            file-type: "exe"
-            filter-type: "type"
+            file_type: "exe"
+            filter_type: "type"
             pattern: "com"
         id:  "2"
         name: "all_executables"

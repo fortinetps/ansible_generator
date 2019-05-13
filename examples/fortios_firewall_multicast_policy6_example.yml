@@ -19,7 +19,7 @@
          -
             name: "all"
         dstintf: "port1"
-        end-port: "7"
+        end_port: "7"
         id:  "8"
         logtraffic: "enable"
         protocol: "10"
@@ -27,5 +27,5 @@
          -
             name: "all"
         srcintf: "port1"
-        start-port: "14"
+        start_port: "14"
         status: "enable"

@@ -42,11 +42,30 @@ def calculateFullPath(parent_attrs, attribute_name):
     return attribute_name if not parent_attrs else parent_attrs + ',' + attribute_name
 
 
+def hyphenToUnderscore(data):
+    if type(data) is list:
+        for elem in data:
+            elem = hyphenToUnderscore(elem)
+        return data
+    elif type(data) is dict:
+        for k, v in data.items():
+            data[k] = hyphenToUnderscore(v)
+        return data
+    elif type(data) is str:
+        return data.replace('-', '_')
+    elif type(data) is unicode:
+        return data.encode('utf-8').replace('-', '_')
+    else:
+        return data
+
+
 def renderModule(schema, version, special_attributes):
 
     file_loader = FileSystemLoader('ansible_templates')
     env = Environment(loader=file_loader,
                       lstrip_blocks=False, trim_blocks=False)
+
+    schema['schema'] = hyphenToUnderscore(schema['schema'])
 
     short_description = schema['schema']['help'][:-1] + " in Fortinet's FortiOS and FortiGate."
     description = ""
@@ -91,28 +110,11 @@ def renderModule(schema, version, special_attributes):
     print("\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + path + '_' + name + '_example.yml')
 
 
-def hyphenToUnderscore(data):
-    if type(data) is list:
-        for elem in data:
-            elem = hyphenToUnderscore(elem)
-        return data
-    elif type(data) is dict:
-        for k, v in data.items():
-            data[k] = hyphenToUnderscore(v)
-        return data
-    elif type(data) is str:
-        return data.replace('-', '_')
-    elif type(data) is unicode:
-        return data.encode('utf-8').replace('-', '_')
-    else:
-        return data
-
-
 def jinjaExecutor(number=None):
 
     fgt_schema_file = open('fgt_schema.json').read()
     fgt_schema = json.loads(fgt_schema_file)
-    fgt_sch_results = hyphenToUnderscore(fgt_schema['results'])
+    fgt_sch_results = fgt_schema['results']
 
     special_attributes_file = open('special_attributes.lst').read()
     special_attributes = json.loads(special_attributes_file)

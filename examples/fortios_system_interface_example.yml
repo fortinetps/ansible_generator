@@ -18,33 +18,33 @@
         vdom: root
         algorithm: "L2"
         allowaccess: [ ping, http ]
-        ap-discover: "enable"
+        ap_discover: "enable"
         arpforward: "enable"
-        auth-type: "auto"
-        auto-auth-extension-device: "enable"
+        auth_type: "auto"
+        auto_auth_extension_device: "enable"
         bfd: "global"
-        bfd-desired-min-tx: "13"
-        bfd-detect-mult: "14"
-        bfd-required-min-rx: "15"
-        broadcast-forticlient-discovery: "enable"
-        broadcast-forward: "enable"
-        captive-portal: "18"
-        cli-conn-status: "19"
+        bfd_desired_min_tx: "13"
+        bfd_detect_mult: "14"
+        bfd_required_min_rx: "15"
+        broadcast_forticlient_discovery: "enable"
+        broadcast_forward: "enable"
+        captive_portal: "18"
+        cli_conn_status: "19"
         color: "20"
-        dedicated-to: "none"
+        dedicated_to: "none"
         defaultgw: "enable"
         ipv6:
-          ip6-allowaccess:
+          ip6_allowaccess:
             - http
             - snmp
             - fgfm
         l2forward: "enable"
-        lacp-ha-slave: "enable"
-        lacp-mode: "static"
-        lacp-speed: "slow"
-        lcp-echo-interval: "147"
-        lcp-max-echo-fails: "148"
-        link-up-delay: "149"
-        lldp-transmission: "enable"
+        lacp_ha_slave: "enable"
+        lacp_mode: "static"
+        lacp_speed: "slow"
+        lcp_echo_interval: "147"
+        lcp_max_echo_fails: "148"
+        link_up_delay: "149"
+        lldp_transmission: "enable"
 
 

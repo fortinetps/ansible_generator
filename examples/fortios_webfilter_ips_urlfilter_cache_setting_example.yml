@@ -13,5 +13,5 @@
       vdom:  "{{ vdom }}"
       https: "False"
       webfilter_ips_urlfilter_cache_setting:
-        dns-retry-interval: "3"
-        extended-ttl: "4"
+        dns_retry_interval: "3"
+        extended_ttl: "4"

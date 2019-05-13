@@ -16,8 +16,8 @@
         state: "present"
         name: My IPv6 template
         ip6: 1132:4243::/32
-        subnet-segment-count: 6
-        subnet-segment:
+        subnet_segment_count: 6
+        subnet_segment:
         - id: 1
           name: country
           bits: 4

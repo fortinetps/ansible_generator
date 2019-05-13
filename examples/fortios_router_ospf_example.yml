@@ -45,7 +45,7 @@
       vdom:  "{{ vdom }}"
       https: "False"
       router_ospf:
-        abr-type: "cisco"
+        abr_type: "cisco"
         area:
          - filter-list:
              - direction: "out"

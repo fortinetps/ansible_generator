@@ -20,7 +20,7 @@
             action: "block"
             lang: "western"
             name: "default_name_7"
-            pattern-type: "wildcard"
+            pattern_type: "wildcard"
             score: "9"
             status: "enable"
         id:  "11"

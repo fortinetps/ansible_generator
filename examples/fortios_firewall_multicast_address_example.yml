@@ -14,12 +14,12 @@
       https: "False"
       firewall_multicast_address:
         state: "present"
-        associated-interface: "port1"
+        associated_interface: "port1"
         color: "4"
         comment: "Comment."
-        end-ip: "224.0.2.2"
+        end_ip: "224.0.2.2"
         name: "MyMulticastAddress"
-        start-ip: "224.0.2.1"
+        start_ip: "224.0.2.1"
         tagging:
          -
             category: "default"

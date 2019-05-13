@@ -27,13 +27,13 @@
         service:
         - name: ALL
         logtraffic: disable
-        permit-any-host: disable
-        traffic-shaper: ''
-        traffic-shaper-reverse: ''
-        per-ip-shaper: ''
+        permit_any_host: disable
+        traffic_shaper: ''
+        traffic_shaper_reverse: ''
+        per_ip_shaper: ''
         fixedport: disable
         ippool: disable
         poolname: []
-        tcp-mss-sender: 0
-        tcp-mss-receiver: 0
+        tcp_mss_sender: 0
+        tcp_mss_receiver: 0
         comments: ''

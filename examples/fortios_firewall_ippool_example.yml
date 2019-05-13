@@ -18,13 +18,13 @@
         type: overload
         startip: 64.64.84.1
         endip: 64.64.84.200
-        source-startip: 0.0.0.0
-        source-endip: 0.0.0.0
-        block-size: 128
-        num-blocks-per-user: 8
-        pba-timeout: 30
-        permit-any-host: disable
-        arp-reply: enable
-        arp-intf: ''
-        associated-interface: ''
+        source_startip: 0.0.0.0
+        source_endip: 0.0.0.0
+        block_size: 128
+        num_blocks_per_user: 8
+        pba_timeout: 30
+        permit_any_host: disable
+        arp_reply: enable
+        arp_intf: ''
+        associated_interface: ''
         comments: 'My ippool'

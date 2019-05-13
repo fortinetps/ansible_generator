@@ -17,17 +17,17 @@
         name: newVIP46
         id: 0
         comment: ''
-        type: static-nat
-        src-filter: []
+        type: static_nat
+        src_filter: []
         extip: 10.200.10.0-10.200.10.50
         mappedip: 2001:db8:ac10:fe01::-2001:db8:ac10:fe01::32
-        arp-reply: enable
+        arp_reply: enable
         portforward: disable
         protocol: tcp
-        extport: 0-65535
-        mappedport: 0-65535
+        extport: 0_65535
+        mappedport: 0_65535
         color: 0
-        ldb-method: static
+        ldb_method: static
         realservers: []
         monitor: []
   - name: Configure IPv4 to IPv6 policies.
@@ -39,7 +39,7 @@
       https: "False"
       firewall_policy46:
         state: "present"
-        permit-any-host: disable
+        permit_any_host: disable
         policyid: 1
         srcintf: port1
         dstintf: port1
@@ -53,12 +53,12 @@
         service:
         - name: ALL
         logtraffic: disable
-        traffic-shaper: ''
-        traffic-shaper-reverse: ''
-        per-ip-shaper: ''
+        traffic_shaper: ''
+        traffic_shaper_reverse: ''
+        per_ip_shaper: ''
         fixedport: disable
-        tcp-mss-sender: 0
-        tcp-mss-receiver: 0
+        tcp_mss_sender: 0
+        tcp_mss_receiver: 0
         comments: ''
         ippool: disable
         poolname: []

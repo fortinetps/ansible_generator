@@ -15,21 +15,21 @@
       system_central_management:
         mode: normal
         type: none
-        schedule-config-restore: enable
-        schedule-script-restore: enable
-        allow-push-configuration: enable
-        allow-push-firmware: enable
-        allow-remote-firmware-upgrade: enable
-        allow-monitor: enable
-        serial-number: 23f23j32rr3f8293
+        schedule_config_restore: enable
+        schedule_script_restore: enable
+        allow_push_configuration: enable
+        allow_push_firmware: enable
+        allow_remote_firmware_upgrade: enable
+        allow_monitor: enable
+        serial_number: 23f23j32rr3f8293
         fmg: FMG1
-        fmg-source-ip: 10.210.1.1
+        fmg_source_ip: 10.210.1.1
         vdom: root
-        server-list: 
+        server_list: 
          -
-            addr-type: "ipv4"
+            addr_type: "ipv4"
             id:  "19"
-            server-address: "10.20.232.32"
-            server-type: "update"
-        include-default-servers: enable
-        enc-algorithm: low
+            server_address: "10.20.232.32"
+            server_type: "update"
+        include_default_servers: enable
+        enc_algorithm: low

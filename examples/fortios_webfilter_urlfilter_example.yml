@@ -18,14 +18,14 @@
         entries:
          -
             action: "exempt"
-            dns-address-family: "ipv4"
+            dns_address_family: "ipv4"
             exempt: "av"
             id:  "8"
-            referrer-host: "myhostname"
+            referrer_host: "myhostname"
             status: "enable"
             type: "simple"
             url: "http://myurl.com"
         id:  "14"
-        ip-addr-block: "enable"
+        ip_addr_block: "enable"
         name: "default_name_16"
-        one-arm-ips-urlfilter: "enable"
+        one_arm_ips_urlfilter: "enable"

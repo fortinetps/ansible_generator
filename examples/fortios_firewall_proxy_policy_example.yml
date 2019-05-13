@@ -15,7 +15,7 @@
       firewall_proxy_policy:
         state: "present"
         policyid: 1
-        proxy: transparent-web
+        proxy: transparent_web
         srcintf:
         - name: port2
         dstintf:
@@ -25,49 +25,49 @@
         poolname: []
         dstaddr:
         - name: all
-        internet-service: disable
-        internet-service-negate: disable
-        internet-service-id: []
-        internet-service-custom: []
+        internet_service: disable
+        internet_service_negate: disable
+        internet_service_id: []
+        internet_service_custom: []
         service:
         - name: webproxy
-        srcaddr-negate: disable
-        dstaddr-negate: disable
-        service-negate: disable
+        srcaddr_negate: disable
+        dstaddr_negate: disable
+        service_negate: disable
         action: accept
         status: enable
         schedule: always
         logtraffic: utm
-        session-ttl: 0
+        session_ttl: 0
         srcaddr6: []
         dstaddr6: []
         groups: []
         users: []
-        http-tunnel-auth: disable
-        webproxy-forward-server: ''
-        webproxy-profile: ''
+        http_tunnel_auth: disable
+        webproxy_forward_server: ''
+        webproxy_profile: ''
         transparent: disable
         webcache: disable
-        webcache-https: disable
+        webcache_https: disable
         disclaimer: disable
-        utm-status: enable
-        profile-type: single
-        profile-group: ''
-        av-profile: default
-        webfilter-profile: default
-        spamfilter-profile: ''
-        dlp-sensor: default
-        ips-sensor: default
-        application-list: default
-        icap-profile: ''
-        waf-profile: ''
-        ssh-filter-profile: ''
-        profile-protocol-options: default
-        ssl-ssh-profile: certificate-inspection
-        replacemsg-override-group: ''
-        logtraffic-start: disable
+        utm_status: enable
+        profile_type: single
+        profile_group: ''
+        av_profile: default
+        webfilter_profile: default
+        spamfilter_profile: ''
+        dlp_sensor: default
+        ips_sensor: default
+        application_list: default
+        icap_profile: ''
+        waf_profile: ''
+        ssh_filter_profile: ''
+        profile_protocol_options: default
+        ssl_ssh_profile: certificate-inspection
+        replacemsg_override_group: ''
+        logtraffic_start: disable
         label: ''
-        global-label: ''
-        scan-botnet-connections: disable
+        global_label: ''
+        scan_botnet_connections: disable
         comments: ''
-        redirect-url: ''
+        redirect_url: ''

@@ -18,8 +18,8 @@
         type: ipprefix
         ip6: "1323:5324::/32"
         fqdn: ''
-        cache-ttl: 0
+        cache_ttl: 0
         visibility: enable
         color: 0
-        obj-id: ''
+        obj_id: ''
         comment: 'My ipprefix'

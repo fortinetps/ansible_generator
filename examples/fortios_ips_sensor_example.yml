@@ -16,9 +16,9 @@
         state: "present"
         name: default2
         comment: Prevent critical attacks.
-        replacemsg-group: ''
-        block-malicious-url: disable
-        extended-log: disable
+        replacemsg_group: ''
+        block_malicious_url: disable
+        extended_log: disable
         entries:
         - id: 1
           rule: []
@@ -29,16 +29,16 @@
           application: all
           status: default
           log: enable
-          log-packet: disable
-          log-attack-context: disable
+          log_packet: disable
+          log_attack_context: disable
           action: default
-          rate-count: 0
-          rate-duration: 60
-          rate-mode: continuous
-          rate-track: none
-          exempt-ip: []
+          rate_count: 0
+          rate_duration: 60
+          rate_mode: continuous
+          rate_track: none
+          exempt_ip: []
           quarantine: none
-          quarantine-expiry: 5m
-          quarantine-log: enable
+          quarantine_expiry: 5m
+          quarantine_log: enable
         filter: []
         override: []

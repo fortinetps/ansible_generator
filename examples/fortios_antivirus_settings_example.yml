@@ -13,6 +13,6 @@
       vdom:  "{{ vdom }}"
       https: "False"
       antivirus_settings:
-        default-db: "normal"
+        default_db: "normal"
         grayware: "enable"
-        override-timeout: "31"
+        override_timeout: "31"

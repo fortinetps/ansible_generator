@@ -17,5 +17,5 @@
         ip: "10.210.9.10"
         mac: "0a:1b:3f:4d:12:43"
         name: "myIPMACtable"
-        seq-num: "6"
+        seq_num: "6"
         status: "enable"

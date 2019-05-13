@@ -24,10 +24,10 @@
         logtraffic: "enable"
         protocol: "11"
         snat: "enable"
-        snat-ip: "10.210.10.1"
+        snat_ip: "10.210.10.1"
         srcaddr:
          -
             name: "all"
         srcintf: "port1"
-        start-port: "17"
+        start_port: "17"
         status: "enable"

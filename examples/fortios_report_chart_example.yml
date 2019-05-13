@@ -18,7 +18,7 @@
         comments: "New chart"
         dataset: "fd"
         favorite: "no"
-        graph-type: "none"
+        graph_type: "none"
         name: "default_name_34"
         period: "last24h"
         style: "auto"

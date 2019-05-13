@@ -17,16 +17,16 @@
         name: newVIP46
         id: 0
         comment: ''
-        type: static-nat
-        src-filter: []
+        type: static_nat
+        src_filter: []
         extip: 10.200.10.0-10.200.10.50
         mappedip: 2001:db8:ac10:fe01::-2001:db8:ac10:fe01::32
-        arp-reply: enable
+        arp_reply: enable
         portforward: disable
         protocol: tcp
         extport: 0-65535
         mappedport: 0-65535
         color: 0
-        ldb-method: static
+        ldb_method: static
         realservers: []
         monitor: []

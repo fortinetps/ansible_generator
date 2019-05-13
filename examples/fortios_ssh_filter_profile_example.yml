@@ -15,10 +15,10 @@
       ssh_filter_profile:
         state: "present"
         block: "x11"
-        default-command-log: "enable"
+        default_command_log: "enable"
         log: "x11"
         name: "mysshprofile"
-        shell-commands:
+        shell_commands:
          -
             action: "block"
             alert: "enable"

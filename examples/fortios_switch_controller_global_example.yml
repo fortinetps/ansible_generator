@@ -13,12 +13,12 @@
       vdom:  "{{ vdom }}"
       https: "False"
       switch_controller_global:
-        allow-multiple-interfaces: "enable"
-        disable-discovery:
+        allow_multiple_interfaces: "enable"
+        disable_discovery:
          -
             name: "23"
-        https-image-push: "enable"
-        log-mac-limit-violations: "enable"
-        mac-aging-interval: "15"
-        mac-retention-period: "10"
-        mac-violation-timer: "11"
+        https_image_push: "enable"
+        log_mac_limit_violations: "enable"
+        mac_aging_interval: "15"
+        mac_retention_period: "10"
+        mac_violation_timer: "11"

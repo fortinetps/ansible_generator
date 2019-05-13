@@ -47,11 +47,16 @@ def flatten_multilists_attributes(data):
 {% endif-%}
 
 def underscore_to_hyphen(data):
-    if data is not dict:
-        return data
 
-    for k, v in data:
-        data[k.replace('_', '-')] = underscore_to_hyphen(data.pop(k))
+    if type(data) is list:
+        for elem in data:
+            elem = underscore_to_hyphen(elem)
+
+    elif type(data) is dict:
+        new_data = {}
+        for k, v in data.items():
+            new_data[k.replace('_', '-')] = underscore_to_hyphen(v)
+        data = new_data
 
     return data
 
@@ -73,7 +78,7 @@ def {{path}}_{{name}}(data, fos):
     elif {{path}}_{{name}}_data['state'] == "absent":
         return fos.delete('{{original_path}}',
                           '{{original_name}}',
-                          mkey=filtered_data['{{schema['schema']['mkey']}}'],
+                          mkey=filtered_data['{{schema['schema']['mkey']|replace('_', '-')}}'],
                           vdom=vdom)
     {%else%}
     return fos.set('{{original_path}}',

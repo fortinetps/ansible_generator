@@ -14,4 +14,4 @@
       https: "False"
       endpoint_control_profile:
         state: "absent"
-        profile-name: My New Profile
+        profile_name: My New Profile

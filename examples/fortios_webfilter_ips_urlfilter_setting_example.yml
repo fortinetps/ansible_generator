@@ -16,4 +16,4 @@
         device: "port1"
         distance: "4"
         gateway: "192.168.122.1"
-        geo-filter: ""
+        geo_filter: ""

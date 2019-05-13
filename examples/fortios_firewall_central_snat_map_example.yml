@@ -15,18 +15,18 @@
       firewall_central_snat_map:
         state: "present"
         comments: "MyComments"
-        dst-addr:
+        dst_addr:
          -
             name: "all"
         dstintf:
          -
             name: "port1"
         nat: "disable"
-        nat-port: "4235"
-        orig-addr:
+        nat_port: "4235"
+        orig_addr:
          -
             name: "all"
-        orig-port: "2443"
+        orig_port: "2443"
         policyid: "3"
         protocol: "16"
         srcintf:

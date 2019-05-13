@@ -17,8 +17,8 @@
         expires: "2019/11/01 10:00:00"
         id:  "2"
         ip: "10.210.9.120"
-        new-profile: "wifi-default"
-        old-profile: "default"
+        new_profile: "wifi-default"
+        old_profile: "default"
         scope: "ip"
         status: "enable"
 

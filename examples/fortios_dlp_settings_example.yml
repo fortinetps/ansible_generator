@@ -13,7 +13,7 @@
       vdom:  "{{ vdom }}"
       https: "False"
       dlp_settings:
-        cache-mem-percent: "3"
-        chunk-size: "3000"
-        db-mode: "stop-adding"
+        cache_mem_percent: "3"
+        chunk_size: "3000"
+        db_mode: "stop_adding"
         size: "20"

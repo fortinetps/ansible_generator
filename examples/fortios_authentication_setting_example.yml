@@ -13,6 +13,6 @@
       vdom:  "{{ vdom }}"
       https: "False"
       authentication_setting:
-        captive-portal: "update.microsoft.com"
-        captive-portal-type: "fqdn"
-        captive-portal-port: "1"
+        captive_portal: "update.microsoft.com"
+        captive_portal_type: "fqdn"
+        captive_portal_port: "1"

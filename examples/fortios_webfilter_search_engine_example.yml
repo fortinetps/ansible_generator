@@ -14,10 +14,10 @@
       https: "False"
       webfilter_search_engine:
         state: "present"
-        charset: "utf-8"
+        charset: "utf_8"
         hostname: "myhostname"
         name: "default_name_5"
         query: "?query="
         safesearch: "url"
-        safesearch-str: "safesearch:"
+        safesearch_str: "safesearch:"
         url: "http://searchurl.com"

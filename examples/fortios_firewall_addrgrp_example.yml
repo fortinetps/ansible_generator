@@ -14,11 +14,11 @@
       https: "False"
       firewall_addrgrp:
         state: "present"
-        allow-routing: "enable"
+        allow_routing: "enable"
         color: "4"
         comment: "Comment."
         member:
-         -
-            name: "all"
+         - name: "all"
+         - name: "google-play"
         name: "default_name_8"
         visibility: "enable"

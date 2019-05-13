@@ -14,28 +14,28 @@
       https: "False"
       firewall_proxy_address:
         state: "present"
-        case-sensitivity: "disable"
+        case_sensitivity: "disable"
         category:
          -
             id:  "5"
         color: "6"
         comment: "Optional comments."
         header: "<your_own_value>"
-        header-group:
+        header_group:
          -
-            case-sensitivity: "disable"
+            case_sensitivity: "disable"
             header: "<your_own_value>"
-            header-name: "<your_own_value>"
+            header_name: "<your_own_value>"
             id:  "13"
-        header-name: "<your_own_value>"
+        header_name: "<your_own_value>"
         host: "google-play"
-        host-regex: "myhostname"
+        host_regex: "myhostname"
         method: "get"
         name: "default_name_18"
         path: "<your_own_value>"
         query: "<your_own_value>"
         referrer: "enable"
-        type: "host-regex"
+        type: "host_regex"
         ua: "chrome"
         uuid: "<your_own_value>"
         visibility: "enable"

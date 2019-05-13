@@ -13,8 +13,8 @@
       vdom:  "{{ vdom }}"
       https: "False"
       ftp_proxy_explicit:
-        incoming-ip: "10.210.9.100"
-        incoming-port: "8700"
-        outgoing-ip: "10.210.9.200"
-        sec-default-action: "accept"
+        incoming_ip: "10.210.9.100"
+        incoming_port: "8700"
+        outgoing_ip: "10.210.9.200"
+        sec_default_action: "accept"
         status: "enable"

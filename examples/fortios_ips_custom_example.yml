@@ -19,7 +19,7 @@
         comment: "Comment."
         location: "client"
         log: "disable"
-        log-packet: "disable"
+        log_packet: "disable"
         os: "Linux"
         protocol: "TCP"
         severity: "info"

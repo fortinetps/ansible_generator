@@ -15,14 +15,14 @@
       firewall_vip:
         state: "present"
         name: "1"
-        type: static-nat
-        dns-mapping-ttl: 0
-        ldb-method: static
+        type: static_nat
+        dns_mapping_ttl: 0
+        ldb_method: static
         extip: 1.1.1.1
         mappedip:
         - range: 10.10.10.10
         extintf: port1
-        arp-reply: enable
+        arp_reply: enable
         protocol: tcp
         extport: 0-65535
         mappedport: 0-65535

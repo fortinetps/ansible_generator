@@ -16,13 +16,13 @@
         state: "present"
         accprofile: "prof_admin"
         comments: "My comment"
-        cors-allow-origin: "*"
+        cors_allow_origin: "*"
         name: "userA"
-        peer-auth: "disable"
+        peer_auth: "disable"
         schedule: "always"
         trusthost:
           - id:  "12"
-            ipv4-trusthost: "10.210.10.10/24"
-            type: "ipv4-trusthost"
+            ipv4_trusthost: "10.210.10.10/24"
+            type: "ipv4_trusthost"
         vdom:
           - name: "root"

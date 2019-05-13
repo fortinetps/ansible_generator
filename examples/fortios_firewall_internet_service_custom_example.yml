@@ -22,5 +22,5 @@
                 name: "all"
             id:  "15"
             protocol: "20"
-        master-service-id: "65536"
+        master_service_id: "65536"
         name: "myCustomInetService"

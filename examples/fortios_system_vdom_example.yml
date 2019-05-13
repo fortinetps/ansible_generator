@@ -15,6 +15,6 @@
       system_vdom:
         state: "present"
         name: "secondary_vdom"
-        short-name: "vdom2"
+        short_name: "vdom2"
         temporary: "5"
-        vcluster-id: "6"
+        vcluster_id: "6"

@@ -16,6 +16,6 @@
         state: "present"
         method: "basic"
         name: "default_name_8"
-        fsso-guest: "disable"
-        user-database: 
+        fsso_guest: "disable"
+        user_database: 
         - name: "local"

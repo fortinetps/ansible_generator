@@ -25,71 +25,71 @@
         dstaddr:
         - name: all
         action: accept
-        firewall-session-dirty: check-all
+        firewall_session_dirty: check_all
         status: enable
-        vlan-cos-fwd: 255
-        vlan-cos-rev: 255
+        vlan_cos_fwd: 255
+        vlan_cos_rev: 255
         schedule: always
         service:
         - name: ALL
-        dscp-match: disable
-        dscp-negate: disable
-        dscp-value: '000000'
-        tcp-session-without-syn: disable
-        utm-status: enable
-        profile-type: single
-        profile-group: ''
-        av-profile: default
-        webfilter-profile: default
-        spamfilter-profile: ''
-        dlp-sensor: ''
-        ips-sensor: default
-        application-list: default
-        voip-profile: ''
-        icap-profile: ''
-        ssh-filter-profile: ''
-        profile-protocol-options: default
-        ssl-ssh-profile: certificate-inspection
+        dscp_match: disable
+        dscp_negate: disable
+        dscp_value: '000000'
+        tcp_session_without_syn: disable
+        utm_status: enable
+        profile_type: single
+        profile_group: ''
+        av_profile: default
+        webfilter_profile: default
+        spamfilter_profile: ''
+        dlp_sensor: ''
+        ips_sensor: default
+        application_list: default
+        voip_profile: ''
+        icap_profile: ''
+        ssh_filter_profile: ''
+        profile_protocol_options: default
+        ssl_ssh_profile: certificate_inspection
         logtraffic: utm
-        logtraffic-start: disable
-        traffic-shaper: ''
-        traffic-shaper-reverse: ''
-        per-ip-shaper: ''
+        logtraffic_start: disable
+        traffic_shaper: ''
+        traffic_shaper_reverse: ''
+        per_ip_shaper: ''
         application: []
-        app-category: []
-        url-category: []
-        app-group: []
+        app_category: []
+        url_category: []
+        app_group: []
         nat: enable
         fixedport: disable
         ippool: disable
         poolname: []
-        session-ttl: 0
+        session_ttl: 0
         inbound: disable
         outbound: disable
         natinbound: disable
         natoutbound: disable
-        send-deny-packet: disable
+        send_deny_packet: disable
         vpntunnel: ''
-        diffserv-forward: disable
-        diffserv-reverse: disable
-        diffservcode-forward: '000000'
-        diffservcode-rev: '000000'
-        tcp-mss-sender: 0
-        tcp-mss-receiver: 0
+        diffserv_forward: disable
+        diffserv_reverse: disable
+        diffservcode_forward: '000000'
+        diffservcode_rev: '000000'
+        tcp_mss_sender: 0
+        tcp_mss_receiver: 0
         comments: ''
         label: ''
-        global-label: ''
+        global_label: ''
         rsso: disable
-        custom-log-fields: []
-        replacemsg-override-group: ''
-        srcaddr-negate: disable
-        dstaddr-negate: disable
-        service-negate: disable
+        custom_log_fields: []
+        replacemsg_override_group: ''
+        srcaddr_negate: disable
+        dstaddr_negate: disable
+        service_negate: disable
         groups: []
         users: []
         devices: []
-        timeout-send-rst: disable
-        ssl-mirror: disable
-        ssl-mirror-intf: []
+        timeout_send_rst: disable
+        ssl_mirror: disable
+        ssl_mirror_intf: []
         dsri: disable
-        vlan-filter: ''
+        vlan_filter: ''

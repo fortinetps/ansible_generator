@@ -14,4 +14,4 @@
       https: "False"
       endpoint_control_forticlient_registration_sync:
         state: "absent"
-        peer-name: "MyPeer"
+        peer_name: "MyPeer"

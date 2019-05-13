@@ -16,4 +16,4 @@
         groups:
          -
             name: "Guest-group"
-        portal-addr: "10.2.3.143"
+        portal_addr: "10.2.3.143"

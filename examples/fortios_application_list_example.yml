@@ -16,20 +16,20 @@
         state: "present"
         name: default_monitor
         comment: Monitor all applications.
-        replacemsg-group: ''
-        extended-log: disable
-        other-application-action: pass
-        app-replacemsg: enable
-        other-application-log: disable
-        unknown-application-action: pass
-        unknown-application-log: disable
-        deep-app-inspection: enable
-        options: allow-dns
+        replacemsg_group: ''
+        extended_log: disable
+        other_application_action: pass
+        app_replacemsg: enable
+        other_application_log: disable
+        unknown_application_action: pass
+        unknown_application_log: disable
+        deep_app_inspection: enable
+        options: allow_dns
         entries:
           - id: 1
             risk: []
             category: []
-            sub-category: []
+            sub_category: []
             application: []
             protocols: all
             vendor: all
@@ -39,15 +39,15 @@
             parameters: []
             action: pass
             log: enable
-            log-packet: disable
-            rate-count: 0
-            rate-duration: 60
-            rate-mode: continuous
-            rate-track: none
-            session-ttl: 0
+            log_packet: disable
+            rate_count: 0
+            rate_duration: 60
+            rate_mode: continuous
+            rate_track: none
+            session_ttl: 0
             shaper: ''
-            shaper-reverse: ''
-            per-ip-shaper: ''
+            shaper_reverse: ''
+            per_ip_shaper: ''
             quarantine: none
-            quarantine-expiry: 5m
-            quarantine-log: enable
+            quarantine_expiry: 5m
+            quarantine_log: enable

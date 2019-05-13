@@ -17,25 +17,25 @@
         name: ip_test_example
         subnet: 10.210.4.0/24
         type: iprange
-        start-ip: 10.210.4.208
-        end-ip: 10.210.4.220
+        start_ip: 10.210.4.208
+        end_ip: 10.210.4.220
         fqdn: ''
         country: ''
-        wildcard-fqdn: ''
-        cache-ttl: 0
+        wildcard_fqdn: ''
+        cache_ttl: 0
         wildcard: 10.210.4.208 10.210.4.220
         tenant: ''
         organization: ''
-        epg-name: ''
-        subnet-name: ''
-        sdn-tag: ''
-        policy-group: ''
+        epg_name: ''
+        subnet_name: ''
+        sdn_tag: ''
+        policy_group: ''
         comment: ''
         visibility: enable
-        associated-interface: ssl.root
+        associated_interface: ssl.root
         color: 0
         filter: ''
-        obj-id: ''
+        obj_id: ''
         list: []
         tagging: []
-        allow-routing: disable
+        allow_routing: disable

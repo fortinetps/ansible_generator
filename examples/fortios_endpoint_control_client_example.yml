@@ -14,9 +14,9 @@
       https: "False"
       endpoint_control_client:
         state: "present"
-        ad-groups: "mygroup"
-        ftcl-uid: "1395"
+        ad_groups: "mygroup"
+        ftcl_uid: "1395"
         id:  "5"
         info: "Info"
-        src-ip: "10.2.1.32"
-        src-mac: "0a:11:b1:a5:ff:ca"
+        src_ip: "10.2.1.32"
+        src_mac: "0a:11:b1:a5:ff:ca"

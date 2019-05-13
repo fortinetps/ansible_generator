@@ -13,6 +13,6 @@
       vdom:  "{{ vdom }}"
       https: "False"
       log_gui_display:
-        fortiview-unscanned-apps: "enable"
-        resolve-apps: "enable"
-        resolve-hosts: "enable"
+        fortiview_unscanned_apps: "enable"
+        resolve_apps: "enable"
+        resolve_hosts: "enable"

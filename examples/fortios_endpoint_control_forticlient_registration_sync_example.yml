@@ -14,5 +14,5 @@
       https: "False"
       endpoint_control_forticlient_registration_sync:
         state: "present"
-        peer-ip: "10.12.15.190"
-        peer-name: "MyPeer"
+        peer_ip: "10.12.15.190"
+        peer_name: "MyPeer"
