@@ -91,15 +91,32 @@ def renderModule(schema, version, special_attributes):
     print("\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + path + '_' + name + '_example.yml')
 
 
+def hyphenToUnderscore(data):
+    if type(data) is list:
+        for elem in data:
+            elem = hyphenToUnderscore(elem)
+        return data
+    elif type(data) is dict:
+        for k, v in data.items():
+            data[k] = hyphenToUnderscore(v)
+        return data
+    elif type(data) is str:
+        return data.replace('-', '_')
+    elif type(data) is unicode:
+        return data.encode('utf-8').replace('-', '_')
+    else:
+        return data
+
+
 def jinjaExecutor(number=None):
 
     fgt_schema_file = open('fgt_schema.json').read()
     fgt_schema = json.loads(fgt_schema_file)
-    fgt_sch_results = fgt_schema['results']
+    fgt_sch_results = hyphenToUnderscore(fgt_schema['results'])
 
     special_attributes_file = open('special_attributes.lst').read()
     special_attributes = json.loads(special_attributes_file)
-    
+
     if not number:
         real_counter = 0
         for i, pn in enumerate(fgt_sch_results):
@@ -109,19 +126,16 @@ def jinjaExecutor(number=None):
                 print '\033[0mModule name: \033[92m' + module_name
                 print '\033[0mIteration:\033[93m' + str(real_counter) + "\033[0m, Schema position: \033[93m" + str(i)
                 renderModule(fgt_sch_results[i],
-                              fgt_schema['version'],
-                              special_attributes[module_name] if module_name in special_attributes else [])
+                             fgt_schema['version'],
+                             special_attributes[module_name] if module_name in special_attributes else [])
                 real_counter += 1
     else:
-        module_name = getModuleName(fgt_sch_results[number]['path'], fgt_sch_results[number]['name']) 
+        module_name = getModuleName(fgt_sch_results[number]['path'], fgt_sch_results[number]['name'])
         renderModule(fgt_sch_results[number],
-                      fgt_schema['version'],
-                      special_attributes[module_name] if module_name in special_attributes else [])
+                     fgt_schema['version'],
+                     special_attributes[module_name] if module_name in special_attributes else [])
 
 
 if __name__ == "__main__":
 
-    fgt_schema_file = open('fgt_schema.json').read()
-    fgt_schema = json.loads(fgt_schema_file)
-    fgt_sch_results = fgt_schema['results']
     jinjaExecutor()

@@ -18,7 +18,7 @@ def login(data, fos):
 
 def filter_{{path}}_{{name}}_data(json):
     option_list = [ {%- for key, value in schema['schema']['children']|dictsort -%}
-                    '{{key}}'{%- if not loop.last%},{%endif -%}
+                    '{{value['name']}}'{%- if not loop.last%},{%endif -%}
                     {% if loop.index % 3 == 0 and not loop.last %}
                    {% else %} {% endif %}
                    {%- endfor -%}]
@@ -46,12 +46,22 @@ def flatten_multilists_attributes(data):
     return data
 {% endif-%}
 
+def underscore_to_hyphen(data):
+    if data is not dict:
+        return data
+
+    for k, v in data:
+        data[k.replace('_', '-')] = underscore_to_hyphen(data.pop(k))
+
+    return data
+
+
 def {{path}}_{{name}}(data, fos):
     vdom = data['vdom']
     {{path}}_{{name}}_data = data['{{path}}_{{name}}']
     {% if special_attributes != [] -%}{{path}}_{{name}}_data = flatten_multilists_attributes({{path}}_{{name}}_data)
     {% endif -%}
-    filtered_data = filter_{{path}}_{{name}}_data({{path}}_{{name}}_data)
+    filtered_data = underscore_to_hyphen(filter_{{path}}_{{name}}_data({{path}}_{{name}}_data))
 
     {% if "mkey" in schema['schema'] %}
     if {{path}}_{{name}}_data['state'] == "present":
@@ -91,7 +101,7 @@ def fortios_{{path}}(data, fos):
 {% macro getAnsibleType(parent_attrs, attribute) -%}
 {%- if calculateFullPath(parent_attrs, attribute["name"]) in special_attributes_flattened -%}
 list
-{%- elif attribute["type"] == "string" or attribute["type"] == "option" or  attribute["type"] == "var-string" -%}
+{%- elif attribute["type"] == "string" or attribute["type"] == "option" or  attribute["type"] == "var_string" -%}
 str
 {%- elif not attribute["type"] and attribute["category"]=="table"-%}
 list
@@ -101,29 +111,35 @@ dict
 int
 {%- elif attribute["type"] == "user"-%}
 str
-{%- elif attribute["type"] == "ipv4-address"-%}
+{%- elif attribute["type"] == "ipv4_address"-%}
 str
-{%- elif attribute["type"] == "ipv6-address"-%}
+{%- elif attribute["type"] == "ipv6_address"-%}
 str
 {%- elif attribute["type"] == "password"-%}
 str
-{%- elif attribute["type"] == "password-2"-%}
+{%- elif attribute["type"] == "password_2"-%}
 str
-{%- elif attribute["type"] == "ipv4-classnet-any"-%}
+{%- elif attribute["type"] == "password_3"-%}
 str
-{%- elif attribute["type"] == "ipv4-address-any"-%}
+{%- elif attribute["type"] == "ipv4_classnet_any"-%}
 str
-{%- elif attribute["type"] == "ipv4-classnet"-%}
+{%- elif attribute["type"] == "ipv4_address_any"-%}
 str
-{%- elif attribute["type"] == "ipv4-classnet-host"-%}
+{%- elif attribute["type"] == "ipv4_address_multicast"-%}
 str
-{%- elif attribute["type"] == "ipv4-netmask"-%}
+{%- elif attribute["type"] == "ipv4_classnet"-%}
 str
-{%- elif attribute["type"] == "ipv6-network"-%}
+{%- elif attribute["type"] == "ipv4_classnet_host"-%}
 str
-{%- elif attribute["type"] == "ipv6-prefix"-%}
+{%- elif attribute["type"] == "ipv4_netmask"-%}
 str
-{%- elif attribute["type"] == "mac-address"-%}
+{%- elif attribute["type"] == "ipv4_netmask_any"-%}
+str
+{%- elif attribute["type"] == "ipv6_network"-%}
+str
+{%- elif attribute["type"] == "ipv6_prefix"-%}
+str
+{%- elif attribute["type"] == "mac_address"-%}
 str
 {%- elif attribute["type"] == "uuid"-%}
 str
@@ -137,7 +153,7 @@ str
 {%- endmacro %}
 {% macro code_fields(dict, mkey, parent_attrs) -%}
                 {%- for key,value in dict |dictsort -%}
-                "{{key}}": {"required": {% if key == mkey -%}
+                "{{value['name']}}": {"required": {% if key == mkey -%}
                         True
                     {%- else -%}
                         False

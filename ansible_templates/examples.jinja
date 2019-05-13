@@ -1,6 +1,6 @@
 {% macro example_attributes(dict) -%}
       {%- for key, value in dict | dictsort %}
-        {{key}}: 
+        {{value['name']}}: 
       {%- if counter.update({'id': counter['id']+1 }) -%}{%-endif-%}
       {%- set id = counter['id']-%}
       {%- if 'datasource' in value -%} {%- set ds = " (source " + value['datasource']|join(' ') + ")" -%} {%-endif-%}
