@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       firewall_profile_group:
-        state: "absent"
         name: "profile_group1"

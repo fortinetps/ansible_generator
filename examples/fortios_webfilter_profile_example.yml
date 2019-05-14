@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       webfilter_profile:
-        state: "present"
         name: default2
         comment: Default web filtering.
         replacemsg_group: ''

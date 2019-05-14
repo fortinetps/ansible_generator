@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       firewall_schedule_onetime:
-        state: "absent"
         name: "default_name_6"

@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       system_api_user:
-        state: "present"
         accprofile: "prof_admin"
         comments: "My comment"
         cors_allow_origin: "*"

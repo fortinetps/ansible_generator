@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       firewall_ldb_monitor:
-        state: "absent"
         name: "load balancer health monitor"

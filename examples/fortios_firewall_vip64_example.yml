@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_vip64:
-        state: "present"
         name: myVip64
         comment: new
         type: static_nat

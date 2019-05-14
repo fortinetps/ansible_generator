@@ -12,7 +12,7 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       webfilter_ftgd_local_cat:
-        state: "absent"
         desc:  "My new category"
  

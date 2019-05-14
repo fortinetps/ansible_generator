@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       firewall_ip_translation:
-        state: "absent"
         transid: "6"

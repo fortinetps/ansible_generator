@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       webfilter_content_header:
-        state: "absent"
         comment: "Optional comments."
         entries:
          -

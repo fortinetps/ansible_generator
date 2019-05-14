@@ -12,20 +12,18 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_multicast_policy6:
-        state: "present"
         action: "accept"
         dstaddr:
          -
             name: "all"
         dstintf: "port1"
-        end_port: "7"
         id:  "8"
         logtraffic: "enable"
         protocol: "10"
         srcaddr:
          -
             name: "all"
-        srcintf: "port1"
-        start_port: "14"
+        srcintf: "port2"
         status: "enable"

@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       firewall_profile_protocol_options:
-        state: "absent"
         name: "fw_prof_protocol1"

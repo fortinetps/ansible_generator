@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_vip46:
-        state: "present"
         name: newVIP46
         id: 0
         comment: ''
@@ -37,8 +37,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_vipgrp46:
-        state: "present"
         color: "3"
         comments: "Simple group"
         member:

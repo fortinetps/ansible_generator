@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       webfilter_search_engine:
-        state: "present"
         charset: "utf_8"
         hostname: "myhostname"
         name: "default_name_5"

@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_addrgrp6:
-        state: "present"
         name: Address Group IPv6
         visibility: enable
         color: 0

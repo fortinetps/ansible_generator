@@ -1,15 +1,18 @@
 #!/bin/bash
 
-set -x
+#set -x
 
 cd $( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )
 
 trap ctrl_c SIGINT
 trap ctrl_c SIGTERM
 
+START_TIME=$SECONDS
+
 function ctrl_c() {
     echo "** Interrupted by user **"
-    echo -e "\n\n Results: \n  Success: "${success}"  Failed: "${failed}"\n"
+    ELAPSED_TIME=$(($SECONDS - $START_TIME))
+    echo -e "\n\n Total time: ${ELAPSED_TIME} s\n\n Results: \n  Success: ${success}  Failed: ${failed}\n\n  Failed test cases: \n ${list_of_failed[@]} \n"
     exit
 }
 
@@ -26,16 +29,20 @@ version="v6.0.2"
 
 success=0
 failed=0
+list_of_failed=()
 
 function modify_playbook_for_https() {
     cat $1 |sed 's/{{ vdom }}"/{{ vdom }}"\n      https: true/g' > $1.https
 }
 
 function run_example( ) {
+
     export ANSIBLE_LIBRARY=$(pwd)/output/${version}/$1
 
     filename=./examples/$2
     filename_removal=./examples/remove/$2
+
+    echo -e "\n \e[36mRunning playbook:\e[0m \e[32m${filename}\e[0m \n"
 
     if [ "$https" = true ]; then 
         modify_playbook_for_https ${filename}
@@ -44,6 +51,7 @@ function run_example( ) {
           success=$(($success+1))
         else
           failed=$(($failed+1))
+          list_of_failed+=($2"\n")
         fi
         rm ${filename}.https
     else
@@ -52,10 +60,14 @@ function run_example( ) {
           success=$(($success+1))
         else
           failed=$(($failed+1))
+          list_of_failed+=($2"\n")
         fi
     fi
 
     if [ -f examples/remove/$2 ]; then 
+    
+        echo -e "\n \e[36mRunning playbook:\e[0m \e[32m${filename_removal}\e[0m \n"
+    
         if [ "$https" == true ]; then 
             modify_playbook_for_https ${filename_removal}
             ansible-playbook ${filename_removal}.https
@@ -63,6 +75,7 @@ function run_example( ) {
             success=$(($success+1))
             else
             failed=$(($failed+1))
+            list_of_failed+=("remove/"$2"\n")
             fi
             rm ${filename_removal}.https
         else
@@ -71,26 +84,27 @@ function run_example( ) {
             success=$(($success+1))
             else
             failed=$(($failed+1))
+            list_of_failed+=("remove/"$2"\n")
             fi
         fi
     fi
 }
 
- run_example antivirus fortios_antivirus_heuristic_example.yml
- run_example antivirus fortios_antivirus_profile_example.yml
- run_example antivirus fortios_antivirus_quarantine_example.yml
- run_example antivirus fortios_antivirus_settings_example.yml
- run_example application fortios_application_custom_example.yml
- run_example application fortios_application_group_example.yml
- run_example application fortios_application_list_example.yml
- run_example application fortios_application_name_example.yml
- run_example application fortios_application_rule_settings_example.yml
- run_example authentication fortios_authentication_rule_example.yml
- run_example authentication fortios_authentication_scheme_example.yml
- run_example authentication fortios_authentication_setting_example.yml
- run_example dlp fortios_dlp_filepattern_example.yml
-######################## run_example dlp fortios_dlp_fp_doc_source_example.yml  # Requires logdisk
-run_example dlp fortios_dlp_fp_sensitivity_example.yml
+run_example antivirus fortios_antivirus_heuristic_example.yml
+run_example antivirus fortios_antivirus_profile_example.yml
+run_example antivirus fortios_antivirus_quarantine_example.yml
+run_example antivirus fortios_antivirus_settings_example.yml
+run_example application fortios_application_custom_example.yml
+run_example application fortios_application_group_example.yml
+run_example application fortios_application_list_example.yml
+run_example application fortios_application_name_example.yml
+run_example application fortios_application_rule_settings_example.yml
+run_example authentication fortios_authentication_rule_example.yml
+run_example authentication fortios_authentication_scheme_example.yml
+run_example authentication fortios_authentication_setting_example.yml
+run_example dlp fortios_dlp_filepattern_example.yml
+run_example dlp fortios_dlp_fp_doc_source_example.yml
+un_example dlp fortios_dlp_fp_sensitivity_example.yml
 run_example dlp fortios_dlp_sensor_example.yml
 run_example dlp fortios_dlp_settings_example.yml
 run_example dnsfilter fortios_dnsfilter_domain_filter_example.yml
@@ -132,13 +146,13 @@ run_example firewall fortios_firewall_multicast_policy6_example.yml
 run_example firewall fortios_firewall_multicast_policy_example.yml
 run_example firewall fortios_firewall_policy_example.yml
 run_example firewall fortios_firewall_policy46_example.yml
-##########################run_example firewall fortios_firewall_policy6_example.yml
+run_example firewall fortios_firewall_policy6_example.yml
 run_example firewall fortios_firewall_policy64_example.yml
 run_example firewall fortios_firewall_profile_group_example.yml
 run_example firewall fortios_firewall_profile_protocol_options_example.yml
 run_example firewall fortios_firewall_proxy_address_example.yml
 run_example firewall fortios_firewall_proxy_addrgrp_example.yml
-##########################run_example firewall fortios_firewall_proxy_policy_example.yml
+run_example firewall fortios_firewall_proxy_policy_example.yml
 run_example firewall_schedule fortios_firewall_schedule_group_example.yml
 run_example firewall_schedule fortios_firewall_schedule_onetime_example.yml
 run_example firewall fortios_firewall_vip_example.yml
@@ -153,8 +167,8 @@ run_example icap fortios_icap_profile_example.yml
 run_example ips fortios_ips_custom_example.yml
 run_example ips fortios_ips_sensor_example.yml
 run_example log fortios_log_custom_field_example.yml
-############################run_example log_disk fortios_log_disk_filter_example.yml
-############################run_example log_disk fortios_log_disk_setting_example.yml
+run_example log_disk fortios_log_disk_filter_example.yml
+run_example log_disk fortios_log_disk_setting_example.yml
 run_example log fortios_log_eventfilter_example.yml
 run_example log_fortianalyzer2 fortios_log_fortianalyzer2_filter_example.yml
 run_example log_fortianalyzer2 fortios_log_fortianalyzer2_setting_example.yml
@@ -167,14 +181,14 @@ run_example switch_controller fortios_switch_controller_global_example.yml
 run_example system fortios_system_accprofile_example.yml
 run_example system fortios_system_admin_example.yml
 run_example system fortios_system_api_user_example.yml
-#############################run_example system fortios_system_central_management_example.yml
-#############################run_example system_dhcp fortios_system_dhcp_server_example.yml
+run_example system fortios_system_central_management_example.yml
+un_example system_dhcp fortios_system_dhcp_server_example.yml
 run_example system fortios_system_dns_example.yml
 run_example system fortios_system_interface_example.yml
 run_example system fortios_system_global_example.yml
 run_example system fortios_system_sdn_connector_example.yml
-#############################run_example report fortios_report_chart_example.yml
-#############################run_example report fortios_report_dataset_example.yml
+run_example report fortios_report_chart_example.yml
+run_example report fortios_report_dataset_example.yml
 run_example router fortios_router_access_list_example.yml
 run_example router fortios_router_ospf_example.yml
 run_example user fortios_user_tacacsplus_example.yml
@@ -203,5 +217,5 @@ run_example spamfilter fortios_spamfilter_profile_example.yml
 # Special test cases tested manually
 # run_example system fortios_system_vdom_example.yml
 
-
-echo -e "\n\n Results: \n  Success: "${success}"  Failed: "${failed}"\n"
+ELAPSED_TIME=$(($SECONDS - $START_TIME))
+echo -e "\n\n Total time: ${ELAPSED_TIME} s\n\n Results: \n  Success: ${success}  Failed: ${failed}\n\n  Failed test cases: \n ${list_of_failed[@]} \n"

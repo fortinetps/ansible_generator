@@ -12,7 +12,7 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       authentication_scheme:
-        state: "absent"
         name: "default_name_8"
   

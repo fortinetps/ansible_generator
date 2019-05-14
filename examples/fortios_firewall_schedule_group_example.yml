@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_schedule_group:
-        state: "present"
         color: "3"
         member:
          -

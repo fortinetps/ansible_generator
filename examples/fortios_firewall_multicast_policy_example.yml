@@ -12,22 +12,16 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_multicast_policy:
-        state: "present"
         action: "accept"
-        dnat: "224.2.0.0"
         dstaddr:
-         -
-            name: "all"
-        dstintf: "port2"
+         - name: "all"
+        dstintf: "port1"
         id:  "9"
         logtraffic: "enable"
         protocol: "11"
-        snat: "enable"
-        snat_ip: "10.210.10.1"
         srcaddr:
-         -
-            name: "all"
-        srcintf: "port1"
-        start_port: "17"
+         - name: "all"
+        srcintf: "port2"
         status: "enable"

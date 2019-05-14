@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       dnsfilter_profile:
-        state: "absent"
         name: "mydnsprofile"

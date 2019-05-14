@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_ipmacbinding_table:
-        state: "present"
         ip: "10.210.9.10"
         mac: "0a:1b:3f:4d:12:43"
         name: "myIPMACtable"

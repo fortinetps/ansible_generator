@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       endpoint_control_client:
-        state: "present"
         ad_groups: "mygroup"
         ftcl_uid: "1395"
         id:  "5"

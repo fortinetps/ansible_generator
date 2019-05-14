@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       firewall_ipmacbinding_table:
-        state: "absent"
         seq_num: "6"

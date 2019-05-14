@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_local_in_policy6:
-        state: "present"
         action: "accept"
         comments: "<your_own_value>"
         dstaddr:

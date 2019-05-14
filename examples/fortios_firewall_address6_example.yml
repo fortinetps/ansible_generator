@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_address6:
-        state: "present"
         name: mine
         type: ipprefix
         ip6: "1323:5324::/32"

@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_internet_service:
-        state: "present"
         database: "isdb"
         direction: "src"
         icon_id: "11"

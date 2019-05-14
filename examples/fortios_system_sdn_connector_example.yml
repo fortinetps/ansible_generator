@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       system_sdn_connector:
-        state: "present"
         name: "default_name_12"
         type: "aws"
         access_key: "AKDIG7382JUF"

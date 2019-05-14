@@ -12,9 +12,9 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       system_interface:
-        state: "present"
-        name: port2
+        name: port1
         vdom: root
         algorithm: "L2"
         allowaccess: [ ping, http ]

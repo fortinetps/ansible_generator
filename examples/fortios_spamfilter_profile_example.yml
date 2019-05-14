@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       spamfilter_profile:
-        state: "present"
         comment: "Comment 123."
         external: "disable"
         flow_based: "disable"

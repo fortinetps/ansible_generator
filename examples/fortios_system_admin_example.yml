@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       system_admin:
-        state: "present"
         accprofile: "prof_admin"
         comments: "Admin Aux"
         email_to: "admin@mycompany.com"

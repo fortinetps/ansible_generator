@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       endpoint_control_forticlient_ems:
-        state: "present"
         address: "update.microsoft.com"
         admin_password: "pw"
         admin_type: "Windows"

@@ -12,7 +12,7 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       webfilter_override:
-        state: "absent"
         id:  "2"
 

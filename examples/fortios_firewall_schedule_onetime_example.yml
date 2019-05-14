@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_schedule_onetime:
-        state: "present"
         color: "3"
         end: "00:00 2021/12/01"
         expiration_days: "5"

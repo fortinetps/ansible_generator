@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_ldb_monitor:
-        state: "present"
         http_get: "/status"
         http_match: "server is ok"
         http_max_redirects: "5"

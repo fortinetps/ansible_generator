@@ -12,7 +12,7 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       application_list:
-        state: "absent"
         name: default_monitor
  

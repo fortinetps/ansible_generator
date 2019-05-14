@@ -12,7 +12,7 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       dnsfilter_domain_filter:
-        state: "absent"
         id:  "10"
         name: "myfilter"

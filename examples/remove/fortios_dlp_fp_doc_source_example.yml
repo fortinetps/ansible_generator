@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       dlp_fp_doc_source:
-        state: "absent"
         name: "dlp_fp_server"

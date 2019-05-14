@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "True"
+      state: "absent"
       system_vdom:
-        state: "absent"
         name: "secondary_vdom"

@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       system_accprofile:
-        state: "present"
         admintimeout: "3"
         admintimeout_override: "enable"
         authgrp: "none"

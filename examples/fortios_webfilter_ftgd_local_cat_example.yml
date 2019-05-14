@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       webfilter_ftgd_local_cat:
-        state: "present"
         desc: "My new category"
         id:  "142"
         status: "enable"

@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_DoS_policy:
-        state: "present"
         anomaly:
          -
             action: "pass"

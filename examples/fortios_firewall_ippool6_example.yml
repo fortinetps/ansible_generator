@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_ippool6:
-        state: "present"
         name: My ippool
         startip: "::1450:342a"
         endip: "::1450:342f"

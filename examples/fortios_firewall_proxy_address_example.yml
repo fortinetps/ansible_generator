@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_proxy_address:
-        state: "present"
         case_sensitivity: "disable"
         category:
          -

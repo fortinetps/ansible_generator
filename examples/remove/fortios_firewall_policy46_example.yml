@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       firewall_policy46:
-        state: "absent"
         policyid: 1
   - name: Configure IPv4 to IPv6 virtual IPs.
     fortios_firewall_vip46:
@@ -22,7 +22,7 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       firewall_vip46:
-        state: "absent"
         name: newVIP46
         id: 0

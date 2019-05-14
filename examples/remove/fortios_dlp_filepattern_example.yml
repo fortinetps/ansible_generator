@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       dlp_filepattern:
-        state: "absent"
         comment: "Optional comments."
         entries:
          -

@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       firewall_internet_service_custom:
-        state: "absent"
         name: "myCustomInetService"

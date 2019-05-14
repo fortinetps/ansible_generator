@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_profile_protocol_options:
-        state: "present"
         comment: "Optional comments."
         http:
             block_page_status_code: "101"

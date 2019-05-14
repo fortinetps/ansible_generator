@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       icap_profile:
-        state: "absent"
         name: "default_name_4"

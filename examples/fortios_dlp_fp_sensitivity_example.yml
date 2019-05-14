@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       dlp_fp_sensitivity:
-        state: "present"
         name: "Info"

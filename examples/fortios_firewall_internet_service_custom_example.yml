@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_internet_service_custom:
-        state: "present"
         comment: "Comment."
         entry:
          -

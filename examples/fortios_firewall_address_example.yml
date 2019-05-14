@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_address:
-        state: "present"
         name: ip_test_example
         subnet: 10.210.4.0/24
         type: iprange

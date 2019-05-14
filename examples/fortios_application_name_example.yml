@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       application_name:
-        state: "present"
         category: "28"
         id: "10"
         name: "Skype"

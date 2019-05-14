@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_ip_translation:
-        state: "present"
         endip: "10.210.2.20"
         startip: "10.210.2.2"
         transid: "6"

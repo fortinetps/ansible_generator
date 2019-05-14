@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       user_tacacsplus:
-        state: "present"
         authen_type: "auto"
         authorization: "disable"
         key: "u829Jfow123"

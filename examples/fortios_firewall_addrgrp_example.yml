@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_addrgrp:
-        state: "present"
         allow_routing: "enable"
         color: "4"
         comment: "Comment."

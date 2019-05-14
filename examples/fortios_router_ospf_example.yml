@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       router_access_list:
-        state: "present"
         comments: "Access List"
         name: "access-list1"
         rule:
@@ -28,8 +28,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       router_access_list:
-        state: "present"
         comments: "Access List"
         name: "access-list2"
         rule:

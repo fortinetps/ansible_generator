@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_vip:
-        state: "present"
         name: "1"
         type: static_nat
         dns_mapping_ttl: 0

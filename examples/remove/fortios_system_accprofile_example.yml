@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       system_accprofile:
-        state: "absent"
         name: "default_name_20"

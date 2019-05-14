@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       dlp_fp_doc_source:
-        state: "present"
         date: "3"
         file_path: "/usr/local/dlp"
         file_pattern: "*"

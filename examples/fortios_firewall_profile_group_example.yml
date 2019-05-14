@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_profile_group:
-        state: "present"
         application_list: "default"
         av_profile: "default"
         dnsfilter_profile: "default"

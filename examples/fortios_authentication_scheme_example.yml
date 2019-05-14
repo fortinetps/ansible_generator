@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       authentication_scheme:
-        state: "present"
         method: "basic"
         name: "default_name_8"
         fsso_guest: "disable"

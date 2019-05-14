@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       endpoint_control_client:
-        state: "absent"
         id:  "5"

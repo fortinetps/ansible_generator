@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       endpoint_control_profile:
-        state: "present"
         profile_name: My New Profile
         forticlient_winmac_settings:
             forticlient_registration_compliance_action: warning

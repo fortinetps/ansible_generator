@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       firewall_proxy_addrgrp:
-        state: "absent"
         name: "default_name_7"
   - name: Web proxy address configuration.
     fortios_firewall_proxy_address:
@@ -22,6 +22,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       firewall_proxy_address:
-        state: "absent"
         name: "default_name_18"

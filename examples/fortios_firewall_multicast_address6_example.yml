@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_multicast_address6:
-        state: "present"
         color: "3"
         comment: "Comment."
         ip6: "FF01:0:0:0:0:0:0:FC"

@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_interface_policy:
-        state: "present"
         address_type: "ipv4"
         application_list: "sniffer-profile"
         application_list_status: "enable"

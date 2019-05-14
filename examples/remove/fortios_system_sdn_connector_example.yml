@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       system_sdn_connector:
-        state: "absent"
         name: "default_name_12"

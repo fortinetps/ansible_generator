@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       application_group:
-        state: "present"
         application:
          -
             id:  "4"

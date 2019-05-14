@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       ssh_filter_profile:
-        state: "present"
         block: "x11"
         default_command_log: "enable"
         log: "x11"

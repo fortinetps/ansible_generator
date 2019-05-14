@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       dlp_sensor:
-        state: "present"
         comment: "Comment."
         dlp_log: "enable"
         extended_log: "enable"

@@ -12,7 +12,7 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       report_dataset:
-        state: "present"
         name: "default_name_8"
         query: "SELECT * FROM table"

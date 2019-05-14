@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       application_list:
-        state: "present"
         name: default_monitor
         comment: Monitor all applications.
         replacemsg_group: ''

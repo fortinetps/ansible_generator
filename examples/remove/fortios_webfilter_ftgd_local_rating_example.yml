@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       webfilter_ftgd_local_rating:
-        state: "absent"
         url: "myurl.com"

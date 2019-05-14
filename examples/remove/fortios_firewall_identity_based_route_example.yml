@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       firewall_identity_based_route:
-        state: "absent"
         name: "my fw id based route"

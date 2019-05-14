@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       router_access_list:
-        state: "present"
         comments: "Router access list"
         name: "default_name_4"
         rule:

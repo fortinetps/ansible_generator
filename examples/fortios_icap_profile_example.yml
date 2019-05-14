@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       icap_profile:
-        state: "present"
         methods: "delete"
         name: "default_name_4"
         request: "disable"

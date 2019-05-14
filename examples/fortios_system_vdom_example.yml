@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "True"
+      state: "present"
       system_vdom:
-        state: "present"
         name: "secondary_vdom"
         short_name: "vdom2"
         temporary: "5"

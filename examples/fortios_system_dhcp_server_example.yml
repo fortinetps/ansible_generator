@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       system_dhcp_server:
-        state: "present"
         auto_configuration: "disable"
         default_gateway: "10.20.1.1"
         dns_server1: "8.8.8.8"

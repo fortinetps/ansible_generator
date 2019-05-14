@@ -7,8 +7,8 @@
       password: ""
       vdom: root
       https: False
+      state: "present"
       firewall_policy:
-        state: "present"
         policyid: "2002"
         name: "Policy_2002"
         action: "deny"

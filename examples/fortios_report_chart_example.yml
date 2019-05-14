@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       report_chart:
-        state: "present"
         category: "misc"
         comments: "New chart"
         dataset: "fd"

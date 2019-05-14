@@ -12,6 +12,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       firewall_addrgrp6:
-        state: "absent"
         name: Address Group IPv6

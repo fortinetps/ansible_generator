@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       firewall_vipgrp6:
-        state: "absent"
         name: "my vip group IPv6"
   - name: Configure virtual IP for IPv6.
     fortios_firewall_vip6:
@@ -22,6 +22,6 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "absent"
       firewall_vip6:
-        state: "absent"
         name: vipIPv6

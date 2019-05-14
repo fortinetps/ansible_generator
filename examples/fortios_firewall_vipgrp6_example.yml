@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_vip6:
-        state: "present"
         name: vipIPv6
         comment: new vip
         type: static_nat
@@ -83,8 +83,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       firewall_vipgrp6:
-        state: "present"
         color: "3"
         comments: "Vip group for IPv6"
         member:

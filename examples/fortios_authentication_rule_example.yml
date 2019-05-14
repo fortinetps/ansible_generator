@@ -12,8 +12,8 @@
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
+      state: "present"
       authentication_rule:
-        state: "present"
         comments: "This is a comment"
         ip_based: "enable"
         name: "default_name_6"
