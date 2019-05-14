@@ -47,7 +47,6 @@ def flatten_multilists_attributes(data):
 {% endif-%}
 
 def underscore_to_hyphen(data):
-
     if type(data) is list:
         for elem in data:
             elem = underscore_to_hyphen(elem)
@@ -63,19 +62,22 @@ def underscore_to_hyphen(data):
 
 def {{path}}_{{name}}(data, fos):
     vdom = data['vdom']
+    {%- if "mkey" in schema['schema'] %}
+    state = data['state']
+    {%-endif%}
     {{path}}_{{name}}_data = data['{{path}}_{{name}}']
     {% if special_attributes != [] -%}{{path}}_{{name}}_data = flatten_multilists_attributes({{path}}_{{name}}_data)
     {% endif -%}
     filtered_data = underscore_to_hyphen(filter_{{path}}_{{name}}_data({{path}}_{{name}}_data))
 
     {% if "mkey" in schema['schema'] %}
-    if {{path}}_{{name}}_data['state'] == "present":
+    if state == "present":
         return fos.set('{{original_path}}',
                        '{{original_name}}',
                        data=filtered_data,
                        vdom=vdom)
 
-    elif {{path}}_{{name}}_data['state'] == "absent":
+    elif state == "absent":
         return fos.delete('{{original_path}}',
                           '{{original_name}}',
                           mkey=filtered_data['{{schema['schema']['mkey']|replace('_', '-')}}'],
@@ -185,12 +187,12 @@ def main():
         "password": {"required": False, "type": "str", "no_log": True},
         "vdom": {"required": False, "type": "str", "default": "root"},
         "https": {"required": False, "type": "bool", "default": True},
+        {%if "mkey" in schema['schema'] %}"state": {"required": True, "type": "str",
+                        "choices": ["present", "absent"]},
+        {%endif-%}
         "{{path}}_{{name}}": {
             "required": False, "type": "dict",
             "options": {
-                {%if "mkey" in schema['schema'] %}"state": {"required": True, "type": "str",
-                             "choices": ["present", "absent"]},
-                {%endif-%}
                 {{ code_fields(schema['schema']['children'], schema['schema']['mkey'], '') }}
             }
         }

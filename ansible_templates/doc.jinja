@@ -82,18 +82,19 @@ options:
               protocol
         type: bool
         default: true
+    {%-if "mkey" in schema['schema'] %}
+    state: 
+        description: 
+            - Indicates whether to create or remove the object
+        choices:
+            - present
+            - absent
+        {%-endif%}
     {{path}}_{{name}}:
         description:
             - {{schema['schema']['help']}}
         default: null
         suboptions: 
-            {%-if "mkey" in schema['schema'] %}
-            state: 
-                description: 
-                    - Indicates whether to create or remove the object
-                choices:
-                    - present
-                    - absent
-                {%-endif-%}{{ doc_attributes(schema['schema']['children'], schema['schema']['mkey'])|indent }}
+            {{- doc_attributes(schema['schema']['children'], schema['schema']['mkey'])|indent }}
 '''
 
