@@ -14,11 +14,11 @@
       https: "False"
       state: "present"
       extender_controller_extender:
-        aaa_shared_secret: "aaa_sh"
+        aaa_shared_secret: "aaa-sh"
         access_point_name: "ap1"
         admin: "disable"
         billing_start_day: "7"
-        dial_mode: "dial_on_demand"
+        dial_mode: "dial-on-demand"
         dial_status: "14"
         id:  "17"
         quota_limit_mb: "29"

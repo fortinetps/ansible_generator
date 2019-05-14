@@ -16,7 +16,7 @@
         admin_concurrent: enable
         admin_console_timeout: 0
         admin_https_pki_required: disable
-        admin_https_ssl_versions: [tlsv1_1, tlsv1_2]
+        admin_https_ssl_versions: [tlsv1-1, tlsv1-2]
         admin_lockout_duration: 60
         admin_lockout_threshold: 3
         admin_login_max: 100
@@ -41,7 +41,7 @@
         auth_http_port: 1000
         auth_https_port: 1003
         auth_keepalive: disable
-        auth_session_limit: block_new
+        auth_session_limit: block-new
         auto_auth_extension_device: enable
         av_affinity: '0'
         av_failopen_session: disable
@@ -99,7 +99,7 @@
         ldapconntimeout: 500
         lldp_transmission: disable
         log_ssl_connection: disable
-        log_uuid: policy_only
+        log_uuid: policy-only
         login_timestamp: disable
         long_vdom_name: disable
         management_vdom: root

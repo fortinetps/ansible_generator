@@ -17,7 +17,7 @@
         name: default2
         comment: Default web filtering.
         replacemsg_group: ''
-        inspection_mode: flow_based
+        inspection_mode: flow-based
         https_replacemsg: enable
         post_action: normal
         override:
@@ -26,7 +26,7 @@
           profile_type: list
           ovrd_dur_mode: constant
           ovrd_dur: 15m
-          profile_attribute: Login_LAT_Service
+          profile_attribute: Login-LAT-Service
           ovrd_user_group: []
           profile: []
         web:
@@ -52,7 +52,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 2
             id: 2
@@ -62,7 +62,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 3
             id: 3
@@ -72,7 +72,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 4
             id: 4
@@ -82,7 +82,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 5
             id: 5
@@ -92,7 +92,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 6
             id: 6
@@ -102,7 +102,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 7
             id: 7
@@ -112,7 +112,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 8
             id: 8
@@ -122,7 +122,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 9
             id: 9
@@ -132,7 +132,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 10
             id: 10
@@ -142,7 +142,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 11
             id: 11
@@ -152,7 +152,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 12
             id: 12
@@ -162,7 +162,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 13
             id: 13
@@ -172,7 +172,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 14
             id: 14
@@ -182,7 +182,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 15
             id: 15
@@ -192,7 +192,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 16
             id: 16
@@ -202,7 +202,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 17
             id: 17
@@ -212,7 +212,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 18
             id: 18
@@ -222,7 +222,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 19
             id: 19
@@ -232,7 +232,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 20
             id: 20
@@ -242,7 +242,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 21
             id: 21
@@ -252,7 +252,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 22
             id: 22
@@ -262,7 +262,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           - q_origin_key: 23
             id: 23
@@ -272,7 +272,7 @@
             auth_usr_grp: []
             log: enable
             override_replacemsg: ''
-            warning_prompt: per_category
+            warning_prompt: per-category
             warning_duration_type: timeout
           quota: []
           max_quota_timeout: 300
@@ -282,7 +282,7 @@
           rate_crl_urls: enable
         wisp: disable
         wisp_servers: []
-        wisp_algorithm: auto_learning
+        wisp_algorithm: auto-learning
         log_all_url: disable
         web_content_log: enable
         web_filter_activex_log: enable

@@ -29,5 +29,5 @@
         status: "disable"
         upload_day: ""
         upload_interval: "daily"
-        upload_option: "store_and_upload"
+        upload_option: "store-and-upload"
         upload_time: "00:00"

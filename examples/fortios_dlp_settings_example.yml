@@ -15,5 +15,5 @@
       dlp_settings:
         cache_mem_percent: "3"
         chunk_size: "3000"
-        db_mode: "stop_adding"
+        db_mode: "stop-adding"
         size: "20"

@@ -47,11 +47,10 @@ def flatten_multilists_attributes(data):
 {% endif-%}
 
 def underscore_to_hyphen(data):
-    if type(data) is list:
+    if isinstance(data, list):
         for elem in data:
             elem = underscore_to_hyphen(elem)
-
-    elif type(data) is dict:
+    elif isinstance(data, dict):
         new_data = {}
         for k, v in data.items():
             new_data[k.replace('_', '-')] = underscore_to_hyphen(v)

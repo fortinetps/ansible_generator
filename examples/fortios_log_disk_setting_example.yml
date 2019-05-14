@@ -30,7 +30,7 @@
         status: "enable"
         upload: "enable"
         upload_delete_files: "enable"
-        upload_destination: "ftp_server"
+        upload_destination: "ftp-server"
         uploaddir: "/"
         uploadip: "10.2.4.10"
         uploadpass: "pw123"

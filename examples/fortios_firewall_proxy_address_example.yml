@@ -35,7 +35,7 @@
         path: "<your_own_value>"
         query: "<your_own_value>"
         referrer: "enable"
-        type: "host_regex"
+        type: "host-regex"
         ua: "chrome"
         uuid: "<your_own_value>"
         visibility: "enable"

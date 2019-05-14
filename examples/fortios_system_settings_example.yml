@@ -16,9 +16,9 @@
         comments: ''
         opmode: nat
         inspection_mode: proxy
-        ngfw_mode: profile_based
+        ngfw_mode: profile-based
         implicit_allow_dns: enable
-        ssl_ssh_profile: certificate_inspection
+        ssl_ssh_profile: certificate-inspection
         http_external_dest: fortiweb
         firewall_session_dirty: check_all
         manageip: ''
@@ -71,7 +71,7 @@
         ecmp_max_paths: 10
         discovered_device_timeout: 28
         email_portal_check_dns: enable
-        default_voip_alg_mode: proxy_based
+        default_voip_alg_mode: proxy-based
         gui_icap: disable
         gui_nat46_64: disable
         gui_implicit_policy: enable
@@ -122,5 +122,5 @@
         compliance_check: disable
         ike_session_resume: disable
         ike_quick_crash_detect: disable
-        ike_dn_format: with_space
+        ike_dn_format: with-space
         block_land_attack: disable

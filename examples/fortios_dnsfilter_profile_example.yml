@@ -24,7 +24,7 @@
                 category: "9"
                 id:  "14"
                 log: "enable"
-            options: "error_allow"
+            options: "error-allow"
         log_all_domain: "enable"
         name: "mydnsprofile"
         redirect_portal: "10.210.9.130"

@@ -16,7 +16,7 @@
       firewall_vip6:
         name: vipIPv6
         comment: new vip
-        type: static_nat
+        type: static-nat
         src_filter: []
         extip: "::1823:4324:436a-::1823:4324:4400"
         mappedip: "::1032:2000:2134:2-::1032:2000:2134:98"
@@ -34,7 +34,7 @@
         http_cookie_path: ''
         http_cookie_generation: 0
         http_cookie_age: 60
-        http_cookie_share: same_ip
+        http_cookie_share: same-ip
         https_cookie_secure: disable
         http_multiplex: disable
         http_ip_header: disable
@@ -50,8 +50,8 @@
         ssl_server_algorithm: client
         ssl_server_cipher_suites: []
         ssl_pfs: require
-        ssl_min_version: tls_1.1
-        ssl_max_version: tls_1.2
+        ssl_min_version: tls-1.1
+        ssl_max_version: tls-1.2
         ssl_server_min_version: client
         ssl_server_max_version: client
         ssl_send_empty_frags: enable

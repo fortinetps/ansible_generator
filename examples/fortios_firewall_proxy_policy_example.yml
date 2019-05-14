@@ -15,7 +15,7 @@
       state: "present"
       firewall_proxy_policy:
         policyid: 1
-        proxy: transparent_web
+        proxy: transparent-web
         srcintf:
         - name: port2
         dstintf:

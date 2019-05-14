@@ -14,7 +14,7 @@
       https: "False"
       state: "present"
       webfilter_search_engine:
-        charset: "utf_8"
+        charset: "utf-8"
         hostname: "myhostname"
         name: "default_name_5"
         query: "?query="

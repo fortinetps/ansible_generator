@@ -43,17 +43,19 @@ def calculateFullPath(parent_attrs, attribute_name):
 
 
 def hyphenToUnderscore(data):
-    if type(data) is list:
+    if isinstance(data, list):
         for elem in data:
             elem = hyphenToUnderscore(elem)
         return data
-    elif type(data) is dict:
+    elif isinstance(data, dict):
         for k, v in data.items():
-            data[k] = hyphenToUnderscore(v)
+            if not (len(data) == 2 and 'name' in data and 'help' in data):
+                # Only change hyphens for names and complex types. Simple types (enums) only contain name and help
+                data[k] = hyphenToUnderscore(v)
         return data
-    elif type(data) is str:
+    elif isinstance(data, str):
         return data.replace('-', '_')
-    elif type(data) is unicode:
+    elif isinstance(data, unicode):
         return data.encode('utf-8').replace('-', '_')
     else:
         return data

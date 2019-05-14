@@ -15,7 +15,7 @@
       state: "present"
       firewall_vip:
         name: "1"
-        type: static_nat
+        type: static-nat
         dns_mapping_ttl: 0
         ldb_method: static
         extip: 1.1.1.1

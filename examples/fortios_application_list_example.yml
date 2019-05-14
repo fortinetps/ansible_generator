@@ -24,7 +24,7 @@
         unknown_application_action: pass
         unknown_application_log: disable
         deep_app_inspection: enable
-        options: allow_dns
+        options: allow-dns
         entries:
           - id: 1
             risk: []
