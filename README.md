@@ -20,10 +20,19 @@ Check the output in ansible_generator/output/vX.X.X
 
 ## Notes
 
-<b>May 2019</b>: Due to Ansible requirements no hyphens are allowed in attribute names and all modules have been updated to comply with this. 
+
+#### Avoid hyphens in attributes
+
+<b>May 2019</b>
+
+Due to Ansible requirements no hyphens are allowed in attribute names and all modules have been updated to comply with this. 
 
 FortiGate attributes make extensive use of hyphens in attribute names, thus this generator now converts automatically Ansible attribute names (with underscores) to FortiGate attribute names (with hyphens).
 
 This is transparent to the user but old playbooks need to be adapted:
 
   E.g.: "notify-hosts" will now be "notify_hosts"
+
+#### Move 'state' attribute
+
+According to Ansible requirements, the 'state' attribute used to indicate 'present' or 'absent' has been moved one level up and is now part of the module attributes.
