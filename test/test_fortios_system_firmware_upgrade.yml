@@ -1,0 +1,16 @@
+- hosts: localhost
+  vars:
+   host: "192.168.210.11"
+   username: "admin"
+   password: "fortinet"
+   vdom: "root"
+  tasks:
+  - name: Perform firmware upgrade with local firmware file.
+    fortios_monitor_system_firmware_upgrade:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      monitor_system_firmware_upgrade:
+        filename: "/workspaces/ansible_generator/firmware/FGT_VM64_KVM-v6-build0163-FORTINET.out"

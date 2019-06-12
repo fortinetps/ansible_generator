@@ -3,6 +3,24 @@
     "revision":"0.0.0.9541577317218650872.1560308205",
     "results":[
       {
+        "path":"monitor_system",
+        "name":"firmware_upgrade",
+        "schema":{
+          "name":"firmware",
+          "category":"complex",
+          "help":"Perform firmware upgrade with local firmware file.",
+          "children":{
+            "filename":{
+              "name":"filename",
+              "category":"unitary",
+              "type":"string",
+              "help":"Name and path of the local firmware file.",
+              "size":127
+            }
+          }
+        }
+      },
+      {
         "path":"firewall",
         "name":"address-dummy",
         "schema":{

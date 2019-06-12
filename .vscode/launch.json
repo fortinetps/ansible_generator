@@ -13,6 +13,18 @@
             "env": {"PYTHONPATH": "${workspaceRoot}"},
             "console": "integratedTerminal",
             "args": [ "-i", "fgt_monitor_schema.json" ]
+        },
+        {
+            "name": "Python: Terminal (integrated) - Test fortios_monitor_system_firmware_upgrade Ansible module",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/output/v6.0.2/monitor_system/fortios_monitor_system_firmware_upgrade.py",
+            // "cwd": "${workspaceRoot}",
+            "env": {"PYTHONPATH": "${workspaceRoot}"},
+            "console": "integratedTerminal",
+            "args": [
+                "${workspaceFolder}/.vscode/fortios_monitor_system_firmware_upgrade_args.json"
+            ]
         }
     ]
 }

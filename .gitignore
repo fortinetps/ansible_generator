@@ -104,6 +104,7 @@ venv.bak/
 .mypy_cache/
 fgt_schema.json
 output/
+firmware/
 *.retry
 settings.json
 test/*.py
