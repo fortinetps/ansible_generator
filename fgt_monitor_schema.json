@@ -2,7 +2,592 @@
     "http_method":"GET",
     "revision":"0.0.0.9541577317218650872.1560308205",
     "results":[
-        
+      {
+        "path":"firewall",
+        "name":"address-dummy",
+        "schema":{
+          "name":"address",
+          "category":"table",
+          "help":"Configure IPv4 addresses.",
+          "mkey":"name",
+          "mkey_type":"string",
+          "children":{
+            "name":{
+              "name":"name",
+              "category":"unitary",
+              "type":"string",
+              "help":"Address name.",
+              "size":63
+            },
+            "uuid":{
+              "name":"uuid",
+              "category":"unitary",
+              "type":"uuid",
+              "help":"Universally Unique Identifier (UUID; automatically assigned but can be manually reset)."
+            },
+            "subnet":{
+              "name":"subnet",
+              "category":"unitary",
+              "type":"ipv4-classnet-any",
+              "help":"IP address and subnet mask of address."
+            },
+            "type":{
+              "name":"type",
+              "category":"unitary",
+              "type":"option",
+              "help":"Type of address.",
+              "options":[
+                {
+                  "name":"ipmask",
+                  "help":"Standard IPv4 address with subnet mask."
+                },
+                {
+                  "name":"iprange",
+                  "help":"Range of IPv4 addresses between two specified addresses (inclusive)."
+                },
+                {
+                  "name":"fqdn",
+                  "help":"Fully Qualified Domain Name address."
+                },
+                {
+                  "name":"geography",
+                  "help":"IP addresses from a specified country."
+                },
+                {
+                  "name":"wildcard",
+                  "help":"Standard IPv4 using a wildcard subnet mask."
+                },
+                {
+                  "name":"wildcard-fqdn",
+                  "help":"Fully Qualified Domain Name with wildcard characters."
+                },
+                {
+                  "name":"dynamic",
+                  "help":"Dynamic address object for SDN."
+                }
+              ]
+            },
+            "start-ip":{
+              "name":"start-ip",
+              "category":"unitary",
+              "type":"ipv4-address-any",
+              "help":"First IP address (inclusive) in the range for the address."
+            },
+            "end-ip":{
+              "name":"end-ip",
+              "category":"unitary",
+              "type":"ipv4-address-any",
+              "help":"Final IP address (inclusive) in the range for the address."
+            },
+            "fqdn":{
+              "name":"fqdn",
+              "category":"unitary",
+              "type":"string",
+              "help":"Fully Qualified Domain Name address.",
+              "size":255
+            },
+            "country":{
+              "name":"country",
+              "category":"unitary",
+              "type":"string",
+              "help":"IP addresses associated to a specific country.",
+              "size":2
+            },
+            "wildcard-fqdn":{
+              "name":"wildcard-fqdn",
+              "category":"unitary",
+              "type":"string",
+              "help":"Fully Qualified Domain Name with wildcard characters.",
+              "size":255
+            },
+            "cache-ttl":{
+              "name":"cache-ttl",
+              "category":"unitary",
+              "type":"integer",
+              "help":"Defines the minimal TTL of individual IP addresses in FQDN cache measured in seconds.",
+              "min-value":0,
+              "max-value":86400
+            },
+            "wildcard":{
+              "name":"wildcard",
+              "category":"unitary",
+              "type":"ipv4-classnet-any",
+              "help":"IP address and wildcard netmask."
+            },
+            "sdn":{
+              "name":"sdn",
+              "category":"unitary",
+              "type":"option",
+              "help":"SDN.",
+              "options":[
+                {
+                  "name":"aci",
+                  "help":"Application Centric Infrastructure."
+                },
+                {
+                  "name":"aws",
+                  "help":"Amazon Web Services."
+                },
+                {
+                  "name":"azure",
+                  "help":"Microsoft Azure."
+                },
+                {
+                  "name":"gcp",
+                  "help":"Google Cloud Platform."
+                },
+                {
+                  "name":"nsx",
+                  "help":"VMware NSX."
+                },
+                {
+                  "name":"nuage",
+                  "help":"Nuage Virtualized Services Platform."
+                },
+                {
+                  "name":"oci",
+                  "help":"Oracle Cloud Infrastructure."
+                }
+              ]
+            },
+            "tenant":{
+              "name":"tenant",
+              "category":"unitary",
+              "type":"string",
+              "help":"Tenant.",
+              "size":35
+            },
+            "organization":{
+              "name":"organization",
+              "category":"unitary",
+              "type":"string",
+              "help":"Organization domain name (Syntax: organization\/domain).",
+              "size":35
+            },
+            "epg-name":{
+              "name":"epg-name",
+              "category":"unitary",
+              "type":"string",
+              "help":"Endpoint group name.",
+              "size":255
+            },
+            "subnet-name":{
+              "name":"subnet-name",
+              "category":"unitary",
+              "type":"string",
+              "help":"Subnet name.",
+              "size":255
+            },
+            "sdn-tag":{
+              "name":"sdn-tag",
+              "category":"unitary",
+              "type":"string",
+              "help":"SDN Tag.",
+              "size":15
+            },
+            "policy-group":{
+              "name":"policy-group",
+              "category":"unitary",
+              "type":"string",
+              "help":"Policy group name.",
+              "size":15
+            },
+            "comment":{
+              "name":"comment",
+              "category":"unitary",
+              "type":"var-string",
+              "help":"Comment.",
+              "size":255
+            },
+            "visibility":{
+              "name":"visibility",
+              "category":"unitary",
+              "type":"option",
+              "help":"Enable\/disable address visibility in the GUI.",
+              "options":[
+                {
+                  "name":"enable",
+                  "help":"Show in address4 selection."
+                },
+                {
+                  "name":"disable",
+                  "help":"Hide from address4 selection."
+                }
+              ]
+            },
+            "associated-interface":{
+              "name":"associated-interface",
+              "category":"unitary",
+              "type":"string",
+              "help":"Network interface associated with address.",
+              "datasource":[
+                "system.interface.name",
+                "system.zone.name"
+              ],
+              "size":35
+            },
+            "color":{
+              "name":"color",
+              "category":"unitary",
+              "type":"integer",
+              "help":"Color of icon on the GUI.",
+              "min-value":0,
+              "max-value":32
+            },
+            "filter":{
+              "name":"filter",
+              "category":"unitary",
+              "type":"var-string",
+              "help":"Match criteria filter.",
+              "required":true,
+              "size":255
+            },
+            "obj-id":{
+              "name":"obj-id",
+              "category":"unitary",
+              "type":"var-string",
+              "help":"Object ID for NSX.",
+              "size":255
+            },
+            "list":{
+              "name":"list",
+              "category":"table",
+              "help":"IP address list.",
+              "mkey":"ip",
+              "mkey_type":"string",
+              "children":{
+                "ip":{
+                  "name":"ip",
+                  "category":"unitary",
+                  "type":"string",
+                  "help":"IP.",
+                  "required":true,
+                  "size":35
+                }
+              },
+              "max_table_size_vdom":0,
+              "max_table_size_global":0,
+              "max_table_size_item":0
+            },
+            "tagging":{
+              "name":"tagging",
+              "category":"table",
+              "help":"Config object tagging.",
+              "mkey":"name",
+              "mkey_type":"string",
+              "children":{
+                "name":{
+                  "name":"name",
+                  "category":"unitary",
+                  "type":"string",
+                  "help":"Tagging entry name.",
+                  "size":63
+                },
+                "category":{
+                  "name":"category",
+                  "category":"unitary",
+                  "type":"string",
+                  "help":"Tag category.",
+                  "datasource":[
+                    "system.object-tagging.category"
+                  ],
+                  "size":63
+                },
+                "tags":{
+                  "name":"tags",
+                  "category":"table",
+                  "help":"Tags.",
+                  "mkey":"name",
+                  "mkey_type":"string",
+                  "children":{
+                    "name":{
+                      "name":"name",
+                      "category":"unitary",
+                      "type":"string",
+                      "help":"Tag name.",
+                      "datasource":[
+                        "system.object-tagging.tags.name"
+                      ],
+                      "size":64
+                    }
+                  },
+                  "max_table_size_vdom":0,
+                  "max_table_size_global":0,
+                  "max_table_size_item":0
+                }
+              },
+              "max_table_size_vdom":0,
+              "max_table_size_global":0,
+              "max_table_size_item":0
+            },
+            "allow-routing":{
+              "name":"allow-routing",
+              "category":"unitary",
+              "type":"option",
+              "help":"Enable\/disable use of this address in the static route configuration.",
+              "options":[
+                {
+                  "name":"enable",
+                  "help":"Enable use of this address in the static route configuration."
+                },
+                {
+                  "name":"disable",
+                  "help":"Disable use of this address in the static route configuration."
+                }
+              ]
+            }
+          },
+          "max_table_size_vdom":20000,
+          "max_table_size_global":20000,
+          "max_table_size_item":0,
+          "path":"firewall",
+          "q_type":27,
+          "access_group":"fwgrp"
+        }
+      },
+      {
+        "path":"user",
+        "name":"device-dummy",
+        "schema":{
+          "name":"device",
+          "category":"table",
+          "help":"Configure devices.",
+          "mkey":"alias",
+          "mkey_type":"string",
+          "children":{
+            "alias":{
+              "name":"alias",
+              "category":"unitary",
+              "type":"string",
+              "help":"Device alias.",
+              "size":35
+            },
+            "mac":{
+              "name":"mac",
+              "category":"unitary",
+              "type":"mac-address",
+              "help":"Device MAC address(es).",
+              "required":true
+            },
+            "user":{
+              "name":"user",
+              "category":"unitary",
+              "type":"string",
+              "help":"User name.",
+              "size":64
+            },
+            "master-device":{
+              "name":"master-device",
+              "category":"unitary",
+              "type":"string",
+              "help":"Master device (optional).",
+              "datasource":[
+                "user.device.alias"
+              ],
+              "size":35
+            },
+            "comment":{
+              "name":"comment",
+              "category":"unitary",
+              "type":"var-string",
+              "help":"Comment.",
+              "size":255
+            },
+            "avatar":{
+              "name":"avatar",
+              "category":"unitary",
+              "type":"var-string",
+              "help":"Image file for avatar (maximum 4K base64 encoded).",
+              "size":4095
+            },
+            "tagging":{
+              "name":"tagging",
+              "category":"table",
+              "help":"Config object tagging.",
+              "mkey":"name",
+              "mkey_type":"string",
+              "children":{
+                "name":{
+                  "name":"name",
+                  "category":"unitary",
+                  "type":"string",
+                  "help":"Tagging entry name.",
+                  "size":63
+                },
+                "category":{
+                  "name":"category",
+                  "category":"unitary",
+                  "type":"string",
+                  "help":"Tag category.",
+                  "datasource":[
+                    "system.object-tagging.category"
+                  ],
+                  "size":63
+                },
+                "tags":{
+                  "name":"tags",
+                  "category":"table",
+                  "help":"Tags.",
+                  "mkey":"name",
+                  "mkey_type":"string",
+                  "children":{
+                    "name":{
+                      "name":"name",
+                      "category":"unitary",
+                      "type":"string",
+                      "help":"Tag name.",
+                      "datasource":[
+                        "system.object-tagging.tags.name"
+                      ],
+                      "size":64
+                    }
+                  },
+                  "max_table_size_vdom":0,
+                  "max_table_size_global":0,
+                  "max_table_size_item":0
+                }
+              },
+              "max_table_size_vdom":0,
+              "max_table_size_global":0,
+              "max_table_size_item":0
+            },
+            "type":{
+              "name":"type",
+              "category":"unitary",
+              "type":"option",
+              "help":"Device type.",
+              "options":[
+                {
+                  "name":"unknown",
+                  "help":"Device type not yet determined."
+                },
+                {
+                  "name":"android-phone",
+                  "help":"Android-based phones."
+                },
+                {
+                  "name":"android-tablet",
+                  "help":"Android-based tablets."
+                },
+                {
+                  "name":"blackberry-phone",
+                  "help":"BlackBerry phones."
+                },
+                {
+                  "name":"blackberry-playbook",
+                  "help":"BlackBerry tablets."
+                },
+                {
+                  "name":"forticam",
+                  "help":"FortiCam."
+                },
+                {
+                  "name":"fortifone",
+                  "help":"FortiFone."
+                },
+                {
+                  "name":"fortinet-device",
+                  "help":"Other Fortinet devices."
+                },
+                {
+                  "name":"gaming-console",
+                  "help":"Gaming consoles (Xbox, PS2, PS3, Wii, PSP)."
+                },
+                {
+                  "name":"ip-phone",
+                  "help":"VoIP phones."
+                },
+                {
+                  "name":"ipad",
+                  "help":"iPad Tablets."
+                },
+                {
+                  "name":"iphone",
+                  "help":"iPhone and iPod Touch devices."
+                },
+                {
+                  "name":"linux-pc",
+                  "help":"Linux PC."
+                },
+                {
+                  "name":"mac",
+                  "help":"Mac computers."
+                },
+                {
+                  "name":"media-streaming",
+                  "help":"Other media streaming devices."
+                },
+                {
+                  "name":"printer",
+                  "help":"Printing devices."
+                },
+                {
+                  "name":"router-nat-device",
+                  "help":"Router and\/or NAT devices."
+                },
+                {
+                  "name":"windows-pc",
+                  "help":"Windows PC."
+                },
+                {
+                  "name":"windows-phone",
+                  "help":"Windows-based phones."
+                },
+                {
+                  "name":"windows-tablet",
+                  "help":"Windows-based tablets."
+                },
+                {
+                  "name":"other-network-device",
+                  "help":"All other identified devices."
+                }
+              ]
+            },
+            "category":{
+              "name":"category",
+              "category":"unitary",
+              "type":"option",
+              "help":"Device category.",
+              "options":[
+                {
+                  "name":"none",
+                  "help":"No specific category."
+                },
+                {
+                  "name":"amazon-device",
+                  "help":"Amazon devices."
+                },
+                {
+                  "name":"android-device",
+                  "help":"Android devices."
+                },
+                {
+                  "name":"blackberry-device",
+                  "help":"BlackBerry devices."
+                },
+                {
+                  "name":"fortinet-device",
+                  "help":"Fortinet devices."
+                },
+                {
+                  "name":"ios-device",
+                  "help":"Devices running Apple iOS."
+                },
+                {
+                  "name":"windows-device",
+                  "help":"Devices running Microsoft Windows."
+                }
+              ]
+            }
+          },
+          "max_table_size_vdom":0,
+          "max_table_size_global":4000,
+          "max_table_size_item":0,
+          "path":"user",
+          "q_type":32,
+          "access_group":"authgrp"
+        }
+      }
     ],
     "vdom":"root",
     "action":"schema",

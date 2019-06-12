@@ -56,8 +56,8 @@ def hyphenToUnderscore(data):
         return data
     elif isinstance(data, str):
         return data.replace('-', '_')
-    elif isinstance(data, unicode):
-        return data.encode('utf-8').replace('-', '_')
+    # elif isinstance(data, unicode):   # python3 all strings are unicode
+    #     return data.encode('utf-8').replace('-', '_')
     else:
         return data
 
