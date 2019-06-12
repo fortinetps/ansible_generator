@@ -3,7 +3,8 @@ from jinja2 import Template, Environment, FileSystemLoader
 import json
 import autopep8
 import os
-
+import sys
+import getopt
 
 def replaceSpecialChars(str):
     return str.replace('-', '_').replace('.', '_').replace('+', 'plus')
@@ -112,9 +113,10 @@ def renderModule(schema, version, special_attributes):
     print("\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + path + '_' + name + '_example.yml')
 
 
-def jinjaExecutor(number=None):
-
-    fgt_schema_file = open('fgt_schema.json').read()
+def jinjaExecutor(number=None, schema=None):
+    if schema is None:
+        schema = 'fgt_schema.json'
+    fgt_schema_file = open(schema).read()
     fgt_schema = json.loads(fgt_schema_file)
     fgt_sch_results = fgt_schema['results']
 
@@ -126,9 +128,9 @@ def jinjaExecutor(number=None):
         for i, pn in enumerate(fgt_sch_results):
             if 'diagnose' not in pn['path'] and 'execute' not in pn['path']:
                 module_name = getModuleName(pn['path'], pn['name'])
-                print '\n\033[0mParsing schema:'
-                print '\033[0mModule name: \033[92m' + module_name
-                print '\033[0mIteration:\033[93m' + str(real_counter) + "\033[0m, Schema position: \033[93m" + str(i)
+                print ('\n\033[0mParsing schema:')
+                print ('\033[0mModule name: \033[92m' + module_name)
+                print ('\033[0mIteration:\033[93m' + str(real_counter) + "\033[0m, Schema position: \033[93m" + str(i))
                 renderModule(fgt_sch_results[i],
                              fgt_schema['version'],
                              special_attributes[module_name] if module_name in special_attributes else [])
@@ -141,5 +143,24 @@ def jinjaExecutor(number=None):
 
 
 if __name__ == "__main__":
+    schema = 'fgt_schema.json'
+    opts, args = getopt.getopt(sys.argv[1:],"i:h", ["help"])
+    for opt, arg in opts:
+        if opt in ('-h', '--help'):
+            print ("***********************************************************************************")
+            print ("Usage: python generator.py -i <input_api_schema_file>")
+            print ("")
+            print ("  This script generates Ansible modules based API schema file")
+            print ("")
+            print ("  -i: input_api_schema_file, if not specified, default to use file fgt_schema.json")
+            print ("")
+            print ("***********************************************************************************")
+            print ("examples:  ")
+            print ("   python generator.py (default to use fgt_schema.json)")
+            print ("   python generator.py -i fgt_monitor_schema.json")
+            print ("***********************************************************************************")
+            sys.exit(2)
+        elif opt == '-i':
+            schema = arg
 
-    jinjaExecutor()
+    jinjaExecutor(schema=schema)

@@ -1,0 +1,14 @@
+{
+    "http_method":"GET",
+    "revision":"0.0.0.9541577317218650872.1560308205",
+    "results":[
+        
+    ],
+    "vdom":"root",
+    "action":"schema",
+    "status":"success",
+    "http_status":200,
+    "serial":"FGVM02TM18001499",
+    "version":"v6.0.2",
+    "build":163
+  }
