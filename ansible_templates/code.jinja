@@ -1,7 +1,6 @@
 
 from ansible.module_utils.basic import AnsibleModule
 
-
 def login(data, fos):
     host = data['host']
     username = data['username']
@@ -47,6 +46,7 @@ def flatten_multilists_attributes(data):
 {% endif-%}
 
 def underscore_to_hyphen(data):
+    {%-if "monitor" is not in schema %}
     if isinstance(data, list):
         for elem in data:
             elem = underscore_to_hyphen(elem)
@@ -55,13 +55,20 @@ def underscore_to_hyphen(data):
         for k, v in data.items():
             new_data[k.replace('_', '-')] = underscore_to_hyphen(v)
         data = new_data
+    {% endif %}
 
     return data
 
 
 def {{path}}_{{name}}(data, fos):
+    {%- if "import" in schema %}
+    {% for item in schema['import'].split(',')-%}
+    import {{item}}
+    {% endfor %}
+    {% endif %}
+    
     vdom = data['vdom']
-    {%- if "mkey" in schema['schema'] %}
+    {%- if not "monitor" in schema and "mkey" in schema['schema'] %}
     state = data['state']
     {%-endif%}
     {{path}}_{{name}}_data = data['{{path}}_{{name}}']
@@ -69,7 +76,15 @@ def {{path}}_{{name}}(data, fos):
     {% endif -%}
     filtered_data = underscore_to_hyphen(filter_{{path}}_{{name}}_data({{path}}_{{name}}_data))
 
-    {% if "mkey" in schema['schema'] %}
+    {% if "code-inject" in schema %}
+    # code-inject from schema begin
+    {% for item in schema['code-inject']-%}
+    {{item}}
+    {% endfor-%}
+    # code-inject from schema end
+    {% endif %}
+
+    {% if not "monitor" in schema and "mkey" in schema['schema'] %}
     if state == "present":
         return fos.set('{{original_path}}',
                        '{{original_name}}',
@@ -81,6 +96,11 @@ def {{path}}_{{name}}(data, fos):
                           '{{original_name}}',
                           mkey=filtered_data['{{schema['schema']['mkey']|replace('_', '-')}}'],
                           vdom=vdom)
+    {%elif "monitor" in schema %}
+    return fos.execute('{{original_path}}',
+                    '{{original_name}}/{{original_monitor}}',
+                    data=filtered_data,
+                    vdom=vdom)
     {%else%}
     return fos.set('{{original_path}}',
                     '{{original_name}}',
@@ -186,11 +206,12 @@ def main():
         "password": {"required": False, "type": "str", "no_log": True},
         "vdom": {"required": False, "type": "str", "default": "root"},
         "https": {"required": False, "type": "bool", "default": True},
-        {%if "mkey" in schema['schema'] %}"state": {"required": True, "type": "str",
-                        "choices": ["present", "absent"]},
+        {%if not "monitor" in schema and "mkey" in schema['schema'] %}"state": {"required": True, "type": "str", "choices": ["present", "absent"]},
         {%endif-%}
         "{{path}}_{{name}}": {
-            "required": False, "type": "dict",
+            {%if "mkey" in schema['schema']-%}"required": True, "type": "dict",
+            {%else-%}"required": False, "type": "dict",
+            {%endif-%}
             "options": {
                 {{ code_fields(schema['schema']['children'], schema['schema']['mkey'], '') }}
             }

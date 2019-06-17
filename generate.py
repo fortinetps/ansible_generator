@@ -10,8 +10,8 @@ def replaceSpecialChars(str):
     return str.replace('-', '_').replace('.', '_').replace('+', 'plus')
 
 
-def getModuleName(path, name):
-    return replaceSpecialChars(path) + "_" + replaceSpecialChars(name)
+def getModuleName(path, name, monitor=None):
+    return replaceSpecialChars(path) + "_" + replaceSpecialChars(name) + replaceSpecialChars('' if monitor is None else '_' + monitor)  # Monitor API uri ends with extra monitor action
 
 
 def searchProperBreakableChar(line, startingPosition):
@@ -74,9 +74,11 @@ def renderModule(schema, version, special_attributes):
     description = ""
     original_path = schema['path']
     original_name = schema['name']
+    original_monitor = schema.get('monitor')
     path = replaceSpecialChars(original_path)
     name = replaceSpecialChars(original_name)
-    module_name = "fortios_" + path + "_" + name
+    monitor = None if original_monitor is None else replaceSpecialChars(original_monitor)
+    module_name = "fortios_" + path + "_" + name + ("" if monitor is None else "_" + monitor)
     special_attributes_flattened = [','.join(x for x in elem) for elem in special_attributes]
 
     template = env.get_template('doc.jinja')
@@ -95,22 +97,21 @@ def renderModule(schema, version, special_attributes):
     if not os.path.exists(dir):
         os.makedirs(dir)
 
-    file = open('output/' + version + '/' + path + '/fortios_' + path + '_' + name + '.py', 'w')
+    file = open('output/' + version + '/' + path + '/fortios_' + path + '_' + name + ("" if monitor is None else "_" + monitor) + '.py', 'w')
     output = splitLargeLines(output)
     output = autopep8.fix_code(output, options={'aggressive': 1, 'max_line_length': 160})
     file.write(output)
     file.close()
 
-    file_example = open('output/' + version + '/' + path + '/fortios_' + path +
-                        '_' + name + '_example.yml', 'w')
+    file_example = open('output/' + version + '/' + path + '/fortios_' + path + '_' + name + ("" if monitor is None else "_" + monitor) + '_example.yml', 'w')
     template = env.get_template('examples.jinja')
     output = template.render(**locals())
     lines = output.splitlines(True)
     file_example.writelines(lines[2:-1])
     file_example.close()
 
-    print("\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + path + '_' + name + '.py')
-    print("\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + path + '_' + name + '_example.yml')
+    print("\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + path + '_' + name + ("" if monitor is None else "_" + monitor) + '.py')
+    print("\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + path + '_' + name + ("" if monitor is None else "_" + monitor) + '_example.yml')
 
 
 def jinjaExecutor(number=None, schema=None):
@@ -127,7 +128,7 @@ def jinjaExecutor(number=None, schema=None):
         real_counter = 0
         for i, pn in enumerate(fgt_sch_results):
             if 'diagnose' not in pn['path'] and 'execute' not in pn['path']:
-                module_name = getModuleName(pn['path'], pn['name'])
+                module_name = getModuleName(pn['path'], pn['name'], monitor=pn.get('monitor'))  # Monitor API ends with action in uri
                 print ('\n\033[0mParsing schema:')
                 print ('\033[0mModule name: \033[92m' + module_name)
                 print ('\033[0mIteration:\033[93m' + str(real_counter) + "\033[0m, Schema position: \033[93m" + str(i))

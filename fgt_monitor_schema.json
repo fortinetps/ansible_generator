@@ -3,19 +3,61 @@
     "revision":"0.0.0.9541577317218650872.1560308205",
     "results":[
       {
-        "path":"monitor_system",
-        "name":"firmware_upgrade",
+        "path":"system",
+        "name":"firmware",
+        "monitor":"upgrade",
+        "import":"os,base64",
+        "code-inject":[
+          "filtered_data[\"file_content\"]= base64.b64encode(open(system_firmware_data[\"filename\"], 'rb').read()).decode('utf-8')",
+          "del filtered_data['filename']"
+        ],
         "schema":{
           "name":"firmware",
           "category":"complex",
           "help":"Perform firmware upgrade with local firmware file.",
+          "mkey":"source",
+          "mkey_type":"string",
           "children":{
+            "source":{
+              "name":"source",
+              "category":"unitary",
+              "type":"option",
+              "help":"Firmware file data source [upload|usb|fortiguard].",
+              "options":[
+                {
+                  "name":"upload",
+                  "help":"upload from local file."
+                },
+                {
+                  "name":"usb",
+                  "help":"upload from usb drive (not implemented/supportted yet)."
+                },
+                {
+                  "name":"fortiguard",
+                  "help":"download from FortiGuard services (not implemented/supportted yet)."
+                }
+              ]
+            },
             "filename":{
               "name":"filename",
               "category":"unitary",
               "type":"string",
               "help":"Name and path of the local firmware file.",
               "size":127
+            },
+            "format_partition":{
+              "name":"format_partition",
+              "category":"unitary",
+              "type":"string",
+              "help":"Set to true to format boot partition before upgrade.",
+              "size":8
+            },
+            "file_content":{
+              "name":"file_content",
+              "category":"unitary",
+              "type":"var-string",
+              "help":"Provided when uploading a file: base64 encoded file data. Must not contain whitespace or other invalid base64 characters. Must be included in HTTP body.",
+              "size":100000000
             }
           }
         }

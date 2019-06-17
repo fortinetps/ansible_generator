@@ -5,7 +5,8 @@
         "password": "fortinet",
         "vdom": "root",
         "https": "True",
-        "monitor_system_firmware_upgrade": {
+        "system_firmware": {
+            "source": "upload",
             "filename": "/workspaces/ansible_generator/firmware/FGT_VM64_KVM-v6-build0163-FORTINET.out"
         }
     }
