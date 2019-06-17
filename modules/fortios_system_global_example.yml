@@ -1,0 +1,32 @@
+- hosts: localhost
+  gather_facts: false
+  vars:
+   host: "192.168.210.11"
+   username: "admin"
+   password: "fortinet"
+   vdom: "root"
+  tasks:
+  - name: Configure global attributes.
+    fortios_system_global:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      system_global:
+        hostname: "test123"
+        admintimeout: "479"
+    register: fortios_system_global_result
+  - debug:
+      var: fortios_system_global_result
+
+  - name: Configure global attributes.
+    fortios_system_global:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      system_global:
+    check_mode: yes
+    register: fortios_system_global_result
+  - debug:
+      var: fortios_system_global_result

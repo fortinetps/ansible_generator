@@ -37,6 +37,30 @@
             "args": [
                 "${workspaceFolder}/.vscode/fortios_system_firmware_upgrade_args.json"
             ]
+        },
+        {
+            "name": "Python: Terminal (integrated) - Test fortios_system_firmware_select Ansible module",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/output/v6.0.2/system/fortios_system_firmware_select.py",
+            // "cwd": "${workspaceRoot}",
+            "env": {"PYTHONPATH": "${workspaceRoot}"},
+            "console": "integratedTerminal",
+            "args": [
+                "${workspaceFolder}/.vscode/fortios_system_firmware_select_args.json"
+            ]
+        },
+        {
+            "name": "Python: Terminal (integrated) - Test fortios_system_global Ansible module",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/output/v6.0.2/system/fortios_system_global.py",
+            // "cwd": "${workspaceRoot}",
+            "env": {"PYTHONPATH": "${workspaceRoot}"},
+            "console": "integratedTerminal",
+            "args": [
+                "${workspaceFolder}/.vscode/fortios_system_global_args.check_mode.json"
+            ]
         }
     ]
 }

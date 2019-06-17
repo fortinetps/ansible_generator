@@ -1,0 +1,19 @@
+- hosts: localhost
+  gather_facts: false
+  vars:
+   host: "192.168.210.11"
+   username: "admin"
+   password: "fortinet"
+   vdom: "root"
+  tasks:
+  - name: Retrieve a list of firmware images available to use for upgrade on this device.
+    fortios_system_firmware_select:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "True"
+      system_firmware:
+    register: fortios_system_firmware_select_return
+  - debug:
+      var: fortios_system_firmware_select_return

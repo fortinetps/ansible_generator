@@ -24,8 +24,8 @@ ANSIBLE_METADATA = {'status': ['preview'],
 
 DOCUMENTATION = '''
 ---
-module: fortios_system_firmware_upgrade
-short_description: Perform firmware upgrade with local firmware file in Fortinet's FortiOS and FortiGate.
+module: fortios_system_firmware_select
+short_description: Retrieve a list of firmware images available to use for upgrade on this device in Fortinet's FortiOS and FortiGate.
 description:
     - This module is able to configure a FortiGate or FortiOS by allowing the
       user to set and modify system feature and firmware category.
@@ -65,35 +65,11 @@ options:
               protocol
         type: bool
         default: true
-    state:
-        description:
-            - Indicates whether to create or remove the object
-        choices:
-            - present
-            - absent
     system_firmware:
         description:
-            - Perform firmware upgrade with local firmware file.
+            - Retrieve a list of firmware images available to use for upgrade on this device.
         default: null
         suboptions:
-            file_content:
-                description:
-                    - "Provided when uploading a file: base64 encoded file data. Must not contain whitespace or other invalid base64 characters. Must be
-                       included in HTTP body."
-            filename:
-                description:
-                    - Name and path of the local firmware file.
-            format_partition:
-                description:
-                    - Set to true to format boot partition before upgrade.
-            source:
-                description:
-                    - Firmware file data source [upload|usb|fortiguard].
-                required: true
-                choices:
-                    - upload
-                    - usb
-                    - fortiguard
 '''
 
 EXAMPLES = '''
@@ -104,18 +80,14 @@ EXAMPLES = '''
    password: ""
    vdom: "root"
   tasks:
-  - name: Perform firmware upgrade with local firmware file.
-    fortios_system_firmware_upgrade:
+  - name: Retrieve a list of firmware images available to use for upgrade on this device.
+    fortios_system_firmware_select:
       host:  "{{ host }}"
       username: "{{ username }}"
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
       https: "False"
       system_firmware:
-        file_content: "<your_own_value>"
-        filename: "<your_own_value>"
-        format_partition: "<your_own_value>"
-        source: "upload"
 '''
 
 RETURN = '''
@@ -193,8 +165,7 @@ def login(data, fos):
 
 
 def filter_system_firmware_data(json):
-    option_list = ['file_content', 'filename', 'format_partition',
-                   'source']
+    option_list = []
     dictionary = {}
 
     for attribute in option_list:
@@ -209,22 +180,10 @@ def underscore_to_hyphen(data):
 
 
 def system_firmware(data, fos, check_mode=False):
-    import os
-    import base64
-
     vdom = data['vdom']
 
-    system_firmware_data = data['system_firmware']
-    filtered_data = underscore_to_hyphen(filter_system_firmware_data(system_firmware_data))
-
-    # code-inject from schema begin
-    filtered_data["file_content"] = base64.b64encode(open(system_firmware_data["filename"], 'rb').read()).decode('utf-8')
-    del filtered_data['filename']
-    # code-inject from schema end
-
-    return fos.execute('system',
-                       'firmware/upgrade',
-                       data=filtered_data,
+    return fos.monitor('system',
+                       'firmware/select',
                        vdom=vdom)
 
 
@@ -236,8 +195,7 @@ def is_successful_status(status):
 def fortios_system(data, fos, check_mode=False):
     login(data, fos)
 
-    if data['system_firmware']:
-        resp = system_firmware(data, fos, check_mode)
+    resp = system_firmware(data, fos, check_mode)
 
     fos.logout()
     return not is_successful_status(resp), \
@@ -253,13 +211,8 @@ def main():
         "vdom": {"required": False, "type": "str", "default": "root"},
         "https": {"required": False, "type": "bool", "default": True},
         "system_firmware": {
-            "required": True, "type": "dict",
+            "required": False, "type": "dict",
             "options": {
-                "file_content": {"required": False, "type": "str"},
-                "filename": {"required": False, "type": "str"},
-                "format_partition": {"required": False, "type": "str"},
-                "source": {"required": True, "type": "str",
-                           "choices": ["upload", "usb", "fortiguard"]}
 
             }
         }

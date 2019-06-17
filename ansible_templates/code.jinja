@@ -56,25 +56,38 @@ def underscore_to_hyphen(data):
             new_data[k.replace('_', '-')] = underscore_to_hyphen(v)
         data = new_data
     {% endif %}
-
     return data
 
 
-def {{path}}_{{name}}(data, fos):
+def {{path}}_{{name}}(data, fos, check_mode=False):
     {%- if "import" in schema %}
     {% for item in schema['import'].split(',')-%}
     import {{item}}
     {% endfor %}
     {% endif %}
-    
     vdom = data['vdom']
     {%- if not "monitor" in schema and "mkey" in schema['schema'] %}
     state = data['state']
     {%-endif%}
+
+    {% if not "monitor" in schema %}
+    if not check_mode:
+    {%- if schema['schema']['children']|length > 0 %}
+        {{path}}_{{name}}_data = data['{{path}}_{{name}}']
+    {%- if special_attributes != [] %}
+        {{path}}_{{name}}_data = flatten_multilists_attributes({{path}}_{{name}}_data)
+    {%- endif %}
+        filtered_data = underscore_to_hyphen(filter_{{path}}_{{name}}_data({{path}}_{{name}}_data))
+    {% endif %}
+    {% else %}
+    {% if schema['schema']['children']|length > 0 %}
     {{path}}_{{name}}_data = data['{{path}}_{{name}}']
-    {% if special_attributes != [] -%}{{path}}_{{name}}_data = flatten_multilists_attributes({{path}}_{{name}}_data)
+    {% if special_attributes != [] -%}
+    {{path}}_{{name}}_data = flatten_multilists_attributes({{path}}_{{name}}_data)
     {% endif -%}
     filtered_data = underscore_to_hyphen(filter_{{path}}_{{name}}_data({{path}}_{{name}}_data))
+    {% endif %}
+    {% endif %}
 
     {% if "code-inject" in schema %}
     # code-inject from schema begin
@@ -85,6 +98,11 @@ def {{path}}_{{name}}(data, fos):
     {% endif %}
 
     {% if not "monitor" in schema and "mkey" in schema['schema'] %}
+    if check_mode:
+        return fos.get('{{original_path}}',
+                       '{{original_name}}',
+                       vdom=vdom)
+
     if state == "present":
         return fos.set('{{original_path}}',
                        '{{original_name}}',
@@ -97,15 +115,33 @@ def {{path}}_{{name}}(data, fos):
                           mkey=filtered_data['{{schema['schema']['mkey']|replace('_', '-')}}'],
                           vdom=vdom)
     {%elif "monitor" in schema %}
+    {%if "fortiosapi" in schema %}
+    {%if schema['fortiosapi']=='execute' %}
     return fos.execute('{{original_path}}',
                     '{{original_name}}/{{original_monitor}}',
+    {% if schema['schema']['children']|length > 0 -%}
                     data=filtered_data,
+    {% endif -%}
                     vdom=vdom)
+    {% else %}
+    return fos.monitor('{{original_path}}',
+                    '{{original_name}}/{{original_monitor}}',
+    {% if schema['schema']['children']|length > 0 -%}
+                    data=filtered_data,
+    {% endif -%}
+                    vdom=vdom)
+    {% endif %}
+    {% endif %}
     {%else%}
-    return fos.set('{{original_path}}',
-                    '{{original_name}}',
-                    data=filtered_data,
-                    vdom=vdom)
+    if check_mode:
+        return fos.get('{{original_path}}',
+                        '{{original_name}}',
+                        vdom=vdom)
+    else:
+        return fos.set('{{original_path}}',
+                        '{{original_name}}',
+                        data=filtered_data,
+                        vdom=vdom)
     {%endif%}
 
 
@@ -114,11 +150,19 @@ def is_successful_status(status):
         status['http_method'] == "DELETE" and status['http_status'] == 404
 
 
-def fortios_{{path}}(data, fos):
+def fortios_{{path}}(data, fos, check_mode=False):
     login(data, fos)
 
+    {% if schema['schema']['children']|length > 0 -%}
+    {%-if "monitor" is not in schema-%}
+    if check_mode or (not check_mode and data['{{path}}_{{name}}']):
+    {%-else-%}
     if data['{{path}}_{{name}}']:
-        resp = {{path}}_{{name}}(data, fos)
+    {%-endif %}
+        resp = {{path}}_{{name}}(data, fos, check_mode)
+    {% else %}
+    resp = {{path}}_{{name}}(data, fos, check_mode)
+    {% endif %}
 
     fos.logout()
     return not is_successful_status(resp), \
@@ -219,7 +263,7 @@ def main():
     }
 
     module = AnsibleModule(argument_spec=fields,
-                           supports_check_mode=False)
+                           supports_check_mode=True)
     try:
         from fortiosapi import FortiOSAPI
     except ImportError:
@@ -227,7 +271,7 @@ def main():
 
     fos = FortiOSAPI()
 
-    is_error, has_changed, result = fortios_{{path}}(module.params, fos)
+    is_error, has_changed, result = fortios_{{path}}(module.params, fos, module.check_mode)
 
     if not is_error:
         module.exit_json(changed=has_changed, meta=result)
