@@ -78,6 +78,19 @@
       },
       {
         "path":"system",
+        "name":"ha-checksums",
+        "monitor":"select",
+        "fortiosapi":"monitor",
+        "schema":{
+          "name":"firmware",
+          "category":"complex",
+          "help":"List of checksums for members of HA cluster.",
+          "children":{
+          }  
+        }
+      },
+      {
+        "path":"system",
         "name":"global",
         "schema":{
           "name":"global",
