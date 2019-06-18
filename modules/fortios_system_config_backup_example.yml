@@ -12,5 +12,7 @@
       username: "{{ username }}"
       password: "{{ password }}"
       vdom:  "{{ vdom }}"
-      https: "False"
       system_config:
+        destination: "file"
+        filename: "/workspaces/ansible_generator/output/test1.conf"
+        scope: "global"

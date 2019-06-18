@@ -1,0 +1,14 @@
+{
+    "ANSIBLE_MODULE_ARGS": {
+        "host": "192.168.210.11",
+        "username": "admin",
+        "password": "fortinet",
+        "vdom": "root",
+        "https": "True",
+        "system_config": {
+        "destination": "file",
+        "filename": "/workspaces/ansible_generator/output/test.conf",
+        "scope": "global"
+        }
+    }
+  }

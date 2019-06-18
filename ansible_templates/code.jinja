@@ -89,12 +89,12 @@ def {{path}}_{{name}}(data, fos, check_mode=False):
     {% endif %}
     {% endif %}
 
-    {% if "code-inject" in schema %}
-    # code-inject from schema begin
-    {% for item in schema['code-inject']-%}
+    {% if "path-name-code-inject" in schema %}
+    # path-name-code-inject from schema begin
+    {% for item in schema['path-name-code-inject']-%}
     {{item}}
     {% endfor-%}
-    # code-inject from schema end
+    # path-name-code-inject from schema end
     {% endif %}
 
     {% if not "monitor" in schema and "mkey" in schema['schema'] %}
@@ -162,6 +162,14 @@ def fortios_{{path}}(data, fos, check_mode=False):
         resp = {{path}}_{{name}}(data, fos, check_mode)
     {% else %}
     resp = {{path}}_{{name}}(data, fos, check_mode)
+    {% endif %}
+
+    {% if "fortios-path-code-inject" in schema %}
+    # fortios-path-code-inject from schema begin
+    {% for item in schema['fortios-path-code-inject']-%}
+    {{item}}
+    {% endfor-%}
+    # fortios-path-code-inject from schema end
     {% endif %}
 
     fos.logout()

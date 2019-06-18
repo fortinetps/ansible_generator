@@ -21,7 +21,7 @@
         "monitor":"upgrade",
         "fortiosapi":"execute",
         "import":"os,base64",
-        "code-inject":[
+        "path-name-code-inject":[
           "filtered_data[\"file_content\"]= base64.b64encode(open(system_firmware_data[\"filename\"], 'rb').read()).decode('utf-8')",
           "del filtered_data['filename']"
         ],
@@ -94,12 +94,84 @@
         "name":"config",
         "monitor":"backup",
         "fortiosapi":"monitor",
+        "fortios-path-code-inject":[
+          "with open(data['system_config']['filename'], mode='wb') as f:",
+          "    f.write(resp.text.encode('utf-8'))",
+          "_resp = {}",
+          "_resp['status'] = 'success'",
+          "resp = _resp"
+        ],
+        "path-name-code-inject":[
+          "del filtered_data['filename']"
+        ],
         "schema":{
           "name":"config",
           "category":"complex",
           "help":"Backup system config.",
+          "mkey":"scope",
+          "mkey_type":"string",
           "children":{
-          }  
+            "destination":{
+              "name":"destination",
+              "category":"unitary",
+              "type":"option",
+              "help":"Configuration file destination [file* | usb].",
+              "options":[
+                {
+                  "name":"file",
+                  "help":"backup to file."
+                },
+                {
+                  "name":"usb",
+                  "help":"backup to usb."
+                }
+              ]
+            },
+            "filename":{
+              "name":"filename",
+              "category":"unitary",
+              "type":"string",
+              "help":"When using 'file' destination: the filename to save to on the local file system.",
+              "size":127
+            },
+            "usb_filename":{
+              "name":"usb_filename",
+              "category":"unitary",
+              "type":"string",
+              "help":"When using 'usb' destination: the filename to save to on the connected USB device.",
+              "size":127
+            },
+            "password":{
+              "name":"password",
+              "category":"unitary",
+              "type":"string",
+              "help":"Password to encrypt configuration data..",
+              "size":127
+            },
+            "scope":{
+              "name":"scope",
+              "category":"unitary",
+              "type":"option",
+              "help":"Specify global or VDOM only backup [global | vdom].",
+              "options":[
+                {
+                  "name":"global",
+                  "help":"global backup."
+                },
+                {
+                  "name":"vdom",
+                  "help":"vdom backup."
+                }
+              ]
+            },
+            "vdom":{
+              "name":"vdom",
+              "category":"unitary",
+              "type":"string",
+              "help":"If 'vdom' scope specified, the name of the VDOM to backup configuration.",
+              "size":127
+            }
+          }
         }
       },
       {
