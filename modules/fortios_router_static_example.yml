@@ -1,0 +1,20 @@
+- hosts: localhost
+  gather_facts: false
+  vars:
+   host: "192.168.210.11"
+   username: "admin"
+   password: "fortinet"
+   vdom: "root"
+  tasks:
+  - name: Configure IPv4 static routing tables.
+    fortios_router_static:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      state: "present"
+      router_static:
+        seq_num: "0"
+        device: "port6"
+        dst: "55.55.55.55/32"
+        gateway: "10.55.55.55"

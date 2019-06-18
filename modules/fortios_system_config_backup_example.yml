@@ -1,0 +1,16 @@
+- hosts: localhost
+  gather_facts: false
+  vars:
+   host: "192.168.210.11"
+   username: "admin"
+   password: "fortinet"
+   vdom: "root"
+  tasks:
+  - name: Backup system config.
+    fortios_system_config_backup:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      system_config:
