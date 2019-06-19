@@ -102,7 +102,12 @@
           "resp = _resp"
         ],
         "path-name-code-inject":[
-          "del filtered_data['filename']"
+          "del filtered_data['filename']",
+          "",
+          "return fos.monitor('system',",
+          "'config/backup',",
+          "parameters=filtered_data,",
+          "vdom=vdom)"
         ],
         "schema":{
           "name":"config",
