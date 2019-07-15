@@ -64,7 +64,6 @@ def hyphenToUnderscore(data):
 def renderModule(schema, version, special_attributes):
 
     # Generate module
-
     file_loader = FileSystemLoader('ansible_templates')
     env = Environment(loader=file_loader,
                       lstrip_blocks=False, trim_blocks=False)
@@ -113,8 +112,18 @@ def renderModule(schema, version, special_attributes):
     file_example.writelines(lines[2:-1])
     file_example.close()
 
+    # Generate test
+    file_example = open('output/' + version + '/' + path + '/test_fortios_' + path +
+                        '_' + name + '.py', 'w')
+    template = env.get_template('tests.j2')
+    output = template.render(**locals())
+    lines = output.splitlines(True)
+    file_example.writelines(lines)
+    file_example.close()
+
     print("\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + path + '_' + name + '.py')
     print("\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + path + '_' + name + '_example.yml')
+    print("\033[0mFile generated: " + 'output/' + version + '/\033[37mtest_fortios_' + path + '_' + name + '.py')
 
 
 def jinjaExecutor(number=None):
