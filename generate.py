@@ -63,6 +63,8 @@ def hyphenToUnderscore(data):
 
 def renderModule(schema, version, special_attributes):
 
+    # Generate module
+
     file_loader = FileSystemLoader('ansible_templates')
     env = Environment(loader=file_loader,
                       lstrip_blocks=False, trim_blocks=False)
@@ -78,16 +80,16 @@ def renderModule(schema, version, special_attributes):
     module_name = "fortios_" + path + "_" + name
     special_attributes_flattened = [','.join(x for x in elem) for elem in special_attributes]
 
-    template = env.get_template('doc.jinja')
+    template = env.get_template('doc.j2')
     output = template.render(**locals())
 
-    template = env.get_template('examples.jinja')
+    template = env.get_template('examples.j2')
     output += template.render(**locals())
 
-    template = env.get_template('return.jinja')
+    template = env.get_template('return.j2')
     output += template.render(**locals())
 
-    template = env.get_template('code.jinja')
+    template = env.get_template('code.j2')
     output += template.render(calculateFullPath=calculateFullPath, **locals())
 
     dir = 'output/' + version + '/' + path
@@ -96,13 +98,16 @@ def renderModule(schema, version, special_attributes):
 
     file = open('output/' + version + '/' + path + '/fortios_' + path + '_' + name + '.py', 'w')
     output = splitLargeLines(output)
-    output = autopep8.fix_code(output, options={'aggressive': 1, 'max_line_length': 160})
+    # Avoid this check since it conflicts with Ansible guidelines
+    # E402 - Fix module level import not at top of file
+    output = autopep8.fix_code(output, options={'aggressive': 1, 'max_line_length': 160, 'ignore':['E402']})
     file.write(output)
     file.close()
 
+    # Generate example
     file_example = open('output/' + version + '/' + path + '/fortios_' + path +
                         '_' + name + '_example.yml', 'w')
-    template = env.get_template('examples.jinja')
+    template = env.get_template('examples.j2')
     output = template.render(**locals())
     lines = output.splitlines(True)
     file_example.writelines(lines[2:-1])
@@ -142,4 +147,4 @@ def jinjaExecutor(number=None):
 
 if __name__ == "__main__":
 
-    jinjaExecutor()
+    jinjaExecutor(344)

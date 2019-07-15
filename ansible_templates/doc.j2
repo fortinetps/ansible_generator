@@ -44,11 +44,11 @@ DOCUMENTATION = '''
 module: {{module_name}}
 short_description: {{short_description}}
 description:
-    - This module is able to configure a FortiGate or FortiOS by allowing the
+    - This module is able to configure a FortiGate or FortiOS device by allowing the
       user to set and modify {{path}} feature and {{name}} category.
       Examples include all parameters and values need to be adjusted to datasources before usage.
       Tested with FOS {{version}}
-version_added: "2.8"
+version_added: "2.9"
 author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
@@ -59,33 +59,37 @@ requirements:
     - fortiosapi>=0.9.8
 options:
     host:
-       description:
-            - FortiOS or FortiGate ip address.
-       required: true
+        description:
+            - FortiOS or FortiGate IP address.
+        type: str
+        required: true
     username:
         description:
             - FortiOS or FortiGate username.
+        type: str
         required: true
     password:
         description:
             - FortiOS or FortiGate password.
+        type: str
         default: ""
     vdom:
         description:
             - Virtual domain, among those defined previously. A vdom is a
               virtual instance of the FortiGate that can be configured and
               used as a different unit.
+        type: str
         default: root
     https:
         description:
-            - Indicates if the requests towards FortiGate must use HTTPS
-              protocol
+            - Indicates if the requests towards FortiGate must use HTTPS protocol.
         type: bool
         default: true
     {%-if "mkey" in schema['schema'] %}
     state: 
         description: 
-            - Indicates whether to create or remove the object
+            - Indicates whether to create or remove the object.
+        type: str
         choices:
             - present
             - absent
@@ -94,6 +98,7 @@ options:
         description:
             - {{schema['schema']['help']}}
         default: null
+        type: dict
         suboptions: 
             {{- doc_attributes(schema['schema']['children'], schema['schema']['mkey'])|indent }}
 '''
