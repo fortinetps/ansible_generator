@@ -22,7 +22,7 @@ def searchProperBreakableChar(line, startingPosition):
 
 
 def numberOfInitialSpaces(line):
-    return len(line)-len(line.lstrip())+2
+    return len(line) - len(line.lstrip()) + 2
 
 
 def splitLargeLines(output):
@@ -32,7 +32,7 @@ def splitLargeLines(output):
         if len(line) > 159:
             position = searchProperBreakableChar(line, 159)
             initialSpaces = " " * numberOfInitialSpaces(output[i])
-            output.insert(i+1, initialSpaces + line[position:])
+            output.insert(i + 1, initialSpaces + line[position:])
             output[i] = output[i][:position]
     output = '\n'.join(output)
     return output
@@ -97,9 +97,6 @@ def renderModule(schema, version, special_attributes):
 
     file = open('output/' + version + '/' + path + '/fortios_' + path + '_' + name + '.py', 'w')
     output = splitLargeLines(output)
-    # Avoid this check since it conflicts with Ansible guidelines
-    # E402 - Fix module level import not at top of file
-    output = autopep8.fix_code(output, options={'aggressive': 1, 'max_line_length': 160, 'ignore':['E402']})
     file.write(output)
     file.close()
 
@@ -140,9 +137,9 @@ def jinjaExecutor(number=None):
         for i, pn in enumerate(fgt_sch_results):
             if 'diagnose' not in pn['path'] and 'execute' not in pn['path']:
                 module_name = getModuleName(pn['path'], pn['name'])
-                print '\n\033[0mParsing schema:'
-                print '\033[0mModule name: \033[92m' + module_name
-                print '\033[0mIteration:\033[93m' + str(real_counter) + "\033[0m, Schema position: \033[93m" + str(i)
+                print('\n\033[0mParsing schema:')
+                print('\033[0mModule name: \033[92m' + module_name)
+                print('\033[0mIteration:\033[93m' + str(real_counter) + "\033[0m, Schema position: \033[93m" + str(i))
                 renderModule(fgt_sch_results[i],
                              fgt_schema['version'],
                              special_attributes[module_name] if module_name in special_attributes else [])
@@ -153,7 +150,13 @@ def jinjaExecutor(number=None):
                      fgt_schema['version'],
                      special_attributes[module_name] if module_name in special_attributes else [])
 
+    print("\n\n\033Executing autopep8 ....")
+    # Note this is done with popen and not with autopep8.fix_code in order to get the multiprocessig optimization, only available from CLI
+    os.popen('autopep8 --aggressive --max-line-length 160 --jobs 8 --ignore E402 --in-place --recursive ./output/' + fgt_schema['version'])
+    # Avoid this check since it conflicts with Ansible guidelines:
+    # E402 - Fix module level import not at top of file
+
 
 if __name__ == "__main__":
 
-    jinjaExecutor(344)
+    jinjaExecutor()
