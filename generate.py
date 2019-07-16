@@ -172,10 +172,10 @@ def jinjaExecutor(number=None):
     # Fix exceptional issues due to bugs in autopep
     # Using os.popen for quick edit and modification. Should be replaced by proper Python calls
     print("\n\n\033[0mFinal fixes ....")
-    os.popen("sed -i 's/filtered_data =/filtered_data = \\/' lib/ansible/modules/network/fortios/fortios_wireless_controller_hotspot20_anqp_ip_address_type.py")
-    os.popen("sed -i 's/filtered_data =/filtered_data = \\/' lib/ansible/modules/network/fortios/fortios_wireless_controller_hotspot20_anqp_network_auth_type.py")
-    os.popen("sed -i 's/filtered_data =/filtered_data = \\/' lib/ansible/modules/network/fortios/fortios_wireless_controller_hotspot20_anqp_roaming_consortium.py")
-    os.popen("sed -i 's/filtered_data =/filtered_data = \\/' lib/ansible/modules/network/fortios/fortios_wireless_controller_hotspot20_h2qp_conn_capability.py")
+    os.popen("sed -i 's/filtered_data =/filtered_data = \\\/' ./output/" + fgt_schema['version'] + "/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_anqp_ip_address_type.py")
+    os.popen("sed -i 's/filtered_data =/filtered_data = \\\/' ./output/" + fgt_schema['version'] + "/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_anqp_network_auth_type.py")
+    os.popen("sed -i 's/filtered_data =/filtered_data = \\\/' ./output/" + fgt_schema['version'] + "/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_anqp_roaming_consortium.py")
+    os.popen("sed -i 's/filtered_data =/filtered_data = \\\/' ./output/" + fgt_schema['version'] + "/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_h2qp_conn_capability.py")
     os.popen("find . -name 'test_fortios_router_bfd*.py' -exec rm {} \\;")
 
 if __name__ == "__main__":
