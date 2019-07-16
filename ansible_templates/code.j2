@@ -210,7 +210,7 @@ def main():
             connection = Connection(module._socket_path)
             fos = FortiOSHandler(connection)
 
-            is_error, has_changed, result = fortios_user(module.params, fos)
+            is_error, has_changed, result = fortios_{{path}}(module.params, fos)
         else:
             module.fail_json(**FAIL_SOCKET_MSG)
     else:
@@ -222,7 +222,7 @@ def main():
         fos = FortiOSAPI()
 
         login(module.params, fos)
-        is_error, has_changed, result = fortios_user(module.params, fos)
+        is_error, has_changed, result = fortios_{{path}}(module.params, fos)
         fos.logout()
         
     if not is_error:

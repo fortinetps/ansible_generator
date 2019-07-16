@@ -25,7 +25,7 @@ rm -f $(pwd)/examples/*.https
 rm -f $(pwd)/examples/remove/*.retry
 rm -f $(pwd)/examples/remove/*.https
 
-version="v6.0.2"
+version="v6.0.5"
 
 success=0
 failed=0
