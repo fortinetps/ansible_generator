@@ -132,6 +132,8 @@ def jinjaExecutor(number=None):
     special_attributes_file = open('special_attributes.lst').read()
     special_attributes = json.loads(special_attributes_file)
 
+    autopep_files = './output/' + fgt_schema['version']
+
     if not number:
         real_counter = 0
         for i, pn in enumerate(fgt_sch_results):
@@ -150,12 +152,31 @@ def jinjaExecutor(number=None):
                      fgt_schema['version'],
                      special_attributes[module_name] if module_name in special_attributes else [])
 
-    print("\n\n\033Executing autopep8 ....")
+        autopep_files = './output/' + \
+                fgt_schema['version'] + '/' + \
+                replaceSpecialChars(fgt_sch_results[number]['path']) + \
+                '/fortios_' + replaceSpecialChars(fgt_sch_results[number]['path']) + '_' + replaceSpecialChars(fgt_sch_results[number]['name']) + '.py'
+
+        autopep_files += ' ./output/' + \
+                fgt_schema['version'] + '/' + \
+                replaceSpecialChars(fgt_sch_results[number]['path']) + \
+                '/test_fortios_' + replaceSpecialChars(fgt_sch_results[number]['path']) + '_' + replaceSpecialChars(fgt_sch_results[number]['name']) + '.py'
+
+
+    print("\n\n\033[0mExecuting autopep8 ....")
     # Note this is done with popen and not with autopep8.fix_code in order to get the multiprocessig optimization, only available from CLI
-    os.popen('autopep8 --aggressive --max-line-length 160 --jobs 8 --ignore E402 --in-place --recursive ./output/' + fgt_schema['version'])
+    os.popen('autopep8 --aggressive --max-line-length 160 --jobs 8 --ignore E402 --in-place --recursive ' + autopep_files)
     # Avoid this check since it conflicts with Ansible guidelines:
     # E402 - Fix module level import not at top of file
 
+    # Fix exceptional issues due to bugs in autopep
+    # Using os.popen for quick edit and modification. Should be replaced by proper Python calls
+    print("\n\n\033[0mFinal fixes ....")
+    os.popen("sed -i 's/filtered_data =/filtered_data = \\/' lib/ansible/modules/network/fortios/fortios_wireless_controller_hotspot20_anqp_ip_address_type.py")
+    os.popen("sed -i 's/filtered_data =/filtered_data = \\/' lib/ansible/modules/network/fortios/fortios_wireless_controller_hotspot20_anqp_network_auth_type.py")
+    os.popen("sed -i 's/filtered_data =/filtered_data = \\/' lib/ansible/modules/network/fortios/fortios_wireless_controller_hotspot20_anqp_roaming_consortium.py")
+    os.popen("sed -i 's/filtered_data =/filtered_data = \\/' lib/ansible/modules/network/fortios/fortios_wireless_controller_hotspot20_h2qp_conn_capability.py")
+    os.popen("find . -name 'test_fortios_router_bfd*.py' -exec rm {} \\;")
 
 if __name__ == "__main__":
 
