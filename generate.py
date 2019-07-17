@@ -23,7 +23,7 @@ def searchProperBreakableChar(line, startingPosition):
 
 
 def numberOfInitialSpaces(line):
-    return len(line)-len(line.lstrip())+2
+    return len(line) - len(line.lstrip()) + 2
 
 
 def splitLargeLines(output):
@@ -33,7 +33,7 @@ def splitLargeLines(output):
         if len(line) > 159:
             position = searchProperBreakableChar(line, 159)
             initialSpaces = " " * numberOfInitialSpaces(output[i])
-            output.insert(i+1, initialSpaces + line[position:])
+            output.insert(i + 1, initialSpaces + line[position:])
             output[i] = output[i][:position]
     output = '\n'.join(output)
     return output
@@ -64,6 +64,7 @@ def hyphenToUnderscore(data):
 
 def renderModule(schema, version, special_attributes):
 
+    # Generate module
     file_loader = FileSystemLoader('ansible_templates')
     env = Environment(loader=file_loader,
                       lstrip_blocks=False, trim_blocks=False)
@@ -81,16 +82,16 @@ def renderModule(schema, version, special_attributes):
     module_name = "fortios_" + path + "_" + name + ("" if monitor is None else "_" + monitor)
     special_attributes_flattened = [','.join(x for x in elem) for elem in special_attributes]
 
-    template = env.get_template('doc.jinja')
+    template = env.get_template('doc.j2')
     output = template.render(**locals())
 
-    template = env.get_template('examples.jinja')
+    template = env.get_template('examples.j2')
     output += template.render(**locals())
 
-    template = env.get_template('return.jinja')
+    template = env.get_template('return.j2')
     output += template.render(**locals())
 
-    template = env.get_template('code.jinja')
+    template = env.get_template('code.j2')
     output += template.render(calculateFullPath=calculateFullPath, **locals())
 
     dir = 'output/' + version + '/' + path
@@ -99,19 +100,31 @@ def renderModule(schema, version, special_attributes):
 
     file = open('output/' + version + '/' + path + '/fortios_' + path + '_' + name + ("" if monitor is None else "_" + monitor) + '.py', 'w')
     output = splitLargeLines(output)
-    output = autopep8.fix_code(output, options={'aggressive': 1, 'max_line_length': 160, 'ignore': ['E402']})
     file.write(output)
     file.close()
 
-    file_example = open('output/' + version + '/' + path + '/fortios_' + path + '_' + name + ("" if monitor is None else "_" + monitor) + '_example.yml', 'w')
-    template = env.get_template('examples.jinja')
+    # Generate example
+    file_example = open('output/' + version + '/' + path + '/fortios_' + path +
+                        '_' + name + '_example.yml', 'w')
+    template = env.get_template('examples.j2')
     output = template.render(**locals())
     lines = output.splitlines(True)
     file_example.writelines(lines[2:-1])
     file_example.close()
 
-    print("\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + path + '_' + name + ("" if monitor is None else "_" + monitor) + '.py')
-    print("\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + path + '_' + name + ("" if monitor is None else "_" + monitor) + '_example.yml')
+    # Generate test
+    file_example = open('output/' + version + '/' + path + '/test_fortios_' + path +
+                        '_' + name + '.py', 'w')
+    template = env.get_template('tests.j2')
+    output = template.render(**locals())
+    lines = output.splitlines(True)
+    file_example.writelines(lines)
+    file_example.close()
+
+    print("\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + path + '_' + name + '.py')
+    print("\033[0mFile generated: " + 'output/' + version + '/\033[37mfortios_' + path + '_' + name + '_example.yml')
+    print("\033[0mFile generated: " + 'output/' + version + '/\033[37mtest_fortios_' + path + '_' + name + '.py')
+
 
 
 def jinjaExecutor(number=None, schema=None):
@@ -124,14 +137,16 @@ def jinjaExecutor(number=None, schema=None):
     special_attributes_file = open('special_attributes.lst').read()
     special_attributes = json.loads(special_attributes_file)
 
+    autopep_files = './output/' + fgt_schema['version']
+
     if not number:
         real_counter = 0
         for i, pn in enumerate(fgt_sch_results):
             if 'diagnose' not in pn['path'] and 'execute' not in pn['path']:
-                module_name = getModuleName(pn['path'], pn['name'], monitor=pn.get('monitor'))  # Monitor API ends with action in uri
-                print ('\n\033[0mParsing schema:')
-                print ('\033[0mModule name: \033[92m' + module_name)
-                print ('\033[0mIteration:\033[93m' + str(real_counter) + "\033[0m, Schema position: \033[93m" + str(i))
+                module_name = getModuleName(pn['path'], pn['name'])
+                print('\n\033[0mParsing schema:')
+                print('\033[0mModule name: \033[92m' + module_name)
+                print('\033[0mIteration:\033[93m' + str(real_counter) + "\033[0m, Schema position: \033[93m" + str(i))
                 renderModule(fgt_sch_results[i],
                              fgt_schema['version'],
                              special_attributes[module_name] if module_name in special_attributes else [])
@@ -142,6 +157,31 @@ def jinjaExecutor(number=None, schema=None):
                      fgt_schema['version'],
                      special_attributes[module_name] if module_name in special_attributes else [])
 
+        autopep_files = './output/' + \
+                fgt_schema['version'] + '/' + \
+                replaceSpecialChars(fgt_sch_results[number]['path']) + \
+                '/fortios_' + replaceSpecialChars(fgt_sch_results[number]['path']) + '_' + replaceSpecialChars(fgt_sch_results[number]['name']) + '.py'
+
+        autopep_files += ' ./output/' + \
+                fgt_schema['version'] + '/' + \
+                replaceSpecialChars(fgt_sch_results[number]['path']) + \
+                '/test_fortios_' + replaceSpecialChars(fgt_sch_results[number]['path']) + '_' + replaceSpecialChars(fgt_sch_results[number]['name']) + '.py'
+
+
+    print("\n\n\033[0mExecuting autopep8 ....")
+    # Note this is done with popen and not with autopep8.fix_code in order to get the multiprocessig optimization, only available from CLI
+    os.popen('autopep8 --aggressive --max-line-length 160 --jobs 8 --ignore E402 --in-place --recursive ' + autopep_files)
+    # Avoid this check since it conflicts with Ansible guidelines:
+    # E402 - Fix module level import not at top of file
+
+    # Fix exceptional issues due to bugs in autopep
+    # Using os.popen for quick edit and modification. Should be replaced by proper Python calls
+    print("\n\n\033[0mFinal fixes ....")
+    os.popen("sed -i 's/filtered_data =/filtered_data = \\\/' ./output/" + fgt_schema['version'] + "/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_anqp_ip_address_type.py")
+    os.popen("sed -i 's/filtered_data =/filtered_data = \\\/' ./output/" + fgt_schema['version'] + "/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_anqp_network_auth_type.py")
+    os.popen("sed -i 's/filtered_data =/filtered_data = \\\/' ./output/" + fgt_schema['version'] + "/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_anqp_roaming_consortium.py")
+    os.popen("sed -i 's/filtered_data =/filtered_data = \\\/' ./output/" + fgt_schema['version'] + "/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_h2qp_conn_capability.py")
+    os.popen("find . -name 'test_fortios_router_bfd*.py' -exec rm {} \\;")
 
 if __name__ == "__main__":
     schema = 'fgt_schema.json'

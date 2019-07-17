@@ -1,0 +1,226 @@
+{% macro test_attributes(dict, hyphens) -%}
+      {%- set counter = {'id':2} %}
+      {%- for key, value in dict| dictsort %}
+        {%- if value['category'] != 'table' and value['category'] != 'complex' and value['name'] not in special_attributes_flattened %}{% if loop.first %}
+            {% endif %}'{% if hyphens %}{{value['name'].replace('_','-')}}{%else %}{{value['name'].replace('-','_')}}{%endif%}': 
+            {%- if counter.update({'id': counter['id']+1 }) -%}{%-endif-%}
+            {%- set id = counter['id']-%}
+            {%- if key == 'comment' %} '{{value['help']}}'
+            {%- elif key == 'name' %} 'default_name_{{id}}'
+            {%- elif key == 'id' %}  '{{id}}'
+            {%- elif key == 'server' %} '192.168.100.{{id}}'
+            {%- elif key == 'source-ip' %} '84.230.14.{{id}}'
+            {%- elif 'identifier' in key and value['type']=='string' %}  'myId_{{id}}'
+            {%- elif value['category'] == 'unitary' and value['type']=='option' and "options" in value%} '{%if value['options']| length > 0 %}{{value['options'][0]['name']}}{%else%}test_value_{{id}},{%endif%}'
+            {%- elif value['category'] == 'unitary' and value['type']=='integer'%} '{{id}}'
+            {%- elif key == 'url' %} 'myurl_{{id}}.com'
+            {%- elif ("host" in key) and value['type']=='string' %} 'myhostname{{id}}'
+            {%- else %} 'test_value_{{id}}'
+            {%- endif -%} 
+            {%- if not loop.last -%}, 
+            {% endif %}
+        {%- endif -%}
+      {%- endfor -%}
+{%- endmacro -%}
+# Copyright 2019 Fortinet, Inc.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Ansible.  If not, see <https://www.gnu.org/licenses/>.
+
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
+
+import os
+import json
+import pytest
+from unittest.mock import ANY
+from ansible.module_utils.network.fortios.fortios import FortiOSHandler
+
+try:
+    from ansible.modules.network.fortios import fortios_{{path}}_{{name}}
+except ImportError:
+    pytest.skip("Could not load required modules for testing", allow_module_level=True)
+
+
+@pytest.fixture(autouse=True)
+def connection_mock(mocker):
+    connection_class_mock = mocker.patch('ansible.modules.network.fortios.fortios_{{path}}_{{name}}.Connection')
+    return connection_class_mock
+
+
+fos_instance = FortiOSHandler(connection_mock)
+
+
+def test_{{path}}_{{name}}_creation(mocker):
+    schema_method_mock = mocker.patch('ansible.module_utils.network.fortios.fortios.FortiOSHandler.schema')
+
+    set_method_result = {'status': 'success', 'http_method': 'POST', 'http_status': 200}
+    set_method_mock = mocker.patch('ansible.module_utils.network.fortios.fortios.FortiOSHandler.set', return_value=set_method_result)
+
+    input_data = {
+        'username': 'admin',
+        'state': 'present',
+        '{{path}}_{{name}}': {
+        {{- test_attributes(schema['schema']['children'], hyphens=false) |indent}}
+        },
+        'vdom': 'root'}
+
+    is_error, changed, response = fortios_{{path}}_{{name}}.fortios_{{path}}(input_data, fos_instance)
+
+    expected_data = {
+        {{- test_attributes(schema['schema']['children'], hyphens=true) |indent}}
+    }
+
+    set_method_mock.assert_called_with('{{original_path}}', '{{original_name}}', data=expected_data, vdom='root')
+    schema_method_mock.assert_not_called()
+    assert not is_error
+    assert changed
+    assert response['status'] == 'success'
+    assert response['http_status'] == 200
+
+
+def test_{{path}}_{{name}}_creation_fails(mocker):
+    schema_method_mock = mocker.patch('ansible.module_utils.network.fortios.fortios.FortiOSHandler.schema')
+
+    set_method_result = {'status': 'error', 'http_method': 'POST', 'http_status': 500}
+    set_method_mock = mocker.patch('ansible.module_utils.network.fortios.fortios.FortiOSHandler.set', return_value=set_method_result)
+
+    input_data = {
+        'username': 'admin',
+        'state': 'present',
+        '{{path}}_{{name}}': {
+        {{- test_attributes(schema['schema']['children'], hyphens=false) |indent}}
+        },
+        'vdom': 'root'}
+
+    is_error, changed, response = fortios_{{path}}_{{name}}.fortios_{{path}}(input_data, fos_instance)
+
+    expected_data = {
+        {{- test_attributes(schema['schema']['children'], hyphens=true) |indent}}
+    }
+
+    set_method_mock.assert_called_with('{{original_path}}', '{{original_name}}', data=expected_data, vdom='root')
+    schema_method_mock.assert_not_called()
+    assert is_error
+    assert not changed
+    assert response['status'] == 'error'
+    assert response['http_status'] == 500
+
+
+{% if schema['schema']['category'] != 'complex' -%}
+def test_{{path}}_{{name}}_removal(mocker):
+    schema_method_mock = mocker.patch('ansible.module_utils.network.fortios.fortios.FortiOSHandler.schema')
+
+    delete_method_result = {'status': 'success', 'http_method': 'POST', 'http_status': 200}
+    delete_method_mock = mocker.patch('ansible.module_utils.network.fortios.fortios.FortiOSHandler.delete', return_value=delete_method_result)
+
+    input_data = {
+        'username': 'admin',
+        'state': 'absent',
+        '{{path}}_{{name}}': {
+        {{- test_attributes(schema['schema']['children'], hyphens=false) |indent}}
+        },
+        'vdom': 'root'}
+
+    is_error, changed, response = fortios_{{path}}_{{name}}.fortios_{{path}}(input_data, fos_instance)
+
+    delete_method_mock.assert_called_with('{{original_path}}', '{{original_name}}', mkey=ANY, vdom='root')
+    schema_method_mock.assert_not_called()
+    assert not is_error
+    assert changed
+    assert response['status'] == 'success'
+    assert response['http_status'] == 200
+{%- endif %}
+
+
+{% if schema['schema']['category'] != 'complex' -%}
+def test_{{path}}_{{name}}_deletion_fails(mocker):
+    schema_method_mock = mocker.patch('ansible.module_utils.network.fortios.fortios.FortiOSHandler.schema')
+
+    delete_method_result = {'status': 'error', 'http_method': 'POST', 'http_status': 500}
+    delete_method_mock = mocker.patch('ansible.module_utils.network.fortios.fortios.FortiOSHandler.delete', return_value=delete_method_result)
+
+    input_data = {
+        'username': 'admin',
+        'state': 'absent',
+        '{{path}}_{{name}}': {
+        {{- test_attributes(schema['schema']['children'], hyphens=false) |indent}}
+        },
+        'vdom': 'root'}
+
+    is_error, changed, response = fortios_{{path}}_{{name}}.fortios_{{path}}(input_data, fos_instance)
+
+    delete_method_mock.assert_called_with('{{original_path}}', '{{original_name}}', mkey=ANY, vdom='root')
+    schema_method_mock.assert_not_called()
+    assert is_error
+    assert not changed
+    assert response['status'] == 'error'
+    assert response['http_status'] == 500
+{%- endif %}
+
+def test_{{path}}_{{name}}_idempotent(mocker):
+    schema_method_mock = mocker.patch('ansible.module_utils.network.fortios.fortios.FortiOSHandler.schema')
+
+    set_method_result = {'status': 'error', 'http_method': 'DELETE', 'http_status': 404}
+    set_method_mock = mocker.patch('ansible.module_utils.network.fortios.fortios.FortiOSHandler.set', return_value=set_method_result)
+
+    input_data = {
+        'username': 'admin',
+        'state': 'present',
+        '{{path}}_{{name}}': {
+        {{- test_attributes(schema['schema']['children'], hyphens=false) |indent}}
+        },
+        'vdom': 'root'}
+
+    is_error, changed, response = fortios_{{path}}_{{name}}.fortios_{{path}}(input_data, fos_instance)
+
+    expected_data = {
+        {{- test_attributes(schema['schema']['children'], hyphens=true) |indent}}
+    }
+
+    set_method_mock.assert_called_with('{{original_path}}', '{{original_name}}', data=expected_data, vdom='root')
+    schema_method_mock.assert_not_called()
+    assert not is_error
+    assert not changed
+    assert response['status'] == 'error'
+    assert response['http_status'] == 404
+
+
+def test_{{path}}_{{name}}_filter_foreign_attributes(mocker):
+    schema_method_mock = mocker.patch('ansible.module_utils.network.fortios.fortios.FortiOSHandler.schema')
+
+    set_method_result = {'status': 'success', 'http_method': 'POST', 'http_status': 200}
+    set_method_mock = mocker.patch('ansible.module_utils.network.fortios.fortios.FortiOSHandler.set', return_value=set_method_result)
+
+    input_data = {
+        'username': 'admin',
+        'state': 'present',
+        '{{path}}_{{name}}': {
+                'random_attribute_not_valid': 'tag',
+        {{- test_attributes(schema['schema']['children'], hyphens=false) |indent}}
+        },
+        'vdom': 'root'}
+
+    is_error, changed, response = fortios_{{path}}_{{name}}.fortios_{{path}}(input_data, fos_instance)
+
+    expected_data = {
+        {{- test_attributes(schema['schema']['children'], hyphens=true) |indent}}
+    }
+
+    set_method_mock.assert_called_with('{{original_path}}', '{{original_name}}', data=expected_data, vdom='root')
+    schema_method_mock.assert_not_called()
+    assert not is_error
+    assert changed
+    assert response['status'] == 'success'
+    assert response['http_status'] == 200
