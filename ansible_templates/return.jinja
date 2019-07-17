@@ -10,27 +10,36 @@ http_method:
   description: Last method used to provision the content into FortiGate
   returned: always
   type: str
-  sample: 'PUT'
+  {%if "fortiosapi" in schema -%}
+  {%if schema['fortiosapi']=='execute' -%}
+  sample: 'POST' {%else -%}
+  sample: 'GET' {%endif -%}
+  {%else -%}
+  sample: 'PUT' {%endif%}
+{% if not "monitor" in schema -%}
 http_status:
   description: Last result given by FortiGate on last operation applied
   returned: always
   type: str
   sample: "200"
+{% endif -%}
+{% if not "monitor" in schema and "mkey" in schema['schema'] -%}
 mkey:
   description: Master key (id) used in the last call to FortiGate
   returned: success
   type: str
   sample: "id"
+{% endif -%}
 name:
   description: Name of the table used to fulfill the request
   returned: always
   type: str
-  sample: "urlfilter"
+  sample: "{{name}}"
 path:
   description: Path of the table used to fulfill the request
   returned: always
   type: str
-  sample: "webfilter"
+  sample: "{{path}}"
 revision:
   description: Internal revision number
   returned: always

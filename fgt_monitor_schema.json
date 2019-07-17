@@ -4,6 +4,32 @@
     "results":[
       {
         "path":"system",
+        "name":"status",
+        "monitor":"select",
+        "fortiosapi":"monitor",
+        "schema":{
+          "name":"status",
+          "category":"complex",
+          "help":"Retrieve basic system status.",
+          "children":{
+          }  
+        }
+      },
+      {
+        "path":"system",
+        "name":"interface",
+        "monitor":"select",
+        "fortiosapi":"monitor",
+        "schema":{
+          "name":"interface",
+          "category":"complex",
+          "help":"Retrieve statistics for all system interfaces.",
+          "children":{
+          }  
+        }
+      },
+      {
+        "path":"system",
         "name":"firmware",
         "monitor":"select",
         "fortiosapi":"monitor",
@@ -57,6 +83,7 @@
               "category":"unitary",
               "type":"string",
               "help":"Name and path of the local firmware file.",
+              "required":true,
               "size":127
             },
             "format_partition":{

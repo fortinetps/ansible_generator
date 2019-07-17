@@ -1,0 +1,14 @@
+{
+    "ANSIBLE_MODULE_ARGS": {
+        "host": "192.168.210.11",
+        "username": "admin",
+        "password": "fortinet",
+        "vdom": "root",
+        "https": "True",
+        "state": "present",
+        "system_interface": {
+            "name": "port1",
+            "allowaccess": ["ping", "https", "http", "ssh", "fgfm"]
+        }
+    }
+  }

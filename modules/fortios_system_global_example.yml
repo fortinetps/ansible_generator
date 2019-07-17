@@ -14,7 +14,7 @@
       vdom:  "{{ vdom }}"
       system_global:
         hostname: "test123"
-        admintimeout: "479"
+        admintimeout: "481"
     register: fortios_system_global_result
   - debug:
       var: fortios_system_global_result

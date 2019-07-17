@@ -1,5 +1,10 @@
 
 from ansible.module_utils.basic import AnsibleModule
+{%- if "import" in schema %}
+{% for item in schema['import'].split(',')-%}
+import {{item}}
+{% endfor %}
+{% endif %}
 
 def login(data, fos):
     host = data['host']
@@ -60,11 +65,6 @@ def underscore_to_hyphen(data):
 
 
 def {{path}}_{{name}}(data, fos, check_mode=False):
-    {%- if "import" in schema %}
-    {% for item in schema['import'].split(',')-%}
-    import {{item}}
-    {% endfor %}
-    {% endif %}
     vdom = data['vdom']
     {%- if not "monitor" in schema and "mkey" in schema['schema'] %}
     state = data['state']

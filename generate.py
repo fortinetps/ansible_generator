@@ -99,7 +99,7 @@ def renderModule(schema, version, special_attributes):
 
     file = open('output/' + version + '/' + path + '/fortios_' + path + '_' + name + ("" if monitor is None else "_" + monitor) + '.py', 'w')
     output = splitLargeLines(output)
-    output = autopep8.fix_code(output, options={'aggressive': 1, 'max_line_length': 160})
+    output = autopep8.fix_code(output, options={'aggressive': 1, 'max_line_length': 160, 'ignore': ['E402']})
     file.write(output)
     file.close()
 

@@ -1,11 +1,76 @@
 - hosts: localhost
   gather_facts: false
   vars:
-   host: "192.168.210.11"
+   host: "192.168.210.31"
    username: "admin"
    password: "fortinet"
    vdom: "root"
   tasks:
+
+  - name: Perform firmware upgrade with firmware from FortiGuard (or FMG as local FortiGuard).
+    fortios_system_firmware_upgrade:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "True"
+      system_firmware:
+        # filename: "/workspaces/ansible_generator/firmware/FGT_VM64_KVM-v6-build0163-FORTINET.out"
+        filename: "06000000FIMG0021300001"
+        source: "fortiguard"
+        format_partition: "False"
+        # filename: "/workspaces/ansible_generator/firmware/abcd.out"
+        # source: "upload"
+    register: fortios_system_firmware_upgrade_result
+
+  - debug:
+      var:
+        # please check the following status to confirm
+        fortios_system_firmware_upgrade_result
+
+  - pause:
+
+  - name: Perform firmware upgrade with firmware file on USB.
+    fortios_system_firmware_upgrade:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "True"
+      system_firmware:
+        # filename: "/workspaces/ansible_generator/firmware/FGT_VM64_KVM-v6-build0163-FORTINET.out"
+        filename: "FGT_501E-v6-build8298-FORTINET.out"
+        source: "usb"
+        # filename: "/workspaces/ansible_generator/firmware/abcd.out"
+        # source: "upload"
+    register: fortios_system_firmware_upgrade_result
+
+  - debug:
+      var:
+        # please check the following status to confirm
+        fortios_system_firmware_upgrade_result
+
+  - pause:
+
+
+  - name: Perform firmware upgrade with local firmware file.
+    fortios_system_firmware_upgrade:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "True"
+      system_firmware:
+        # filename: "/workspaces/ansible_generator/firmware/FGT_VM64_KVM-v6-build0163-FORTINET.out"
+        filename: "/workspaces/ansible_generator/firmware/abc.out"
+        source: "upload"
+    register: fortios_system_firmware_upgrade_result
+
+  - debug:
+      var: 
+        # please check the following status to confirm
+        fortios_system_firmware_upgrade_result
+
   - name: Perform firmware upgrade with local firmware file.
     fortios_system_firmware_upgrade:
       host:  "{{ host }}"
@@ -15,4 +80,11 @@
       https: "True"
       system_firmware:
         filename: "/workspaces/ansible_generator/firmware/FGT_VM64_KVM-v6-build0163-FORTINET.out"
+        # filename: "/workspaces/ansible_generator/firmware/abcd.out"
         source: "upload"
+    register: fortios_system_firmware_upgrade_result
+
+  - debug:
+      var: 
+        # please check the following status to confirm
+        fortios_system_firmware_upgrade_result
