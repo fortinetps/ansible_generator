@@ -1,13 +1,13 @@
 
 from ansible.module_utils.basic import AnsibleModule
+from ansible.module_utils.connection import Connection
+from ansible.module_utils.network.fortios.fortios import FortiOSHandler
+from ansible.module_utils.network.fortimanager.common import FAIL_SOCKET_MSG
 {%- if "import" in schema %}
 {% for item in schema['import'].split(',')-%}
 import {{item}}
 {% endfor %}
 {% endif %}
-from ansible.module_utils.connection import Connection
-from ansible.module_utils.network.fortios.fortios import FortiOSHandler
-from ansible.module_utils.network.fortimanager.common import FAIL_SOCKET_MSG
 
 
 def login(data, fos):
@@ -162,9 +162,9 @@ def fortios_{{path}}(data, fos):
     {%-else-%}
     if data['{{path}}_{{name}}']:
     {%-endif %}
-        resp = {{path}}_{{name}}(data, fos, check_mode)
+        resp = {{path}}_{{name}}(data, fos)
     {% else %}
-    resp = {{path}}_{{name}}(data, fos, check_mode)
+    resp = {{path}}_{{name}}(data, fos)
     {% endif %}
 
     {% if "fortios-path-code-inject" in schema %}
