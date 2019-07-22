@@ -1,0 +1,25 @@
+- hosts: localhost
+  gather_facts: false
+  vars:
+   host: "192.168.210.31"
+   username: "admin"
+   password: "fortinet"
+   vdom: "root"
+  tasks:
+  - name: Perform firmware upgrade with local firmware file.
+    fortios_system_firmware_upgrade:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "True"
+      system_firmware:
+        filename: "/workspaces/ansible_generator/firmware/FGT_501E-v5-build1600-FORTINET.out"
+        # filename: "/workspaces/ansible_generator/firmware/abcd.out"
+        source: "upload"
+    register: fortios_system_firmware_upgrade_result
+
+  - debug:
+      var: 
+        # please check the following status to confirm
+        fortios_system_firmware_upgrade_result

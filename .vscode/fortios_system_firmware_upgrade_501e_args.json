@@ -1,13 +1,13 @@
 {
     "ANSIBLE_MODULE_ARGS": {
-        "host": "192.168.210.11",
+        "host": "192.168.210.31",
         "username": "admin",
         "password": "fortinet",
         "vdom": "root",
         "https": "True",
         "system_firmware": {
             "source": "upload",
-            "filename": "/workspaces/ansible_generator/firmware/FGT_VM64_KVM-v6-build0163-FORTINET.out"
+            "filename": "/workspaces/ansible_generator/firmware/FGT_501E-v5-build1600-FORTINET.out"
         }
     }
   }

@@ -18,12 +18,25 @@
             "name": "Python: Terminal (integrated) - Test fortios_monitor_system_firmware_upgrade Ansible module",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/output/v6.0.2/monitor_system/fortios_monitor_system_firmware_upgrade.py",
+            "program": "${workspaceFolder}/modules/PR/fortios_system_firmware_upgrade.py",
             // "cwd": "${workspaceRoot}",
             "env": {"PYTHONPATH": "${workspaceRoot}"},
             "console": "integratedTerminal",
             "args": [
                 "${workspaceFolder}/.vscode/fortios_monitor_system_firmware_upgrade_args.json"
+            ]
+        },
+        {
+            "name": "Python: Terminal (integrated) - Test fortios_monitor_system_firmware_upgrade Ansible module on 501E",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/modules/PR/fortios_system_firmware_upgrade.py",
+            // "cwd": "${workspaceRoot}",
+            "env": {"PYTHONPATH": "${workspaceRoot}"},
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": [
+                "${workspaceFolder}/.vscode/fortios_system_firmware_upgrade_501e_args.json"
             ]
         },
         {
