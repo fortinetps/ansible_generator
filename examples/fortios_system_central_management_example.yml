@@ -14,22 +14,14 @@
       https: "False"
       system_central_management:
         mode: normal
-        type: none
+        type: fortimanager
         schedule_config_restore: enable
         schedule_script_restore: enable
         allow_push_configuration: enable
         allow_push_firmware: enable
         allow_remote_firmware_upgrade: enable
         allow_monitor: enable
-        serial_number: 23f23j32rr3f8293
         fmg: FMG1
-        fmg_source_ip: 10.210.1.1
         vdom: root
-        server_list: 
-         -
-            addr_type: "ipv4"
-            id:  "19"
-            server_address: "10.20.232.32"
-            server_type: "update"
         include_default_servers: enable
         enc_algorithm: low
