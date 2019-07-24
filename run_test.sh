@@ -182,7 +182,7 @@ run_example system fortios_system_accprofile_example.yml
 run_example system fortios_system_admin_example.yml
 run_example system fortios_system_api_user_example.yml
 run_example system fortios_system_central_management_example.yml
-un_example system_dhcp fortios_system_dhcp_server_example.yml
+run_example system_dhcp fortios_system_dhcp_server_example.yml
 run_example system fortios_system_dns_example.yml
 run_example system fortios_system_interface_example.yml
 run_example system fortios_system_global_example.yml
