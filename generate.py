@@ -80,7 +80,7 @@ def renderModule(schema, version, special_attributes):
     special_attributes_flattened = [','.join(x for x in elem) for elem in special_attributes]
 
     template = env.get_template('doc.j2')
-    output = template.render(**locals())
+    output = template.render(calculateFullPath=calculateFullPath, **locals())
 
     template = env.get_template('examples.j2')
     output += template.render(**locals())
