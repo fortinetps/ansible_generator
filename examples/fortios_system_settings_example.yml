@@ -20,7 +20,7 @@
         implicit_allow_dns: enable
         ssl_ssh_profile: certificate-inspection
         http_external_dest: fortiweb
-        firewall_session_dirty: check_all
+        firewall_session_dirty: check-all
         manageip: ''
         gateway: 0.0.0.0
         ip: 0.0.0.0 0.0.0.0
@@ -37,7 +37,7 @@
         wccp_cache_engine: disable
         vpn_stats_log: ipsec
         vpn_stats_period: 600
-        v4_ecmp_mode: source_ip_based
+        v4_ecmp_mode: source-ip-based
         mac_ttl: 300
         fw_session_hairpin: disable
         prp_trailer_action: disable
