@@ -1,4 +1,3 @@
 requests
-fortiosapi
-ansible==2.8.*
+fortiosapi==0.11.1
 autopep8

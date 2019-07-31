@@ -19,12 +19,21 @@ RUN apt-get -y install git procps lsb-release
 # Install any missing dependencies for enhanced language service
 RUN apt-get install -y libicu[0-9][0-9]
 
-RUN mkdir /workspace
-WORKDIR /workspace
+RUN mkdir /workspaces
+WORKDIR /workspaces
+
+# Install pip2 and Python dependencies from requirements.txt if it exists
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+RUN /usr/bin/python get-pip.py
+COPY .devcontainer/requirements.txt.temp requirements.txt* /workspaces/
+RUN if [ -f "requirements.txt" ]; then pip2 install -r requirements.txt && rm requirements.txt*; fi
 
 # Install Python dependencies from requirements.txt if it exists
-COPY .devcontainer/requirements.txt.temp requirements.txt* /workspace/
-RUN if [ -f "requirements.txt" ]; then pip install -r requirements.txt && rm requirements.txt*; fi
+COPY .devcontainer/requirements.txt.temp requirements.txt* /workspaces/
+RUN if [ -f "requirements.txt" ]; then pip3 install -r requirements.txt && rm requirements.txt*; fi
+
+# Install Ansible devel branch
+RUN pip3 install git+https://github.com/ansible/ansible.git
 
 # Clean up
 RUN apt-get autoremove -y \
