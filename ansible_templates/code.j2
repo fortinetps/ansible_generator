@@ -193,7 +193,7 @@ def main():
                         "choices": ["present", "absent"]},
         {%endif-%}
         "{{path}}_{{name}}": {
-            "required": False, "type": "dict",
+            "required": False, "type": "dict", "default": None,
             "options": {
                 {{ code_fields(schema['schema']['children'], schema['schema']['mkey'], '') }}
             }
