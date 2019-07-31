@@ -19,6 +19,5 @@
         comment: "Comment."
         member:
          - name: "all"
-         - name: "google-play"
         name: "default_name_8"
         visibility: "enable"

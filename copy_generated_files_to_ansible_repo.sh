@@ -1,5 +1,7 @@
 #!/bin/bash
 
+original_dir=$(pwd)
+ansible_dir=$1
 
 if [ -z $1 ]; then
   me=`basename "$0"`
@@ -10,22 +12,36 @@ if [ -z $1 ]; then
   exit -1
 fi
 
-if [ ! -f $1/MANIFEST.in ] || 
-   [ ! -d $1/lib/ansible/modules/network/fortios/ ] || 
-   [ ! -d $1/test/units/modules/network/fortios/ ]; then
+if [ ! -f ${ansible_dir}/MANIFEST.in ] || 
+   [ ! -d ${ansible_dir}/lib/ansible/modules/network/fortios/ ] || 
+   [ ! -d ${ansible_dir}/test/units/modules/network/fortios/ ]; then
   echo "Directory does not look like an official Ansible Repository."
   exit -1
 
 fi
 
-number=`find . -name "fortios_*.py" | wc -l `
+cd ${ansible_dir}
+git checkout devel
 
-echo "Copying ${number} Ansible modules to $1/lib/ansible/modules/network/fortios/ ..."
-find . -name "fortios_*.py" -exec cp {} $1/lib/ansible/modules/network/fortios/ \;
-echo "Copied"
+modules=$(find ${original_dir} -name "fortios_*.py")
+echo "Generating branches and commits for each module:"
+for module in ${modules}
+do
+  basename=${module##*/}
+  basename=${basename%.*}
 
-number=`find . -name "test_*.py" | wc -l `
+  echo $basename
 
-echo "Copying ${number} Ansible unit test files to $1/test/units/modules/network/fortios/ ..."
-find . -name "test_*.py" -exec cp {} $1/test/units/modules/network/fortios/ \;
-echo "Copied"
+  git checkout -B ${basename}
+  cp ${module} ${ansible_dir}/lib/ansible/modules/network/fortios/
+  git add ${ansible_dir}/lib/ansible/modules/network/fortios/
+
+  test_file=$(find ${original_dir} -name "test_${basename}.py")
+  if [ ! -z ${test_file} ]; then 
+    cp ${test_file} ${ansible_dir}/test/units/modules/network/fortios/
+    git add ${ansible_dir}/test/units/modules/network/fortios/
+  fi
+
+  git commit -m "Fortinet's new module for ${basename}"
+  git checkout devel
+done

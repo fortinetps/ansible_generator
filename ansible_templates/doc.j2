@@ -1,4 +1,56 @@
-{% macro doc_attributes(dict, mkey) -%}
+{% macro getAnsibleType(parent_attrs, attribute) -%}
+{%- if calculateFullPath(parent_attrs, attribute["name"]) in special_attributes_flattened -%}
+list
+{%- elif attribute["type"] == "string" or attribute["type"] == "option" or  attribute["type"] == "var_string" -%}
+str
+{%- elif not attribute["type"] and attribute["category"]=="table"-%}
+list
+{%- elif not attribute["type"] and attribute["category"]=="complex"-%}
+dict
+{%- elif attribute["type"] == "integer"-%}
+int
+{%- elif attribute["type"] == "user"-%}
+str
+{%- elif attribute["type"] == "ipv4_address"-%}
+str
+{%- elif attribute["type"] == "ipv6_address"-%}
+str
+{%- elif attribute["type"] == "password"-%}
+str
+{%- elif attribute["type"] == "password_2"-%}
+str
+{%- elif attribute["type"] == "password_3"-%}
+str
+{%- elif attribute["type"] == "ipv4_classnet_any"-%}
+str
+{%- elif attribute["type"] == "ipv4_address_any"-%}
+str
+{%- elif attribute["type"] == "ipv4_address_multicast"-%}
+str
+{%- elif attribute["type"] == "ipv4_classnet"-%}
+str
+{%- elif attribute["type"] == "ipv4_classnet_host"-%}
+str
+{%- elif attribute["type"] == "ipv4_netmask"-%}
+str
+{%- elif attribute["type"] == "ipv4_netmask_any"-%}
+str
+{%- elif attribute["type"] == "ipv6_network"-%}
+str
+{%- elif attribute["type"] == "ipv6_prefix"-%}
+str
+{%- elif attribute["type"] == "mac_address"-%}
+str
+{%- elif attribute["type"] == "uuid"-%}
+str
+{%- elif attribute["type"] == "time"-%}
+str
+{%- elif attribute["type"] == "datetime"-%}
+str
+{%- else -%}
+{{attribute["type"]}}
+{%- endif -%}
+{%- endmacro %}{% macro doc_attributes(dict, mkey, parent_attrs) -%}
         {%- for key,value in dict |dictsort %}
         {{value['name']}}:
             description:
@@ -6,7 +58,8 @@
             type: str
             {%- if key == mkey %}
             required: true
-            {%- endif -%}
+            {%- endif %}
+            type: {{getAnsibleType(parent_attrs, value)}}
             {%- if "options" in value %}
             choices:
                 {%- for v in value["options"] %}
@@ -14,7 +67,7 @@
                 {%- endfor -%}
             {%- endif -%}
             {%- if value["category"] == "table" or value["category"] == "complex" %}
-            suboptions:{{ doc_attributes(value["children"], value["mkey"])|indent|indent}}
+            suboptions:{{ doc_attributes(value["children"], value["mkey"], key if parent_attrs == '' else parent_attrs + ',' + key)|indent|indent}}
             {%- endif -%}
             {% endfor -%}
 {%- endmacro %}#!/usr/bin/python
@@ -87,6 +140,12 @@ options:
         type: bool
         default: true
     {%-if not "monitor" in schema and "mkey" in schema['schema'] %}
+    ssl_verify:
+        description:
+            - Ensures FortiGate certificate must be verified by a proper CA.
+        type: bool
+        default: true
+    {%-if "mkey" in schema['schema'] %}
     state: 
         description: 
             - Indicates whether to create or remove the object.
@@ -101,6 +160,6 @@ options:
         default: null
         type: dict
         suboptions: 
-            {{- doc_attributes(schema['schema']['children'], schema['schema']['mkey'])|indent }}
+            {{- doc_attributes(schema['schema']['children'], schema['schema']['mkey'], '')|indent }}
 '''
 
