@@ -2,3 +2,5 @@ requests
 fortiosapi==0.11.1
 autopep8
 jinja2
+virtualenv
+tox

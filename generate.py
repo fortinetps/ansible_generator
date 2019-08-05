@@ -189,6 +189,7 @@ def jinjaExecutor(number=None, schema=None):
     if os.path.isfile("/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_h2qp_conn_capability.py"):
         os.popen("sed -i 's/filtered_data =/filtered_data = \\\/' ./output/" + fgt_schema['version'] + "/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_h2qp_conn_capability.py")
     os.popen("find . -name 'test_fortios_router_bfd*.py' -exec rm {} \\;")
+    os.popen("cp ./output/v6.0.2/system/test_fortios_system_*.py /workspaces/ansible/test/units/modules/network/fortios/ && cp ./output/v6.0.2/system/fortios_system_*.py /workspaces/ansible/lib/ansible/modules/network/fortios/")
 
 if __name__ == "__main__":
     schema = 'fgt_schema.json'
