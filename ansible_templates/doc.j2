@@ -55,7 +55,6 @@ str
         {{value['name']}}:
             description:
                 - {%if ":" in value['help'] -%}"{%-endif-%}{{ value['help'] }} {%- if 'datasource' in value %} Source {{value['datasource']|join(' ')}}.{%-endif-%}{%if ":" in value['help'] -%}"{%-endif%}
-            type: str
             {%- if key == mkey %}
             required: true
             {%- endif %}
