@@ -79,10 +79,13 @@ def renderModule(schema, version, special_attributes):
     original_path = schema['path']
     original_name = schema['name']
     original_monitor = schema.get('monitor')
+    original_fortiosapi = schema.get('fortiosapi')
+    
     path = replaceSpecialChars(original_path)
     name = replaceSpecialChars(original_name)
     monitor = None if original_monitor is None else replaceSpecialChars(original_monitor)
     module_name = "fortios_" + path + "_" + name + ("" if monitor is None else "_" + monitor)
+    fortiosapi = None if original_fortiosapi is None else replaceSpecialChars(original_fortiosapi)
     special_attributes_flattened = [','.join(x for x in elem) for elem in special_attributes]
 
     template = env.get_template('doc.j2')
@@ -108,7 +111,7 @@ def renderModule(schema, version, special_attributes):
 
     # Generate example
     file_example = open('output/' + version + '/' + path + '/fortios_' + path +
-                        '_' + name + '_example.yml', 'w')
+                        '_' + name + ("" if monitor is None else "_" + monitor) + '_example.yml', 'w')
     template = env.get_template('examples.j2')
     output = template.render(**locals())
     lines = output.splitlines(True)
@@ -117,7 +120,7 @@ def renderModule(schema, version, special_attributes):
 
     # Generate test
     file_example = open('output/' + version + '/' + path + '/test_fortios_' + path +
-                        '_' + name + '.py', 'w')
+                        '_' + name + ("" if monitor is None else "_" + monitor) + '.py', 'w')
     template = env.get_template('tests.j2')
     output = template.render(**locals())
     lines = output.splitlines(True)
