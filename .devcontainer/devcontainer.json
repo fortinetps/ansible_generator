@@ -8,5 +8,5 @@
 	"settings": {
 		"python.pythonPath": "/usr/local/bin/python"
 	},
-	"postCreateCommand": "cp /workspaces/ansible_generator/ansible/module_utils/network/fortios/fortios.py /workspaces/ansible/lib/ansible/module_utils/network/fortios/"
+	"postCreateCommand": "cp /workspaces/ansible_generator/ansible/module_utils/network/fortios/fortios.py /workspaces/ansible/lib/ansible/module_utils/network/fortios/ && echo 'fortiosapi==0.11.1' >> /workspaces/ansible/test/runner/requirements/units.txt"
 }

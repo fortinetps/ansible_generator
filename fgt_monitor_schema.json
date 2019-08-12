@@ -48,7 +48,8 @@
         "fortiosapi":"execute",
         "import":"os,base64",
         "path-name-code-inject":[
-          "filtered_data[\"file_content\"]= base64.b64encode(open(system_firmware_data[\"filename\"], 'rb').read()).decode('utf-8')",
+          "filtered_data[\"file_content\"]= system_firmware_data[\"file_content\"] if system_firmware_data[\"file_content\"] is not None \\",
+          "    else base64.b64encode(open(system_firmware_data[\"filename\"], 'rb').read()).decode('utf-8')",
           "del filtered_data['filename']"
         ],
         "schema":{
@@ -89,9 +90,8 @@
             "format_partition":{
               "name":"format_partition",
               "category":"unitary",
-              "type":"string",
-              "help":"Set to true to format boot partition before upgrade.",
-              "size":8
+              "type":"bool",
+              "help":"Set to true to format boot partition before upgrade."
             },
             "file_content":{
               "name":"file_content",
