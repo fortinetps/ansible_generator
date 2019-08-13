@@ -59,7 +59,7 @@ str
             required: true
             {%- endif %}
             type: {{getAnsibleType(parent_attrs, value)}}
-            {%- if "options" in value %}
+            {%- if "options" in value and value['options'] %}
             choices:
                 {%- for v in value["options"] %}
                 - {{ v["name"] }}
