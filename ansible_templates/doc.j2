@@ -101,7 +101,7 @@ description:
       user to set and modify {{path}} feature and {{name}} category.
       Examples include all parameters and values need to be adjusted to datasources before usage.
       Tested with FOS {{version}}
-version_added: "2.9"
+version_added: "{{module_version_added}}"
 author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
@@ -142,7 +142,8 @@ options:
         description:
             - Ensures FortiGate certificate must be verified by a proper CA.
         type: bool
-        default: true
+        default: true{% if module_version_added == 2.8 %}
+        version_added: 2.9{%endif%}
     {%-if "mkey" in schema['schema'] %}
     state: 
         description: 
@@ -150,7 +151,8 @@ options:
         type: str
         choices:
             - present
-            - absent
+            - absent{% if module_version_added == 2.8 %}
+        version_added: 2.9{%endif%}
         {%-endif%}
     {{path}}_{{name}}:
         description:
