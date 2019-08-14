@@ -59,7 +59,7 @@ str
             required: true
             {%- endif %}
             type: {{getAnsibleType(parent_attrs, value)}}
-            {%- if "options" in value %}
+            {%- if "options" in value and value['options'] %}
             choices:
                 {%- for v in value["options"] %}
                 - {{ v["name"] }}
@@ -101,7 +101,7 @@ description:
       user to set and modify {{path}} feature and {{name}} category.
       Examples include all parameters and values need to be adjusted to datasources before usage.
       Tested with FOS {{version}}
-version_added: "2.9"
+version_added: "{{module_version_added}}"
 author:
     - Miguel Angel Munoz (@mamunozgonzalez)
     - Nicolas Thomas (@thomnico)
@@ -115,12 +115,12 @@ options:
         description:
             - FortiOS or FortiGate IP address.
         type: str
-        required: true
+        required: false
     username:
         description:
             - FortiOS or FortiGate username.
         type: str
-        required: true
+        required: false
     password:
         description:
             - FortiOS or FortiGate password.
@@ -142,7 +142,8 @@ options:
         description:
             - Ensures FortiGate certificate must be verified by a proper CA.
         type: bool
-        default: true
+        default: true{% if module_version_added == 2.8 %}
+        version_added: 2.9{%endif%}
     {%-if not "monitor" in schema and "mkey" in schema['schema'] %}
     state: 
         description: 
@@ -150,8 +151,9 @@ options:
         type: str
         choices:
             - present
-            - absent
-        {%-endif%}
+            - absent{% if module_version_added == 2.8 %}
+        version_added: 2.9{%endif%}
+    {%-endif%}
     {{path}}_{{name}}:
         description:
             - {{schema['schema']['help']}}

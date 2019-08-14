@@ -65,7 +65,7 @@ def hyphenToUnderscore(data):
         return data
 
 
-def renderModule(schema, version, special_attributes):
+def renderModule(schema, version, special_attributes, version_added):
 
     # Generate module
     file_loader = FileSystemLoader('ansible_templates')
@@ -86,6 +86,10 @@ def renderModule(schema, version, special_attributes):
     monitor = None if original_monitor is None else replaceSpecialChars(original_monitor)
     module_name = "fortios_" + path + "_" + name + ("" if monitor is None else "_" + monitor)
     fortiosapi = None if original_fortiosapi is None else replaceSpecialChars(original_fortiosapi)
+    module_name = "fortios_" + path + "_" + name
+
+    module_version_added = version_added[module_name] 
+
     special_attributes_flattened = [','.join(x for x in elem) for elem in special_attributes]
 
     template = env.get_template('doc.j2')
@@ -143,6 +147,9 @@ def jinjaExecutor(number=None, schema=None):
     special_attributes_file = open('special_attributes.lst').read()
     special_attributes = json.loads(special_attributes_file)
 
+    version_added_file = open('version_added.json').read()
+    version_added_json = json.loads(version_added_file)
+
     autopep_files = './output/' + fgt_schema['version']
 
     if not number:
@@ -155,13 +162,15 @@ def jinjaExecutor(number=None, schema=None):
                 print('\033[0mIteration:\033[93m' + str(real_counter) + "\033[0m, Schema position: \033[93m" + str(i))
                 renderModule(fgt_sch_results[i],
                              fgt_schema['version'],
-                             special_attributes[module_name] if module_name in special_attributes else [])
+                             special_attributes[module_name] if module_name in special_attributes else [],
+                             version_added_json)
                 real_counter += 1
     else:
         module_name = getModuleName(fgt_sch_results[number]['path'], fgt_sch_results[number]['name'])
         renderModule(fgt_sch_results[number],
                      fgt_schema['version'],
-                     special_attributes[module_name] if module_name in special_attributes else [])
+                     special_attributes[module_name] if module_name in special_attributes else [],
+                     version_added_json)
 
         autopep_files = './output/' + \
                 fgt_schema['version'] + '/' + \
