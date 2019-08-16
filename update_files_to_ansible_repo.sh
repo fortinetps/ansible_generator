@@ -20,13 +20,11 @@ if [ ! -f ${ansible_dir}/MANIFEST.in ] ||
 
 fi
 
-cd ${ansible_dir}
-git checkout devel
+# pull_request_name and module_list are repeated over the code.
+# The intention is to run this script with a single pull_request_name
+# and module_list. Choose the one you need and delete the rest
 
 pull_request_name="fortios_update_first_group"
-
-git checkout -b ${pull_request_name}
-git checkout ${pull_request_name}
 
 module_list="fortios_antivirus_heuristic
 fortios_antivirus_profile
@@ -49,6 +47,58 @@ fortios_dnsfilter_domain_filter
 fortios_dnsfilter_profile
 fortios_endpoint_control_client"
 
+
+pull_request_name="fortios_update_second_group"
+
+module_list="fortios_endpoint_control_forticlient_ems
+fortios_endpoint_control_forticlient_registration_sync
+fortios_endpoint_control_profile
+fortios_endpoint_control_settings
+fortios_extender_controller_extender
+fortios_firewall_address6
+fortios_firewall_address6_template
+fortios_firewall_address
+fortios_firewall_addrgrp6
+fortios_firewall_addrgrp
+fortios_firewall_auth_portal
+fortios_firewall_central_snat_map
+fortios_firewall_dnstranslation
+fortios_firewall_DoS_policy6
+fortios_firewall_DoS_policy
+fortios_firewall_identity_based_route
+fortios_firewall_interface_policy6
+fortios_firewall_interface_policy
+fortios_firewall_internet_service_custom
+fortios_firewall_internet_service"
+
+pull_request_name="fortios_update_third_group"
+
+module_list="fortios_firewall_internet_service_group
+fortios_firewall_ipmacbinding_setting
+fortios_firewall_ipmacbinding_table
+fortios_firewall_ippool6
+fortios_firewall_ippool
+fortios_firewall_ip_translation
+fortios_firewall_ipv6_eh_filter
+fortios_firewall_ldb_monitor
+fortios_firewall_local_in_policy6
+fortios_firewall_local_in_policy
+fortios_firewall_multicast_address6
+fortios_firewall_multicast_address
+fortios_firewall_multicast_policy6
+fortios_firewall_multicast_policy
+fortios_firewall_policy46
+fortios_firewall_policy64
+fortios_firewall_policy6
+fortios_firewall_policy
+fortios_firewall_profile_group
+fortios_firewall_profile_protocol_options"
+
+cd ${ansible_dir}
+git checkout devel
+
+git checkout -b ${pull_request_name}
+git checkout ${pull_request_name}
 
 for module in ${module_list}; do
   module_located=""
