@@ -3,6 +3,7 @@ from jinja2 import Template, Environment, FileSystemLoader
 import json
 import autopep8
 import os
+import re
 
 
 def replaceSpecialChars(str):
@@ -63,6 +64,13 @@ def hyphenToUnderscore(data):
     else:
         return data
 
+def removeDefaultCommentsInFGTDoc(str):
+    regex = r"(-.*\(.*?)(, ){0,1}([D|d]efault[ |:|=\n]+.*)(\))"
+    str = re.sub(regex, r"\g<1>\g<4>", str)
+
+    regex = r"(-.*)\(\)"
+    str = re.sub(regex, r"\g<1>", str)
+    return str
 
 def renderModule(schema, version, special_attributes, version_added):
 
@@ -102,6 +110,7 @@ def renderModule(schema, version, special_attributes, version_added):
         os.makedirs(dir)
 
     file = open('output/' + version + '/' + path + '/fortios_' + path + '_' + name + '.py', 'w')
+    output = removeDefaultCommentsInFGTDoc(output)
     output = splitLargeLines(output)
     file.write(output)
     file.close()
@@ -172,7 +181,6 @@ def jinjaExecutor(number=None):
                 fgt_schema['version'] + '/' + \
                 replaceSpecialChars(fgt_sch_results[number]['path']) + \
                 '/test_fortios_' + replaceSpecialChars(fgt_sch_results[number]['path']) + '_' + replaceSpecialChars(fgt_sch_results[number]['name']) + '.py'
-
 
     print("\n\n\033[0mExecuting autopep8 ....")
     # Note this is done with popen and not with autopep8.fix_code in order to get the multiprocessig optimization, only available from CLI
