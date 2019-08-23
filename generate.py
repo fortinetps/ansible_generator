@@ -3,8 +3,10 @@ from jinja2 import Template, Environment, FileSystemLoader
 import json
 import autopep8
 import os
+import re
 import sys
 import getopt
+
 
 def replaceSpecialChars(str):
     return str.replace('-', '_').replace('.', '_').replace('+', 'plus')
@@ -59,11 +61,18 @@ def hyphenToUnderscore(data):
         return data
     elif isinstance(data, str):
         return data.replace('-', '_')
-    # elif isinstance(data, unicode):   # python3 all strings are unicode
-    #     return data.encode('utf-8').replace('-', '_')
+    elif isinstance(data, unicode):
+        return data.encode('utf-8').replace('-', '_')
     else:
         return data
 
+def removeDefaultCommentsInFGTDoc(str):
+    regex = r"(-.*\(.*?)(, ){0,1}([D|d]efault[ |:|=\n]+.*)(\))"
+    str = re.sub(regex, r"\g<1>\g<4>", str)
+
+    regex = r"(-.*)\(\)"
+    str = re.sub(regex, r"\g<1>", str)
+    return str
 
 def renderModule(schema, version, special_attributes, version_added):
 
@@ -109,6 +118,7 @@ def renderModule(schema, version, special_attributes, version_added):
         os.makedirs(dir)
 
     file = open('output/' + version + '/' + path + '/fortios_' + path + '_' + name + ("" if monitor is None else "_" + monitor) + '.py', 'w')
+    output = removeDefaultCommentsInFGTDoc(output)
     output = splitLargeLines(output)
     file.write(output)
     file.close()
@@ -182,7 +192,6 @@ def jinjaExecutor(number=None, schema=None):
                 replaceSpecialChars(fgt_sch_results[number]['path']) + \
                 '/test_fortios_' + replaceSpecialChars(fgt_sch_results[number]['path']) + '_' + replaceSpecialChars(fgt_sch_results[number]['name']) + '.py'
 
-
     print("\n\n\033[0mExecuting autopep8 ....")
     # Note this is done with popen and not with autopep8.fix_code in order to get the multiprocessig optimization, only available from CLI
     os.popen('autopep8 --aggressive --max-line-length 160 --jobs 8 --ignore E402 --in-place --recursive ' + autopep_files)
@@ -192,16 +201,11 @@ def jinjaExecutor(number=None, schema=None):
     # Fix exceptional issues due to bugs in autopep
     # Using os.popen for quick edit and modification. Should be replaced by proper Python calls
     print("\n\n\033[0mFinal fixes ....")
-    if os.path.isfile("/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_anqp_ip_address_type.py"):
-        os.popen("sed -i 's/filtered_data =/filtered_data = \\\/' ./output/" + fgt_schema['version'] + "/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_anqp_ip_address_type.py")
-    if os.path.isfile("/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_anqp_network_auth_type.py"):
-        os.popen("sed -i 's/filtered_data =/filtered_data = \\\/' ./output/" + fgt_schema['version'] + "/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_anqp_network_auth_type.py")
-    if os.path.isfile("/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_anqp_roaming_consortium.py"):
-        os.popen("sed -i 's/filtered_data =/filtered_data = \\\/' ./output/" + fgt_schema['version'] + "/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_anqp_roaming_consortium.py")
-    if os.path.isfile("/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_h2qp_conn_capability.py"):
-        os.popen("sed -i 's/filtered_data =/filtered_data = \\\/' ./output/" + fgt_schema['version'] + "/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_h2qp_conn_capability.py")
+    os.popen("sed -i 's/filtered_data =/filtered_data = \\\/' ./output/" + fgt_schema['version'] + "/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_anqp_ip_address_type.py")
+    os.popen("sed -i 's/filtered_data =/filtered_data = \\\/' ./output/" + fgt_schema['version'] + "/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_anqp_network_auth_type.py")
+    os.popen("sed -i 's/filtered_data =/filtered_data = \\\/' ./output/" + fgt_schema['version'] + "/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_anqp_roaming_consortium.py")
+    os.popen("sed -i 's/filtered_data =/filtered_data = \\\/' ./output/" + fgt_schema['version'] + "/wireless_controller_hotspot20/fortios_wireless_controller_hotspot20_h2qp_conn_capability.py")
     os.popen("find . -name 'test_fortios_router_bfd*.py' -exec rm {} \\;")
-    os.popen("cp ./output/v6.0.2/system/test_fortios_system_*.py /workspaces/ansible/test/units/modules/network/fortios/ && cp ./output/v6.0.2/system/fortios_system_*.py /workspaces/ansible/lib/ansible/modules/network/fortios/")
 
 if __name__ == "__main__":
     schema = 'fgt_schema.json'

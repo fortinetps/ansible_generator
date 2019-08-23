@@ -425,5 +425,9 @@
     "fortios_wireless_controller_wids_profile": 2.8,
     "fortios_wireless_controller_wtp": 2.8,
     "fortios_wireless_controller_wtp_group": 2.9,
-    "fortios_wireless_controller_wtp_profile": 2.8
+    "fortios_wireless_controller_wtp_profile": 2.8,
+    "fortios_system_status": 2.9,
+    "fortios_system_firmware": 2.9,
+    "fortios_system_ha_checksums": 2.9,
+    "fortios_system_config": 2.9
 }
