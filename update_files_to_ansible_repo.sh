@@ -166,6 +166,28 @@ fortios_log_gui_display
 fortios_log_memory_filter"
 
 
+pull_request_name="fortios_update_seventh_group"
+
+module_list="fortios_log_memory_global_setting
+fortios_log_memory_setting
+fortios_log_null_device_filter
+fortios_log_null_device_setting
+fortios_log_setting
+fortios_log_syslogd2_filter
+fortios_log_syslogd2_setting
+fortios_log_syslogd3_filter
+fortios_log_syslogd3_setting
+fortios_log_syslogd4_filter
+fortios_log_syslogd4_setting
+fortios_log_syslogd_filter
+fortios_log_syslogd_override_filter
+fortios_log_syslogd_override_setting
+fortios_log_syslogd_setting
+fortios_log_threat_weight
+fortios_log_webtrends_filter
+fortios_log_webtrends_setting
+fortios_report_chart
+fortios_report_dataset"
 
 cd ${ansible_dir}
 git checkout devel
