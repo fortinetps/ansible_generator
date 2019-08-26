@@ -189,6 +189,29 @@ fortios_log_webtrends_setting
 fortios_report_chart
 fortios_report_dataset"
 
+pull_request_name="fortios_update_eighth_group"
+
+module_list="fortios_report_layout
+fortios_report_setting
+fortios_report_style
+fortios_report_theme
+fortios_router_access_list
+fortios_router_auth_path
+fortios_router_bfd6
+fortios_router_bfd
+fortios_router_bgp
+fortios_router_multicast6
+fortios_router_multicast
+fortios_router_multicast_flow
+fortios_router_ospf6
+fortios_router_ospf
+fortios_router_policy6
+fortios_router_policy
+fortios_router_prefix_list
+fortios_router_rip
+fortios_router_setting
+fortios_router_static"
+
 cd ${ansible_dir}
 git checkout devel
 
