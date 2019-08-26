@@ -212,6 +212,30 @@ fortios_router_rip
 fortios_router_setting
 fortios_router_static"
 
+pull_request_name="fortios_update_nineth_group"
+
+module_list="
+fortios_spamfilter_profile
+fortios_ssh_filter_profile
+fortios_switch_controller_global
+fortios_switch_controller_lldp_profile
+fortios_switch_controller_lldp_settings
+fortios_switch_controller_mac_sync_settings
+fortios_switch_controller_managed_switch
+fortios_switch_controller_network_monitor_settings
+fortios_system_accprofile
+fortios_system_admin
+fortios_system_api_user
+fortios_system_central_management
+fortios_system_dhcp_server
+fortios_system_dns
+fortios_system_global
+fortios_system_interface
+fortios_system_sdn_connector
+fortios_system_settings
+fortios_system_vdom
+fortios_system_virtual_wan_link"
+
 cd ${ansible_dir}
 git checkout devel
 
