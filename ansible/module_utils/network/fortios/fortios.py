@@ -96,9 +96,7 @@ class FortiOSHandler(object):
                 url += '?vdom=' + vdom
         return url
 
-    # https://github.com/fortinet-solutions-cse/fortiosapi/blob/v0.11.1/fortiosapi/fortiosapi.py
     def mon_url(self, path, name, vdom=None, mkey=None):
-
         url = '/api/v2/monitor/' + path + '/' + name
         if mkey:
             url = url + '/' + str(mkey)
@@ -108,11 +106,6 @@ class FortiOSHandler(object):
             else:
                 url += '?vdom=' + vdom
         return url
-
-    def monitor(self, path, name, vdom=None, mkey=None, parameters=None):
-        url = self.mon_url(path, name, vdom, mkey)
-        res = self._conn.send_request(url, params=parameters)
-        return self.formatresponse(res, vdom=vdom)
 
     def schema(self, path, name, vdom=None):
         if vdom is None:
@@ -150,6 +143,20 @@ class FortiOSHandler(object):
                 return None
         return mkey
 
+    def get(self, path, name, vdom=None, mkey=None, parameters=None):
+        url = self.cmdb_url(path, name, vdom, mkey=mkey)
+
+        status, result_data = self._conn.send_request(url=url, params=parameters, method='GET')
+
+        return self.formatresponse(result_data, vdom=vdom)
+
+    def monitor(self, path, name, vdom=None, mkey=None, parameters=None):
+        url = self.mon_url(path, name, vdom, mkey)
+
+        status, result_data = self._conn.send_request(url=url, params=parameters, method='GET')
+
+        return self.formatresponse(result_data, vdom=vdom)
+
     def set(self, path, name, data, mkey=None, vdom=None, parameters=None):
 
         if not mkey:
@@ -177,13 +184,12 @@ class FortiOSHandler(object):
         return self.formatresponse(result_data, vdom=vdom)
 
     def execute(self, path, name, data, vdom=None,
-                mkey=None, parameters=None):
-        # execute is an action done on a running fortigate
-        # it is actually doing a post to the monitor part of the API
-        # we choose this name for clarity
+                mkey=None, parameters=None, timeout=300):
         url = self.mon_url(path, name, vdom, mkey=mkey)
-        res = self._conn.send_request(url, params=parameters, data=json.dumps(data), method='POST')
-        return self.formatresponse(res, vdom=vdom)
+
+        status, result_data = self._conn.send_request(url=url, params=parameters, data=json.dumps(data), method='POST', timeout=timeout)
+
+        return self.formatresponse(result_data, vdom=vdom)
 
     def delete(self, path, name, vdom=None, mkey=None, parameters=None, data=None):
         if not mkey:

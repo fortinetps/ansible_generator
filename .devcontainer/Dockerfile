@@ -3,7 +3,7 @@
 # Licensed under the MIT License. See LICENSE in the project root for license information.
 #-----------------------------------------------------------------------------------------
 
-FROM python:3.5
+FROM python:3.7
 
 # Install pylint
 RUN pip install pylint
@@ -33,7 +33,8 @@ COPY .devcontainer/requirements.txt.temp requirements.txt* /workspaces/
 RUN if [ -f "requirements.txt" ]; then pip3 install -r requirements.txt && rm requirements.txt*; fi
 
 # Install Ansible devel branch
-RUN pip3 install git+https://github.com/ansible/ansible.git
+# RUN pip3 install git+https://github.com/ansible/ansible.git
+RUN pip3 install git+https://github.com/ansible/ansible.git@83f92987b8927695d8698fc560dcd0595ce4646d
 RUN git clone https://github.com/ansible/ansible.git && cd ansible && pip3 install -r ./test/lib/ansible_test/_data/requirements/units.txt && python3 -m venv venv && . venv/bin/activate && pip install -r requirements.txt
 
 # Clean up
