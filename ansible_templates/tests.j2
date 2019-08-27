@@ -46,7 +46,6 @@ import json
 import pytest
 from mock import ANY
 from ansible.module_utils.network.fortios.fortios import FortiOSHandler
-from fortiosapi import FortiOSAPI
 
 {% if monitor != None -%}
 
@@ -62,18 +61,16 @@ def connection_mock(mocker):
     return connection_class_mock
 
 
-fos_instance = FortiOSAPI()
+fos_instance = FortiOSHandler(connection_mock)
 
 {% if fortiosapi == 'monitor' -%}
 
 def test_{{path}}_{{name}}_{{monitor}}_get(mocker):
     monitor_method_result = {'status': 'success', 'http_method': 'GET', 'http_status': 200}
-    monitor_method_mock = mocker.patch('fortiosapi.FortiOSAPI.monitor', return_value=monitor_method_result)
+    monitor_method_mock = mocker.patch('ansible.module_utils.network.fortios.fortios.FortiOSHandler.monitor', return_value=monitor_method_result)
 
     input_data = {
-        'host': 'host',
         'username': 'admin',
-        'password': 'pass',
         '{{path}}_{{name}}': {
         {{- test_attributes(schema['schema']['children'], hyphens=false) |indent}}
         },
@@ -95,12 +92,10 @@ def test_{{path}}_{{name}}_{{monitor}}_get(mocker):
 
 def test_{{path}}_{{name}}_{{monitor}}_execute(mocker):
     execute_method_result = {'status': 'success', 'http_method': 'POST', 'http_status': 200}
-    execute_method_mock = mocker.patch('fortiosapi.FortiOSAPI.execute', return_value=execute_method_result)
+    execute_method_mock = mocker.patch('ansible.module_utils.network.fortios.fortios.FortiOSHandler.execute', return_value=execute_method_result)
 
     input_data = {
-        'host': 'host',
         'username': 'admin',
-        'password': 'pass',
         '{{path}}_{{name}}': {
         {{- test_attributes(schema['schema']['children'], hyphens=false) |indent}}
         },

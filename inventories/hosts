@@ -1,0 +1,15 @@
+[192.168.210.11]
+192.168.210.11 ansible_host=192.168.210.11
+
+[fortios:children]
+192.168.210.11
+
+[fortios:vars]
+ansible_network_os=fortios
+ansible_user=admin
+ansible_password=fortinet
+ansible_become=no
+ansible_become_method=disable
+ansible_httpapi_use_ssl=true
+ansible_httpapi_validate_certs=false
+ansible_httpapi_timeout=300

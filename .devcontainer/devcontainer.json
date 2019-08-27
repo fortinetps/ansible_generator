@@ -8,5 +8,9 @@
 	"settings": {
 		"python.pythonPath": "/usr/local/bin/python"
 	},
-	"postCreateCommand": "cp /workspaces/ansible_generator/ansible/module_utils/network/fortios/fortios.py /workspaces/ansible/lib/ansible/module_utils/network/fortios/ && echo 'fortiosapi==0.11.1' >> /workspaces/ansible/test/runner/requirements/units.txt"
+	// "postCreateCommand": "cp /workspaces/ansible_generator/ansible/module_utils/network/fortios/fortios.py /usr/local/lib/python3.7/site-packages/ansible/module_utils/network/fortios/ && echo 'fortiosapi==0.11.1' >> /workspaces/ansible/test/lib/ansible_test/_data/requirements/units.txt"
+	// "postCreateCommand": "cp /workspaces/ansible_generator/ansible/module_utils/network/fortios/fortios.py /workspaces/ansible/lib/ansible/module_utils/network/fortios/ && echo 'fortiosapi==0.11.1' >> /workspaces/ansible/test/lib/ansible_test/_data/requirements/units.txt"
+	// cp /workspaces/ansible_generator/ansible/module_utils/network/fortios/fortios.py /workspaces/ansible/lib/ansible/module_utils/network/fortios/
+	// cp /workspaces/ansible_generator/output/v6.0.2/system/fortios_system_firmware_upgrade.py /workspaces/ansible/lib/ansible/modules/network/fortios/
+	// cp /workspaces/ansible_generator/output/v6.0.2/system/test_fortios_system_firmware_upgrade.py /workspaces/ansible/test/units/modules/network/fortios/
 }

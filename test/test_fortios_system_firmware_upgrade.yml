@@ -1,16 +1,19 @@
-- hosts: localhost
+---
+- name: Test FortiOS Facts 01 - with fortios httpapi
+  hosts: 192.168.210.11
+  connection: httpapi
+  gather_facts: False
   vars:
-   host: "192.168.210.11"
-   username: "admin"
-   password: "fortinet"
-   vdom: "root"
+    vdom: "root"
+
   tasks:
-  - name: Perform firmware upgrade with local firmware file.
-    fortios_monitor_system_firmware_upgrade:
-      host:  "{{ host }}"
-      username: "{{ username }}"
-      password: "{{ password }}"
+  - name: Gather FortiOS Facts - with fortios httpapi
+    fortios_system_firmware_upgrade:
       vdom:  "{{ vdom }}"
-      https: "False"
-      monitor_system_firmware_upgrade:
+      system_firmware:
         filename: "/workspaces/ansible_generator/firmware/FGT_VM64_KVM-v6-build0163-FORTINET.out"
+        source: "upload"
+    register: firmware_upgrade_results
+
+  - debug:
+      var: firmware_upgrade_results
